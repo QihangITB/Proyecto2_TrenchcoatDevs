@@ -350,7 +350,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Offline
+          m_StringArgument: Selection
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &352711001
@@ -812,14 +812,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1642921266}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: QuitGame
-        m_Mode: 1
+        m_MethodName: LoadScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Offline
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1173184309
@@ -1462,7 +1462,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Offline
+          m_StringArgument: Selection
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1725467847
@@ -1595,7 +1595,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Offline
+          m_StringArgument: Selection
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1958362052
