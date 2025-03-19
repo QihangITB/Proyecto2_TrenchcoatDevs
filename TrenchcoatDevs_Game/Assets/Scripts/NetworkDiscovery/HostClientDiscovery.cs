@@ -5,7 +5,6 @@ using Unity.Netcode.Transports.UTP;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(NetworkManager))]
 public class HostClientDiscovery : NetworkDiscovery<DiscoveryBroadcastData, DiscoveryResponseData>
 {
     [Serializable]
@@ -15,17 +14,14 @@ public class HostClientDiscovery : NetworkDiscovery<DiscoveryBroadcastData, Disc
 
     NetworkManager m_NetworkManager;
     
-    [SerializeField]
-    [Tooltip("If true NetworkDiscovery will make the server visible and answer to client broadcasts as soon as netcode starts running as server.")]
-    bool m_StartWithServer = true;
 
     public string ServerName = "EnterName";
 
     public ServerFoundEvent OnServerFound;
-    
-    private bool m_HasStartedWithServer = false;
+    public UnityEvent OnClientConnected;
+   
 
-    public void Awake()
+    public void Start()
     {
         if(NetworkManager.Singleton != null)
         {
@@ -40,16 +36,11 @@ public class HostClientDiscovery : NetworkDiscovery<DiscoveryBroadcastData, Disc
 
     public void Update()
     {
-        if (m_StartWithServer && m_HasStartedWithServer == false && IsRunning == false)
+        if (m_NetworkManager.IsHost && m_NetworkManager.ConnectedClients.Count > 0)
         {
-            if (m_NetworkManager.IsServer)
-            {
-                StartServer();
-                m_HasStartedWithServer = true;
-            }
+            OnClientConnected.Invoke();
         }
     }
-
     protected override bool ProcessBroadcast(IPEndPoint sender, DiscoveryBroadcastData broadCast, out DiscoveryResponseData response)
     {
         response = new DiscoveryResponseData()
