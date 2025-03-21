@@ -535,7 +535,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _serverName: {fileID: 1007294866}
   _discovery: {fileID: 1439330300}
-  nextSceneOnPlayerJoined: 
+  nextSceneOnPlayerJoined: Menu
 --- !u!1 &583159530
 GameObject:
   m_ObjectHideFlags: 0

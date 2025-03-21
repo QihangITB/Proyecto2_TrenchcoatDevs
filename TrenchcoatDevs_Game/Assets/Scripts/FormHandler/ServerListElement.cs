@@ -14,15 +14,19 @@ public class ServerListElement : FormHandler
     TMP_Text _hostServerNameText;
     [SerializeField]
     TMP_Text _hostIpAddressText;
+    [SerializeField]
+    TMP_Text _playerNameText;
     public override void ChangeData()
     {
         _hostServerNameText.text = _responseData.ServerName;
         _hostIpAddressText.text = _hostIpAddress.ToString();
+        _playerNameText.text = _responseData.playerName;
     }
     public void ChangeData(IPAddress hostIP, DiscoveryResponseData responseData)
     {
         _hostIpAddress = hostIP;
         _responseData = responseData;
+        ChangeData();
     }
     public override void DoAction()
     {

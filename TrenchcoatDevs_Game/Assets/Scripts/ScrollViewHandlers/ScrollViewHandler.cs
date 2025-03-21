@@ -24,9 +24,9 @@ public abstract class ScrollViewHandler<TComponent> : MonoBehaviour where TCompo
         }
         else
         {
-            spawnComponent = Instantiate(_scrollViewComponentPrefab);
+            spawnComponent = Instantiate(_scrollViewComponentPrefab,transform.parent);
         }
-        _scrollViewContentObjects.parent = spawnComponent.transform;
+        spawnComponent.transform.SetParent(_scrollViewContentObjects);
         _scrollViewElements.Add(spawnComponent);
         return spawnComponent;
     }

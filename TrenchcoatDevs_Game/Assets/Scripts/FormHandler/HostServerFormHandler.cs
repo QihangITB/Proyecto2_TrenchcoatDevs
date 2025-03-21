@@ -22,14 +22,13 @@ public class HostServerFormHandler : FormHandler
     }
     public override void ChangeData()
     {
-        _discovery.ServerName = _serverName.name;
+        _discovery.ServerName = _serverName.text;
     }
 
     public override void DoAction()
     {
         ChangeData();
         NetworkManager.Singleton.StartHost();
-        _discovery.OnClientConnected.AddListener(()=>NetworkManager.Singleton.SceneManager.LoadScene(nextSceneOnPlayerJoined,LoadSceneMode.Single));
         _discovery.StartServer();
     }
 }

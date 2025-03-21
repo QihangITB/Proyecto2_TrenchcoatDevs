@@ -29,7 +29,7 @@ public class SceneController : MonoBehaviour
     {
         if(NetworkManager.Singleton != null)
         {
-            Destroy(NetworkManager.Singleton.gameObject);
+            NetworkManager.Singleton.Shutdown();
         }
     }
     public void QuitGame()
