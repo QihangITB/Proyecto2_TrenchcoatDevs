@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
@@ -57,13 +59,26 @@ public class HostClientDiscovery : NetworkDiscovery<DiscoveryBroadcastData, Disc
         
         
     }
+    int conectedClients = 0;
 
     public void Update()
     {
+        
+        
         if (m_NetworkManager.IsHost && m_NetworkManager.ConnectedClients.Count > 0)
         {
-            OnClientConnected.Invoke();
+            if(conectedClients != m_NetworkManager.ConnectedClients.Count)
+            {
+                Debug.Log(m_NetworkManager.ConnectedClients.Count);
+                foreach (KeyValuePair<ulong,NetworkClient> client in m_NetworkManager.ConnectedClients)
+                {
+                    Debug.Log($"Connected client: {client.Key}");
+                }
+            }
+            conectedClients = m_NetworkManager.ConnectedClients.Count;
+            //OnClientConnected.Invoke();
         }
+        
     }
     protected override bool ProcessBroadcast(IPEndPoint sender, DiscoveryBroadcastData broadCast, out DiscoveryResponseData response)
     {
