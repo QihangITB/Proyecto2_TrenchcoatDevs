@@ -31,4 +31,9 @@ public class HostServerFormHandler : FormHandler
         NetworkManager.Singleton.StartHost();
         _discovery.StartServer();
     }
+    public void StopFinder()
+    {
+        NetworkManager.Singleton.Shutdown();
+        _discovery.StopDiscovery();
+    }
 }

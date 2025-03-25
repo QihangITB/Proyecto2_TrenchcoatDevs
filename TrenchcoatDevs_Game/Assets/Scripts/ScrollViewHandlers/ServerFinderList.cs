@@ -8,8 +8,7 @@ public class ServerFinderList : ScrollViewHandler<ServerListElement>
 
     private void Start()
     {
-        _discovery.StartClient();
-        _discovery.ClientBroadcast(new DiscoveryBroadcastData());
+        StartDiscovery();
     }
     private void OnEnable()
     {
@@ -22,6 +21,16 @@ public class ServerFinderList : ScrollViewHandler<ServerListElement>
     void OnServerFound(IPEndPoint sender, DiscoveryResponseData response)
     {
         AddSectionToList(sender.Address, response);
+    }
+    void StartDiscovery()
+    {
+        _discovery.StartClient();
+        _discovery.ClientBroadcast(new DiscoveryBroadcastData());
+    }
+    public void RefreshList()
+    {
+        EmptyList();
+        StartDiscovery();
     }
     public ServerListElement AddSectionToList(IPAddress hostAddress, DiscoveryResponseData data)
     {
