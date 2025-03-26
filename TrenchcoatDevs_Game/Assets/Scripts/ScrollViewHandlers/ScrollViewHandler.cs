@@ -13,6 +13,13 @@ public abstract class ScrollViewHandler<TComponent> : MonoBehaviour where TCompo
     [SerializeField]
     Transform _scrollViewContentObjects;
 
+    protected List<TComponent> ScrollViewElements
+    {
+        get
+        {
+            return _scrollViewElements;
+        }
+    }
     public TComponent AddSectionToList()
     {
         TComponent[] viableObjects = _pool.Where(obj => !obj.gameObject.activeSelf).ToArray();

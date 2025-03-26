@@ -5,9 +5,11 @@ using TMPro;
 using Unity.Netcode.Transports.UTP;
 using Unity.Netcode;
 using UnityEngine;
+using System;
 
 public class ServerListElement : FormHandler
 {
+    public event Action OnConectionAttempted;
     DiscoveryResponseData _responseData;
     IPAddress _hostIpAddress;
     [SerializeField]
@@ -33,5 +35,6 @@ public class ServerListElement : FormHandler
         UnityTransport transport = (UnityTransport)NetworkManager.Singleton.NetworkConfig.NetworkTransport;
         transport.SetConnectionData(_hostIpAddress.ToString(), _responseData.Port);
         NetworkManager.Singleton.StartClient();
+        OnConectionAttempted?.Invoke();
     }
 }

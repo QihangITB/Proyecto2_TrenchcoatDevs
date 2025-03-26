@@ -14,7 +14,6 @@ public class HostClientDiscovery : NetworkDiscovery<DiscoveryBroadcastData, Disc
     public class ServerFoundEvent : UnityEvent<IPEndPoint, DiscoveryResponseData>
     {
     };
-
     NetworkManager m_NetworkManager;
 
     private static string _playerName;
@@ -56,29 +55,25 @@ public class HostClientDiscovery : NetworkDiscovery<DiscoveryBroadcastData, Disc
         {
             Destroy(this);
         }
-        
-        
+        m_NetworkManager.OnClientConnectedCallback += ClientConnected;
     }
-    int conectedClients = 0;
-
-    public void Update()
+    private void OnEnable()
     {
-        
-        
-        if (m_NetworkManager.IsHost && m_NetworkManager.ConnectedClients.Count > 0)
+        if(m_NetworkManager != null)
         {
-            if(conectedClients != m_NetworkManager.ConnectedClients.Count)
-            {
-                Debug.Log(m_NetworkManager.ConnectedClients.Count);
-                foreach (KeyValuePair<ulong,NetworkClient> client in m_NetworkManager.ConnectedClients)
-                {
-                    Debug.Log($"Connected client: {client.Key}");
-                }
-            }
-            conectedClients = m_NetworkManager.ConnectedClients.Count;
-            //OnClientConnected.Invoke();
+            m_NetworkManager.OnClientConnectedCallback += ClientConnected;
         }
-        
+    }
+    private void OnDisable()
+    {
+        m_NetworkManager.OnClientConnectedCallback -= ClientConnected;
+    }
+    void ClientConnected(ulong data)
+    {
+        if (data > 0)
+        {
+            OnClientConnected.Invoke();
+        }
     }
     protected override bool ProcessBroadcast(IPEndPoint sender, DiscoveryBroadcastData broadCast, out DiscoveryResponseData response)
     {

@@ -27,6 +27,17 @@ public class ServerFinderList : ScrollViewHandler<ServerListElement>
         _discovery.StartClient();
         _discovery.ClientBroadcast(new DiscoveryBroadcastData());
     }
+    void DisableAllEvents()
+    {
+        foreach(ServerListElement row in ScrollViewElements)
+        {
+            
+        }
+    }
+    void EnableAllEvents()
+    {
+
+    }
     public void RefreshList()
     {
         EmptyList();
