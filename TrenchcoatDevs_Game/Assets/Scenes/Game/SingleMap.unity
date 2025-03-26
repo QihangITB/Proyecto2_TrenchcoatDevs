@@ -301,13 +301,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 351976147}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.42058206, y: -0, z: -0, w: 0.9072545}
+  m_LocalRotation: {x: 0.3829967, y: -0, z: -0, w: 0.9237497}
   m_LocalPosition: {x: 0, y: 7.27, z: -3.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1066584966}
-  m_LocalEulerAnglesHint: {x: 49.743, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45.039, y: 0, z: 0}
 --- !u!1 &519266744
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,6 +831,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 5325315622240288552, guid: 957ff1a3eaa9f294ab4de00b5ad08e28, type: 3}
+      propertyPath: Path
+      value: 
+      objectReference: {fileID: 3973376596410888801, guid: caaa5f77786cfa240920ea6f43ba5d13, type: 3}
+    - target: {fileID: 5325315622240288552, guid: 957ff1a3eaa9f294ab4de00b5ad08e28, type: 3}
+      propertyPath: ShopP
+      value: 
+      objectReference: {fileID: 6451234527294597312, guid: cefdab940395a7a45a967e5ccb2edf89, type: 3}
+    - target: {fileID: 5325315622240288552, guid: 957ff1a3eaa9f294ab4de00b5ad08e28, type: 3}
+      propertyPath: BattleP
+      value: 
+      objectReference: {fileID: 8543175519796174825, guid: 2b398eb60bc74fc4d8fafced150f8fec, type: 3}
+    - target: {fileID: 5325315622240288552, guid: 957ff1a3eaa9f294ab4de00b5ad08e28, type: 3}
+      propertyPath: HealthP
+      value: 
+      objectReference: {fileID: 4166398370493788365, guid: 87a77a9953969aa4eb6648bb34d00bae, type: 3}
+    - target: {fileID: 5325315622240288552, guid: 957ff1a3eaa9f294ab4de00b5ad08e28, type: 3}
+      propertyPath: TreasureP
+      value: 
+      objectReference: {fileID: 3892030061030285438, guid: 59ef17340b9e18c4ea64e59256e032e5, type: 3}
+    - target: {fileID: 5325315622240288552, guid: 957ff1a3eaa9f294ab4de00b5ad08e28, type: 3}
+      propertyPath: CharacterP
+      value: 
+      objectReference: {fileID: 7377568586472507838, guid: 77082151ce376db4a833931ca30d1751, type: 3}
     - target: {fileID: 5325315622240288552, guid: 957ff1a3eaa9f294ab4de00b5ad08e28, type: 3}
       propertyPath: FifthLevel.Array.size
       value: 3
