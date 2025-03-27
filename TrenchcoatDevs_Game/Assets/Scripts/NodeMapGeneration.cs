@@ -42,16 +42,19 @@ public class NodeMapGeneration : MonoBehaviour
 
         // Random nodes
         GenerateSpecialNodes();
+
+        // Fill empty nodes
+        FillEmptyNodes(BattleP);
+
+        GeneratePathRandomly();
+
+
     }
     private void InitializeStaticNodes()
     {
         SetNode(TutorialNode, BattleP);
         SetNode(StartNode, CharacterP);
         SetNode(BossLevel, BattleP);
-
-        SetPath(TutorialNode, StartNode, Path);
-        SetPath(StartNode, FirstLevel[0], Path);
-
     }
 
     private void GenerateSpecialNodes()
@@ -78,6 +81,20 @@ public class NodeMapGeneration : MonoBehaviour
         }
     }
 
+    private void FillEmptyNodes(GameObject nodePrefab)
+    {
+        foreach (List<GameObject> node in allLevels)
+        {
+            foreach (GameObject nodeObj in node)
+            {
+                if (IsEmptyNode(allLevels.IndexOf(node), node.IndexOf(nodeObj)))
+                {
+                    SetNode(nodeObj, nodePrefab);
+                }
+            }
+        }
+    }
+
     private bool IsEmptyNode(int levelNum, int nodeNum)
     {
         return allLevels[levelNum][nodeNum].transform.childCount == 0;
@@ -88,11 +105,20 @@ public class NodeMapGeneration : MonoBehaviour
         Instantiate(nodePrefab, node.transform.position, node.transform.rotation, node.transform);
     }
 
+    private void GeneratePathRandomly()
+    {
+        for (int i = 0; i < allLevels.Count - 1; i++)
+        {
+            for (int j = 0; j < allLevels[i].Count - 1; j++)
+            {
+
+            }
+        }
+    }
+
     private void SetPath(GameObject origin, GameObject destination, GameObject pathPrefab)
     {
-        // coger la direccion del origen al destino
         Vector3 direction = destination.transform.position - origin.transform.position;
-
         Instantiate(pathPrefab, origin.transform.position, Quaternion.LookRotation(direction), origin.transform);
     }
 }
