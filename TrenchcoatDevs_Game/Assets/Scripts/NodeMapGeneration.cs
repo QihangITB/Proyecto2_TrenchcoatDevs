@@ -38,7 +38,7 @@ public class NodeMapGeneration : MonoBehaviour
         allLevels = new List<List<GameObject>> { FirstLevel, SecondLevel, ThirdLevel, FourthLevel, FifthLevel };
 
         // Static nodes
-        InitializeStaticNodes();
+        GenerateStaticNodes();
 
         // Random nodes
         GenerateSpecialNodes();
@@ -46,11 +46,12 @@ public class NodeMapGeneration : MonoBehaviour
         // Fill empty nodes
         FillEmptyNodes(BattleP);
 
-        GeneratePathRandomly();
-
-
+        // NodePaths
+        GeneratePath(Path);
     }
-    private void InitializeStaticNodes()
+
+    // NODES
+    private void GenerateStaticNodes()
     {
         SetNode(TutorialNode, BattleP);
         SetNode(StartNode, CharacterP);
@@ -105,13 +106,44 @@ public class NodeMapGeneration : MonoBehaviour
         Instantiate(nodePrefab, node.transform.position, node.transform.rotation, node.transform);
     }
 
-    private void GeneratePathRandomly()
+
+    // PATH
+    private void GeneratePath(GameObject pathPrefab)
     {
+        SetPath(TutorialNode, StartNode, pathPrefab);
+
+        foreach (GameObject node in FirstLevel)
+        {
+            SetPath(StartNode, node, pathPrefab);
+        }
+
+        foreach (GameObject node in FifthLevel)
+        {
+            SetPath(node, BossLevel, pathPrefab);
+        }
+
         for (int i = 0; i < allLevels.Count - 1; i++)
         {
-            for (int j = 0; j < allLevels[i].Count - 1; j++)
-            {
+            ConnectNodesWithPath(allLevels[i], allLevels[i + 1], pathPrefab);
+        }
+    }
 
+    private void ConnectNodesWithPath(List<GameObject> currentLevel, List<GameObject> nextLevel, GameObject pathPrefab)
+    {
+        for (int i = 0; i < currentLevel.Count; i++)
+        {
+            if (currentLevel.Count < nextLevel.Count)
+            {
+                SetPath(currentLevel[i], nextLevel[i], pathPrefab);
+                if (i + 1 < nextLevel.Count)
+                    SetPath(currentLevel[i], nextLevel[i + 1], pathPrefab);
+            }
+            else
+            {
+                if (i < nextLevel.Count)
+                    SetPath(currentLevel[i], nextLevel[i], pathPrefab);
+                if (i - 1 >= 0)
+                    SetPath(currentLevel[i], nextLevel[i - 1], pathPrefab);
             }
         }
     }
