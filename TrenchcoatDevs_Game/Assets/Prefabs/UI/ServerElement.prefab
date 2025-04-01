@@ -190,6 +190,7 @@ MonoBehaviour:
   _hostServerNameText: {fileID: 8122693403608183379}
   _hostIpAddressText: {fileID: 3729211889460593565}
   _playerNameText: {fileID: 5637891555861044217}
+  _joinButton: {fileID: 3065761625055110462}
 --- !u!114 &2219224625116903592
 MonoBehaviour:
   m_ObjectHideFlags: 0
