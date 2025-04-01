@@ -160,7 +160,6 @@ MonoBehaviour:
   TreasureP: {fileID: 3892030061030285438, guid: 59ef17340b9e18c4ea64e59256e032e5, type: 3}
   HealthNodeNum: 2
   ShopNodeNum: 2
-  CharacterNodeNum: 2
   TreasureNodeNum: 2
   TutorialNode: {fileID: 8264121649723257501}
   StartNode: {fileID: 6846312589419694213}
@@ -175,11 +174,11 @@ MonoBehaviour:
   - {fileID: 7563958936437196309}
   - {fileID: 704825739214372629}
   ThirdLevel:
+  - {fileID: 5909803223790656845}
   - {fileID: 3516059523135487211}
   - {fileID: 3516879960046623751}
   - {fileID: 742248026118538898}
   - {fileID: 5328972198970696279}
-  - {fileID: 5909803223790656845}
   FourthLevel:
   - {fileID: 4297304169212753943}
   - {fileID: 6557969072044914185}

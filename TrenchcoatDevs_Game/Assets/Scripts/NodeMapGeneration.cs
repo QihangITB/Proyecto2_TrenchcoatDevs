@@ -15,7 +15,6 @@ public class NodeMapGeneration : MonoBehaviour
     [Header("Configuration")]
     public int HealthNodeNum;
     public int ShopNodeNum;
-    public int CharacterNodeNum;
     public int TreasureNodeNum;
 
     [Header("Node Levels")]
@@ -54,15 +53,17 @@ public class NodeMapGeneration : MonoBehaviour
     private void GenerateStaticNodes()
     {
         SetNode(TutorialNode, BattleP);
-        SetNode(StartNode, CharacterP);
         SetNode(BossLevel, BattleP);
+
+        SetNode(StartNode, CharacterP);
+        SetNode(ThirdLevel[1], CharacterP);
+        SetNode(ThirdLevel[3], CharacterP);
     }
 
     private void GenerateSpecialNodes()
     {
         GenerateNodeRandomly(HealthP, HealthNodeNum);
         GenerateNodeRandomly(ShopP, ShopNodeNum);
-        GenerateNodeRandomly(CharacterP, CharacterNodeNum);
         GenerateNodeRandomly(TreasureP, TreasureNodeNum);
     }
 
