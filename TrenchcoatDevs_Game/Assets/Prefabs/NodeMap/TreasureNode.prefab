@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1369355143962792430}
   - component: {fileID: 3934053685000563818}
   - component: {fileID: 3547434597676887504}
+  - component: {fileID: 1275884722499042440}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.3881922, z: 2.2254722}
+  m_LocalScale: {x: 2.9622, y: 1.1499029, z: 6.5922937}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1902453923826034575}
@@ -105,6 +106,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1275884722499042440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3828117236183278466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab422b0f8402534aa3540ce11deaf81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3892030061030285438
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,6 +127,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1902453923826034575}
+  - component: {fileID: 6862401668552029482}
   m_Layer: 0
   m_Name: TreasureNode
   m_TagString: Untagged
@@ -138,6 +152,18 @@ Transform:
   - {fileID: 1847628741656092533}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6862401668552029482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3892030061030285438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab422b0f8402534aa3540ce11deaf81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3979025745154034076
 GameObject:
   m_ObjectHideFlags: 0
