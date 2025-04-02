@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
-using Unity.Collections.LowLevel.Unsafe;
+using Newtonsoft.Json;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
@@ -15,47 +14,46 @@ public class HostClientDiscovery : NetworkDiscovery<DiscoveryBroadcastData, Disc
     {
     };
     NetworkManager m_NetworkManager;
-
     private static string _playerName;
     public string ServerName = "EnterName";
 
     public ServerFoundEvent OnServerFound;
     public UnityEvent OnClientConnected;
-
-    public static string PlayerName
+    
+    private static string PlayerName
     {
-        get
-        {
-            if (_playerName == null)
-            {
-                if (PlayerPrefs.HasKey(nameof(PlayerName)))
-                {
-                    PlayerName = PlayerPrefs.GetString(nameof(PlayerName));
-                }
-                else
-                {
-                    PlayerName = DefaultPlayerName;
-                }
-            }
-            return _playerName;
-        }
-        private set
+        set
         {
             _playerName = value;
         }
     }
-
+    public static string GetPlayerName()
+    {
+        if (_playerName == null)
+        {
+            if (PlayerPrefs.HasKey(nameof(PlayerName)))
+            {
+                PlayerName = PlayerPrefs.GetString(nameof(PlayerName));
+            }
+            else
+            {
+                PlayerName = DefaultPlayerName;
+            }
+        }
+        return _playerName;
+    }
     public void Start()
     {
         if(NetworkManager.Singleton != null)
         {
             m_NetworkManager = NetworkManager.Singleton;
+            m_NetworkManager.OnClientConnectedCallback += ClientConnected;
         }
         else
         {
             Destroy(this);
         }
-        m_NetworkManager.OnClientConnectedCallback += ClientConnected;
+       
     }
     private void OnEnable()
     {
@@ -66,7 +64,11 @@ public class HostClientDiscovery : NetworkDiscovery<DiscoveryBroadcastData, Disc
     }
     private void OnDisable()
     {
-        m_NetworkManager.OnClientConnectedCallback -= ClientConnected;
+        if(m_NetworkManager != null)
+        {
+            m_NetworkManager.OnClientConnectedCallback -= ClientConnected;
+        }
+        
     }
     void ClientConnected(ulong data)
     {
@@ -81,7 +83,7 @@ public class HostClientDiscovery : NetworkDiscovery<DiscoveryBroadcastData, Disc
         {
             ServerName = ServerName,
             Port = ((UnityTransport)m_NetworkManager.NetworkConfig.NetworkTransport).ConnectionData.Port,
-            playerName = PlayerName
+            playerName = GetPlayerName()
         };
         return true;
     }

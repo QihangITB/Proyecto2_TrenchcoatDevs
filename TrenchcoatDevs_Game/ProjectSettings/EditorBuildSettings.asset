@@ -30,6 +30,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu/Join.unity
     guid: 4dee1f7a57494454d8d254ff80a699b8
   - enabled: 1
+    path: Assets/Scenes/Menu/Loby.unity
+    guid: 5b0bdcd772df45540a71863216d7ba0f
+  - enabled: 1
     path: Assets/Scenes/Menu/Selection.unity
     guid: 1d0dab78e12200641a0858e185c2ac59
   - enabled: 1

@@ -1,16 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
-public class LobbyManager : NetworkBehaviour
+public class LobbyManager : MonoBehaviour
 {
-    NetworkVariable<FixedString512Bytes> _playerName = new NetworkVariable<FixedString512Bytes>(HostClientDiscovery.PlayerName,NetworkVariableReadPermission.Everyone,NetworkVariableWritePermission.Owner);
-    NetworkObject _playerTagPrefab;
-    Transform _contentArea;
-    private void OnNetworkInstantiate()
+    [SerializeField]
+    NetworkObject _playerPrefab;
+    NetworkManager _networkManager;
+    private void Start()
     {
-        
+        _networkManager = NetworkManager.Singleton;
+        SpawnPlayer();
+    }
+    void SpawnPlayer()
+    {
+        NetworkObject instance = Instantiate(_playerPrefab);
+        instance.Spawn(true);
     }
 }
