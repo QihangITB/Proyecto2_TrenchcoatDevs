@@ -27,7 +27,11 @@ public class SceneController : MonoBehaviour
     public void NetworkLoadScene(string sceneName)
     {
         NetworkManager manager = NetworkManager.Singleton;
-        manager.SceneManager.LoadScene(sceneName,LoadSceneMode.Single);
+        if (manager.IsServer)
+        {
+            manager.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+        }
+        
     }
     public void DestroyNetworkManager()
     {

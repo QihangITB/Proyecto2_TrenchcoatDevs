@@ -9,11 +9,21 @@ public class LobbyManager : MonoBehaviour
     private void Start()
     {
         _networkManager = NetworkManager.Singleton;
-        SpawnPlayer();
+        if (_networkManager.IsServer)
+        {
+            SpawnPlayer();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        
     }
     void SpawnPlayer()
     {
-        NetworkObject instance = Instantiate(_playerPrefab);
-        instance.Spawn(true);
+        foreach(ulong client in _networkManager.ConnectedClients.Keys)
+        {
+            _networkManager.SpawnManager.InstantiateAndSpawn(_playerPrefab,client,true);
+        }
     }
 }

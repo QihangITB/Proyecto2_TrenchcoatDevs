@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using Unity.Collections;
 using Unity.Netcode;
@@ -10,21 +11,28 @@ public class PlayersCursor : NetworkBehaviour
     SpriteRenderer _mouseSprite;
     [SerializeField]
     TMP_Text _playerText;
-    private void OnNetworkInstantiate()
+    public override void OnNetworkSpawn()
     {
-        playerName.Value = new FixedString512Bytes(HostClientDiscovery.GetPlayerName());
+
         if (IsOwner)
         {
+            playerName.Value = new FixedString512Bytes(HostClientDiscovery.GetPlayerName());
             _mouseSprite.enabled = false;
         }
-        _playerText.text = playerName.Value.ToString();
+        else
+        {
+            StartCoroutine(WaitForName());
+        }
+
+        
+
     }
     void Update()
     {
         TrackCursorClientRpc();  
     }
     [ClientRpc]
-    public void TrackCursorClientRpc()
+    void TrackCursorClientRpc()
     {
         if (IsOwner)
         {
@@ -32,5 +40,10 @@ public class PlayersCursor : NetworkBehaviour
             cursorPosition = Camera.main.ScreenToWorldPoint(cursorPosition);
             transform.position = cursorPosition;
         }
+    }
+    IEnumerator WaitForName()
+    {
+        yield return new WaitUntil(()=> !string.IsNullOrEmpty(playerName.Value.ToString()));
+        _playerText.text = playerName.Value.ToString();
     }
 }
