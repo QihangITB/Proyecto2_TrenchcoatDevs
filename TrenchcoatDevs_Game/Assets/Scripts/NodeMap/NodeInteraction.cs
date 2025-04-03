@@ -7,7 +7,7 @@ public class NodeInteraction : MonoBehaviour
     const string PlayerTag = "Player";
 
     public GameObject SelectionObject;
-    public float PlayerSpeed = 1f;
+    public float PlayerSpeed = 10f;
     public float PlayerDistance = 0.5f;
 
     private GameObject _player;
@@ -19,7 +19,6 @@ public class NodeInteraction : MonoBehaviour
 
     void OnMouseOver()
     {
-        Debug.Log("Mouse is over GameObject.");
         SelectionObject.SetActive(true);
     }
 
@@ -36,22 +35,28 @@ public class NodeInteraction : MonoBehaviour
 
     void OnMouseUp()
     {
+
     }
 
     private IEnumerator MovePlayerToNode(float speed, float distance)
     {
         Rigidbody rb = _player.GetComponent<Rigidbody>();
-        Vector3 direction;
+        float initialY = _player.transform.position.y;
 
         while (Vector3.Distance(_player.transform.position, transform.position) > distance)
         {
-            direction = (transform.position - _player.transform.position).normalized;
+            Vector3 direction = (transform.position - _player.transform.position).normalized;
+            Vector3 newPosition = _player.transform.position + direction * speed * Time.deltaTime;
+            newPosition.y = initialY;
 
-            rb.MovePosition(_player.transform.position + direction * speed * Time.deltaTime);
+            rb.MovePosition(newPosition);
 
             yield return null;
         }
 
-        rb.MovePosition(transform.position);
+        Debug.Log("Player reached the node!");
+        Vector3 finalPosition = transform.position;
+        finalPosition.y = initialY;
+        rb.MovePosition(finalPosition);
     }
 }
