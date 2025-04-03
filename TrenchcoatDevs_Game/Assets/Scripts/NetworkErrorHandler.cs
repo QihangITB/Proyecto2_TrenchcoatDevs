@@ -5,6 +5,19 @@ using UnityEngine;
 public class NetworkErrorHandler : MonoBehaviour
 {
     NetworkManager _networkManager;
+    private static NetworkErrorHandler _instance;
+
+    public static NetworkErrorHandler Instance
+    {
+        get
+        {
+            return _instance;
+        }
+        private set
+        {
+            _instance = value;
+        }
+    }
     private void Awake()
     {
         _networkManager = GetComponent<NetworkManager>();
