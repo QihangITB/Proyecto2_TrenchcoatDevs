@@ -4,7 +4,15 @@ using UnityEngine;
 [RequireComponent(typeof(NetworkManager))]
 public class NetworkErrorHandler : MonoBehaviour
 {
+    const string ClientErrorMsg = "The client has disconected";
+    const string HostErrorMsg = "The host has closed their session";
     NetworkManager _networkManager;
+    [SerializeField]
+    Canvas _errorCanvas;
+    [SerializeField]
+    ErrorWindow _errorWindow;
+    [SerializeField]
+    string _onErrorScene;
     private static NetworkErrorHandler _instance;
 
     public static NetworkErrorHandler Instance
@@ -31,19 +39,19 @@ public class NetworkErrorHandler : MonoBehaviour
     {
         _networkManager.OnClientDisconnectCallback -= OnClientDisconect;
     }
-    private void Update()
-    {
-        if (_networkManager.IsClient && _networkManager.IsServer == false && _networkManager.IsConnectedClient == false)
-        {
-            OnHostDisconect();
-        }
-    }
     void OnClientDisconect(ulong client)
     {
-        Debug.Log("A client has been disconected");
+        string errorMsg = !_networkManager.IsHost ? HostErrorMsg : ClientErrorMsg;
+        _errorCanvas.enabled = true;
+        _errorWindow.ChangeData(errorMsg);
+        _errorWindow.OnDoAction += ErrorHandling;
     }
-    void OnHostDisconect()
+    void ErrorHandling()
     {
-        Debug.Log("Host disconnected");
+        _errorCanvas.enabled =false;
+        _errorWindow.OnDoAction -= ErrorHandling;
+        SceneController.Instance.DestroyNetworkManager();
+        SceneController.Instance.LoadScene(_onErrorScene);
+        enabled = false;
     }
 }

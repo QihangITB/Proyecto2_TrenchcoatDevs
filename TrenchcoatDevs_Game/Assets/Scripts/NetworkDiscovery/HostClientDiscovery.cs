@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net;
-using Newtonsoft.Json;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
@@ -75,6 +74,7 @@ public class HostClientDiscovery : NetworkDiscovery<DiscoveryBroadcastData, Disc
         if (data > 0)
         {
             OnClientConnected.Invoke();
+            m_NetworkManager.GetComponent<NetworkErrorHandler>().enabled = true;
         }
     }
     protected override bool ProcessBroadcast(IPEndPoint sender, DiscoveryBroadcastData broadCast, out DiscoveryResponseData response)

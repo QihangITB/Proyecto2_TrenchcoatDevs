@@ -34,7 +34,10 @@ public class ServerFinderList : ScrollViewHandler<ServerListElement>
         {
 
         }
-        
+        if (NetworkManager.Singleton.IsClient)
+        {
+            NetworkManager.Singleton.GetComponent<NetworkErrorHandler>().enabled = true;
+        }
     }
     void OnServerFound(IPEndPoint sender, DiscoveryResponseData response)
     {
