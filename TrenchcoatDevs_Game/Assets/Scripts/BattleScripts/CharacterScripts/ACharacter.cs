@@ -9,5 +9,6 @@ public abstract class ACharacter : ScriptableObject
     public int maxHealth;
     public int damage;
     public int speed;
+    public List<AAttack> attacks;
 
 }

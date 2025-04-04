@@ -8,15 +8,19 @@ public class BasicAttackScript : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
-        targetButtons = new List<GameObject>(GameObject.FindGameObjectsWithTag("EnemyButton"));
+        targetButtons = BattleManager.instance.enemyButtons;
         foreach (GameObject button in targetButtons)
         {
             button.GetComponent<Image>().enabled = true;
         }
     }
 
-    public override void Effect(CharacterHolder target, CharacterHolder user)
+    public override void Effect(List<CharacterHolder> targets, CharacterHolder user)
     {
-        target.TakeDamage(user.attack);
+        foreach (CharacterHolder target in targets)
+        {
+            target.TakeDamage(user.attack);
+        }
+        BattleManager.instance.FinishTurn();
     }
 }

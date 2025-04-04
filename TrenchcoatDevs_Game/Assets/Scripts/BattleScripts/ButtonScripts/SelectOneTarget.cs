@@ -9,7 +9,8 @@ public class SelectOneTarget : MonoBehaviour
     public void SelectTarget()
     {
         Debug.Log("Target selected");
-        BattleManager.instance.target = target;
+        BattleManager.instance.targets.Clear();
+        BattleManager.instance.targets.Add(target);
         BattleManager.instance.UseAttack();
     }
 }

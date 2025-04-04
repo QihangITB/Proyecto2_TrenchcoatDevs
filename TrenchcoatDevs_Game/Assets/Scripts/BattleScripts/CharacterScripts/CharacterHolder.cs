@@ -31,7 +31,13 @@ public class CharacterHolder : MonoBehaviour
         if (HP <= 0)
         {
             HP = 0;
-            Debug.Log("Character is dead");
+            Debug.Log(gameObject+" Is dead");
+            BattleManager.instance.CharOrderInTurn.Remove(this);
+            BattleManager.instance.characters.Remove(this);
+            if (BattleManager.instance.players.Count == 0 || BattleManager.instance.enemies.Count == 0)
+            {
+                BattleManager.instance.fightIsFinished = true;
+            }
         }
         UpdateHPBar();
     }

@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 735346bc031a0064496ef9d2c3e11c76, type: 3}
-  m_Name: GenericEnemySO
+  m_Script: {fileID: 11500000, guid: ebcb8b8c786fa1749a055b1f33e96520, type: 3}
+  m_Name: GenericPlayerSO
   m_EditorClassIdentifier: 
-  health: 10
-  maxHealth: 10
-  damage: 3
-  speed: 1
-  attacks:
-  - {fileID: 11400000, guid: 7e2ae10404a9a094396f5879f939ee88, type: 2}
+  health: 0
+  maxHealth: 0
+  damage: 0
+  speed: 0
+  attacks: []

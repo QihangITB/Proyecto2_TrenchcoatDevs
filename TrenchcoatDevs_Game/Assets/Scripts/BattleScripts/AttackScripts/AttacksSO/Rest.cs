@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Rest", menuName = "Attacks/Rest")]
 public class Rest : BasicAttackScript
 {
+    public int staminaRestored = 4;
     public override void ActivateTargetButtons()
     {
         //pon el boton de user de battlemanager como boton en buttontargetlist
@@ -18,13 +19,15 @@ public class Rest : BasicAttackScript
         }
     }
 
-    public override void Effect(CharacterHolder target, CharacterHolder user)
+    public override void Effect(List<CharacterHolder> target, CharacterHolder user)
     {
         //recupera stamina
-        user.stamina += 4;
+        user.stamina += staminaRestored;
         if (user.stamina > user.maxStamina)
         {
             user.stamina = user.maxStamina;
         }
+        user.UpdateStaminaBar();
+        BattleManager.instance.FinishTurn();
     }
 }

@@ -4725,7 +4725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d548b38ca7b58ec408d6970cce0ef464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 11400000, guid: 2f796570a8ed866429c848820525aa6f, type: 2}
+  character: {fileID: 11400000, guid: 284fa62b2b86f6243bc78844b5242b4c, type: 2}
   HP: 10
   maxHP: 10
   attack: 1
@@ -8426,14 +8426,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 364b626b851229e41bd16bbd79a1b188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies: []
-  players: []
+  enemies:
+  - {fileID: 1585587362}
+  - {fileID: 700954263}
+  - {fileID: 880569231}
+  players:
+  - {fileID: 2024307061}
+  - {fileID: 1817131355}
+  - {fileID: 993541536}
   characters: []
   CharOrderInTurn: []
+  playerButtons: []
+  enemyButtons: []
   attack: {fileID: 0}
   areaAttack: {fileID: 0}
-  target: {fileID: 0}
+  enemyAttack: {fileID: 0}
   user: {fileID: 2024307061}
+  enemyUser: {fileID: 0}
   targets: []
 --- !u!1 &1803826322
 GameObject:
@@ -8692,7 +8701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d548b38ca7b58ec408d6970cce0ef464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 11400000, guid: 2f796570a8ed866429c848820525aa6f, type: 2}
+  character: {fileID: 11400000, guid: 284fa62b2b86f6243bc78844b5242b4c, type: 2}
   HP: 10
   maxHP: 10
   attack: 1
@@ -9302,7 +9311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d548b38ca7b58ec408d6970cce0ef464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 11400000, guid: 2f796570a8ed866429c848820525aa6f, type: 2}
+  character: {fileID: 11400000, guid: 284fa62b2b86f6243bc78844b5242b4c, type: 2}
   HP: 10
   maxHP: 10
   attack: 2
