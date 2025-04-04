@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectionObject: {fileID: 4761266507501473140}
-  PlayerSpeed: 50
+  PlayerSpeed: 80
   PlayerDistance: 2
 --- !u!1001 &1737127282243652639
 PrefabInstance:

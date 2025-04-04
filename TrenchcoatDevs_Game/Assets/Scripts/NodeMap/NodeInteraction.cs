@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class NodeInteraction : MonoBehaviour
     public float PlayerSpeed = 10f;
     public float PlayerDistance = 0.5f;
 
+    public static event Action OnPlayerArrivesToNode;
     private GameObject _player;
 
     private void Start()
@@ -54,9 +56,10 @@ public class NodeInteraction : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log("Player reached the node!");
         Vector3 finalPosition = transform.position;
         finalPosition.y = initialY;
         rb.MovePosition(finalPosition);
+
+        OnPlayerArrivesToNode?.Invoke();
     }
 }

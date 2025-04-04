@@ -1,10 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 
 public class NodeMapGeneration : MonoBehaviour
 {
+    public const string PlayerTag = "Player";
+    public const string PathName = "Path";
+
     [Header("Node Prefabs")]
     public GameObject BattleP;
     public GameObject HealthP;
@@ -30,11 +34,30 @@ public class NodeMapGeneration : MonoBehaviour
     [Header("Path Prefab")]
     public GameObject Path;
 
-    private List<List<GameObject>> allLevels;
+    private List<List<GameObject>> _allLevels;
+    private List<List<GameObject>> _actionLevels;
+    private GameObject _player;
 
     void Start()
     {
-        allLevels = new List<List<GameObject>> { FirstLevel, SecondLevel, ThirdLevel, FourthLevel, FifthLevel };
+        _allLevels = new List<List<GameObject>> {
+            new List<GameObject> { TutorialNode },
+            new List<GameObject> { StartNode },
+            FirstLevel,
+            SecondLevel,
+            ThirdLevel,
+            FourthLevel,
+            FifthLevel,
+            new List<GameObject> { BossLevel }
+        };
+        _actionLevels = new List<List<GameObject>> { 
+            FirstLevel, 
+            SecondLevel, 
+            ThirdLevel, 
+            FourthLevel, 
+            FifthLevel 
+        };
+        _player = GameObject.FindWithTag(PlayerTag);
 
         // Static nodes
         GenerateStaticNodes();
@@ -47,6 +70,16 @@ public class NodeMapGeneration : MonoBehaviour
 
         // NodePaths
         GeneratePath(Path);
+
+        // Hide nodes
+        HideNodes();
+
+        NodeInteraction.OnPlayerArrivesToNode += ShowNodesBelowPlayerLevel;
+    }
+
+    private void OnDestroy()
+    {
+        NodeInteraction.OnPlayerArrivesToNode -= ShowNodesBelowPlayerLevel;
     }
 
     // NODES
@@ -71,13 +104,13 @@ public class NodeMapGeneration : MonoBehaviour
     {
         while (count > 0)
         {
-            int levelNum = Random.Range(0, allLevels.Count);
-            int maxNodes = (levelNum == 0 || levelNum == allLevels.Count - 1) ? 3 : allLevels[levelNum].Count;
+            int levelNum = Random.Range(0, _actionLevels.Count);
+            int maxNodes = (levelNum == 0 || levelNum == _actionLevels.Count - 1) ? 3 : _actionLevels[levelNum].Count;
             int nodeNum = Random.Range(0, maxNodes);
 
             if (IsEmptyNode(levelNum, nodeNum))
             {
-                SetNode(allLevels[levelNum][nodeNum], nodePrefab);
+                SetNode(_actionLevels[levelNum][nodeNum], nodePrefab);
                 count--;
             }
         }
@@ -85,11 +118,11 @@ public class NodeMapGeneration : MonoBehaviour
 
     private void FillEmptyNodes(GameObject nodePrefab)
     {
-        foreach (List<GameObject> node in allLevels)
+        foreach (List<GameObject> node in _actionLevels)
         {
             foreach (GameObject nodeObj in node)
             {
-                if (IsEmptyNode(allLevels.IndexOf(node), node.IndexOf(nodeObj)))
+                if (IsEmptyNode(_actionLevels.IndexOf(node), node.IndexOf(nodeObj)))
                 {
                     SetNode(nodeObj, nodePrefab);
                 }
@@ -99,7 +132,7 @@ public class NodeMapGeneration : MonoBehaviour
 
     private bool IsEmptyNode(int levelNum, int nodeNum)
     {
-        return allLevels[levelNum][nodeNum].transform.childCount == 0;
+        return _actionLevels[levelNum][nodeNum].transform.childCount == 0;
     }
 
     private void SetNode(GameObject node, GameObject nodePrefab)
@@ -123,9 +156,9 @@ public class NodeMapGeneration : MonoBehaviour
             SetPath(node, BossLevel, pathPrefab);
         }
 
-        for (int i = 0; i < allLevels.Count - 1; i++)
+        for (int i = 0; i < _actionLevels.Count - 1; i++)
         {
-            ConnectNodesWithPath(allLevels[i], allLevels[i + 1], pathPrefab);
+            ConnectNodesWithPath(_actionLevels[i], _actionLevels[i + 1], pathPrefab);
         }
     }
 
@@ -151,7 +184,100 @@ public class NodeMapGeneration : MonoBehaviour
 
     private void SetPath(GameObject origin, GameObject destination, GameObject pathPrefab)
     {
-        Vector3 direction = destination.transform.position - origin.transform.position;
-        Instantiate(pathPrefab, origin.transform.position, Quaternion.LookRotation(direction), origin.transform);
+        Vector3 direction = origin.transform.position - destination.transform.position;
+        Instantiate(pathPrefab, destination.transform.position, Quaternion.LookRotation(direction), destination.transform);
+    }
+
+    private List<Transform> GetPathsToPreviousNode(GameObject node)
+    {
+        List<Transform> paths = new List<Transform>();
+        foreach (Transform child in node.transform)
+        {
+            if (child.name.Contains(PathName))
+            {
+                paths.Add(child);
+            }
+        }
+        return paths;
+    }
+
+    // PLAYER LEVEL
+    private void HideNodes()
+    {
+        // Ocultamos todos los nodos
+        foreach (List<GameObject> level in _allLevels)
+        {
+            foreach (GameObject node in level)
+            {
+                node.SetActive(false);
+            }
+        }
+
+        // Excepto el primer nodo
+        TutorialNode.SetActive(true);
+    }
+
+    private int GetPlayerLevel()
+    {
+        for (int i = 0; i < _allLevels.Count; i++)
+        {
+            foreach (GameObject node in _allLevels[i])
+            {
+                if (Vector3.Distance(_player.transform.position, node.transform.position) < 2f)
+                {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    private void ShowNodesBelowPlayerLevel()
+    {
+        int playerLevel = GetPlayerLevel();
+
+        if (playerLevel >= 0)
+        {
+            for (int i = 0; i <= playerLevel + 1; i++)
+            {
+                foreach (GameObject node in _allLevels[i])
+                {
+                    node.SetActive(true);
+
+                    if (i == playerLevel)
+                    {
+                        DisableNodeInteraction(node);
+                    }
+
+                    if (i == playerLevel + 1)
+                    {
+                        foreach (Transform path in GetPathsToPreviousNode(node))
+                        {
+                            Vector3 dir = path.position + path.forward * 10f;
+                            Vector3 pathDirection = dir - _player.transform.position;
+                            Vector3 nodeDirection = node.transform.position - _player.transform.position;
+                            Debug.DrawLine(_player.transform.position, dir, Color.red, 20f);
+                            Debug.DrawLine(_player.transform.position, node.transform.position, Color.blue, 20f);
+                            
+                            float angle = Vector3.Angle(pathDirection, nodeDirection);
+
+                            if (angle < 5f)
+                            {
+                                Debug.Log("Camino encontrado");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void DisableNodeInteraction(GameObject node)
+    {
+        SphereCollider sc = node.GetComponentInChildren<SphereCollider>();
+        if (sc != null)
+        {
+            sc.enabled = false;
+        }
     }
 }
