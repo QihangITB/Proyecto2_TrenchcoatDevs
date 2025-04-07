@@ -29,9 +29,8 @@ public class PlayersCursor : NetworkBehaviour
         {
             StartCoroutine(WaitForName());
         }
-
         _scoreFeedback.text = _minigameScore.Value.ToString();
-
+        _minigameScore.OnValueChanged += (prevV, newV) => { _scoreFeedback.text = newV.ToString(); };
     }
     void Update()
     {
@@ -51,21 +50,14 @@ public class PlayersCursor : NetworkBehaviour
             }
         }
     }
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     void AddToScoreServerRpc()
     {
-        _minigameScore.Value = _minigameScore.Value + 1;
-        UpdateScoreClientRpc();
-    }
-    [ClientRpc]
-    void UpdateScoreClientRpc()
-    {
-        _scoreFeedback.text = _minigameScore.Value.ToString();
+        _minigameScore.Value++;
     }
     [ServerRpc]
     void HitFeedbackServerRpc(Ray rayInfo)
     {
-        Debug.Log($"Client {OwnerClientId} tried to all serverRpc");
         if (Physics.Raycast(rayInfo, out RaycastHit hitTarget))
         {
             AddToScoreServerRpc();
