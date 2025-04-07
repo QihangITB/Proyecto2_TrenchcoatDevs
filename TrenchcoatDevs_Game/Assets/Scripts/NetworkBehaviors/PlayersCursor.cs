@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayersCursor : NetworkBehaviour
+public class PlayersCursor : NetworkBehaviour, INetworkPrefabInstanceHandler
 {
     NetworkVariable<FixedString512Bytes> playerName = new NetworkVariable<FixedString512Bytes>(default,NetworkVariableReadPermission.Everyone,NetworkVariableWritePermission.Owner);
     NetworkVariable<uint> _minigameScore = new NetworkVariable<uint>();
@@ -19,7 +19,6 @@ public class PlayersCursor : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-
         if (IsOwner)
         {
             playerName.Value = new FixedString512Bytes(HostClientDiscovery.GetPlayerName());
@@ -68,5 +67,15 @@ public class PlayersCursor : NetworkBehaviour
     {
         yield return new WaitUntil(()=> !string.IsNullOrEmpty(playerName.Value.ToString()));
         _playerText.text = playerName.Value.ToString();
+    }
+
+    public NetworkObject Instantiate(ulong ownerClientId, Vector3 position, Quaternion rotation)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Destroy(NetworkObject networkObject)
+    {
+        throw new System.NotImplementedException();
     }
 }
