@@ -8,8 +8,10 @@ public class NodeInteraction : MonoBehaviour
     const string PlayerTag = "Player";
 
     public GameObject SelectionObject;
+    public GameObject NonSelectionObject;
     public float PlayerSpeed = 10f;
     public float PlayerDistance = 0.5f;
+    public bool IsInteractable = true;
 
     public static event Action OnPlayerArrivesToNode;
     private GameObject _player;
@@ -21,23 +23,29 @@ public class NodeInteraction : MonoBehaviour
 
     void OnMouseOver()
     {
-        SelectionObject.SetActive(true);
+        if (IsInteractable)
+        {
+            SelectionObject.SetActive(true);
+        }
+        else
+        {
+            NonSelectionObject.SetActive(true);
+        }
     }
 
     void OnMouseExit()
     {
         SelectionObject.SetActive(false);
+        NonSelectionObject.SetActive(false);
     }
 
     void OnMouseDown()
     {
-        SelectionObject.SetActive(false);
-        StartCoroutine(MovePlayerToNode(PlayerSpeed, PlayerDistance));
-    }
-
-    void OnMouseUp()
-    {
-
+        if (IsInteractable)
+        {
+            SelectionObject.SetActive(false);
+            StartCoroutine(MovePlayerToNode(PlayerSpeed, PlayerDistance));
+        }
     }
 
     private IEnumerator MovePlayerToNode(float speed, float distance)
@@ -61,5 +69,7 @@ public class NodeInteraction : MonoBehaviour
         rb.MovePosition(finalPosition);
 
         OnPlayerArrivesToNode?.Invoke();
+
+        StopAllCoroutines();
     }
 }

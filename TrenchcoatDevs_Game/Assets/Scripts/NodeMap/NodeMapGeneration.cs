@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -251,19 +252,31 @@ public class NodeMapGeneration : MonoBehaviour
 
                     if (i == playerLevel + 1)
                     {
-                        foreach (Transform path in GetPathsToPreviousNode(node))
+                        bool pathFinded = false;
+                        int j = 0;
+                        List<Transform> paths = GetPathsToPreviousNode(node);
+                        while (j < paths.Count && !pathFinded)
                         {
-                            Vector3 dir = path.position + path.forward * 10f;
+                            Vector3 dir = paths[j].position + paths[j].forward * 10f;
                             Vector3 pathDirection = dir - _player.transform.position;
                             Vector3 nodeDirection = node.transform.position - _player.transform.position;
                             Debug.DrawLine(_player.transform.position, dir, Color.red, 20f);
                             Debug.DrawLine(_player.transform.position, node.transform.position, Color.blue, 20f);
-                            
+
                             float angle = Vector3.Angle(pathDirection, nodeDirection);
 
-                            if (angle < 5f)
+                            if (angle < 2f)
                             {
-                                Debug.Log("Camino encontrado");
+                                NodeInteraction interaction = node.GetComponentInChildren<NodeInteraction>();
+                                interaction.IsInteractable = true;
+                                pathFinded = true;
+                            }
+                            else
+                            {
+                                Debug.Log("Camino no encontrado");
+                                NodeInteraction interaction = node.GetComponentInChildren<NodeInteraction>();
+                                interaction.IsInteractable = false;
+                                j++;
                             }
                         }
                     }
