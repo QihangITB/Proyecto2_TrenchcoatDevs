@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BasicAttackEnemy", menuName = "EnemyAttacks/BasicAttackEnemy")]
 public class BasicAttack : GenericAttack
 {
+    int iterationLimit;
     public override void ActivateTargetButtons()
     {
     }
@@ -13,9 +14,11 @@ public class BasicAttack : GenericAttack
     {
         //selecciona un objetivo aleatorio de la lista de players de battlemanager
         int randomIndex = Random.Range(0, BattleManager.instance.players.Count);
-        while (targets[randomIndex].character.health <= 0)
+        iterationLimit = 20;
+        while (targets[randomIndex].character.health <= 0 && iterationLimit>0)
         {
             randomIndex = Random.Range(0, BattleManager.instance.players.Count);
+            iterationLimit--;
         }
         BattleManager.instance.targets.Add(targets[randomIndex]);
         // Apply damage to the target
