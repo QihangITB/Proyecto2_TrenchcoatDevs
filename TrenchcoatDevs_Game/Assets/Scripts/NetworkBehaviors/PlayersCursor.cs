@@ -30,15 +30,14 @@ public class PlayersCursor : NetworkBehaviour
             StartCoroutine(WaitForName());
         }
 
-        
+        _scoreFeedback.text = _minigameScore.Value.ToString();
 
     }
     void Update()
     {
-        TrackCursorClientRpc();  
+        TrackCursor();  
     }
-    [ClientRpc]
-    void TrackCursorClientRpc()
+    void TrackCursor()
     {
         if (IsOwner)
         {
@@ -48,17 +47,14 @@ public class PlayersCursor : NetworkBehaviour
             Camera cam = Camera.main;
             if (Input.GetMouseButtonDown((int)MouseButton.Left))
             {
-                if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out RaycastHit hitTarget))
-                {
-                    HitFeedbackTestServerRpc();
-                }
+                HitFeedbackServerRpc(cam.ScreenPointToRay(Input.mousePosition));
             }
         }
     }
     [ServerRpc]
     void AddToScoreServerRpc()
     {
-        _minigameScore.Value++;
+        _minigameScore.Value = _minigameScore.Value + 1;
         UpdateScoreClientRpc();
     }
     [ClientRpc]
@@ -67,9 +63,14 @@ public class PlayersCursor : NetworkBehaviour
         _scoreFeedback.text = _minigameScore.Value.ToString();
     }
     [ServerRpc]
-    void HitFeedbackTestServerRpc()
+    void HitFeedbackServerRpc(Ray rayInfo)
     {
-        Debug.Log($"Player with id {OwnerClientId} has hited something");
+        Debug.Log($"Client {OwnerClientId} tried to all serverRpc");
+        if (Physics.Raycast(rayInfo, out RaycastHit hitTarget))
+        {
+            AddToScoreServerRpc();
+        }
+        
     }
     IEnumerator WaitForName()
     {
