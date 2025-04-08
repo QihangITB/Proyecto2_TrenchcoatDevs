@@ -12,10 +12,16 @@ public class ScorePointClickable : NetworkBehaviour, IPoolable<ScorePointClickab
         get { return _points; }
     }
 
-    public Stack<ScorePointClickable> OriginPool { set => _originPool = value; }
+    public Stack<ScorePointClickable> OriginPool {set => _originPool = value; }
+
+    public ScorePointClickable GetComponent()
+    {
+        return this;
+    }
 
     public void Return()
     {
-        throw new System.NotImplementedException();
+        _originPool.Push(this);
+        gameObject.SetActive(false);
     }
 }

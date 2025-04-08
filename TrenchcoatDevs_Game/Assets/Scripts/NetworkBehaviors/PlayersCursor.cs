@@ -50,16 +50,16 @@ public class PlayersCursor : NetworkBehaviour, INetworkPrefabInstanceHandler
         }
     }
     [ServerRpc(RequireOwnership = false)]
-    void AddToScoreServerRpc()
+    void AddToScoreServerRpc(uint points)
     {
-        _minigameScore.Value++;
+        _minigameScore.Value+=points;
     }
     [ServerRpc]
     void HitFeedbackServerRpc(Ray rayInfo)
     {
-        if (Physics.Raycast(rayInfo, out RaycastHit hitTarget))
+        if (Physics.Raycast(rayInfo, out RaycastHit hitTarget) && hitTarget.transform.TryGetComponent(out ScorePointClickable clickable))
         {
-            AddToScoreServerRpc();
+            AddToScoreServerRpc(clickable.Points);
         }
         
     }
