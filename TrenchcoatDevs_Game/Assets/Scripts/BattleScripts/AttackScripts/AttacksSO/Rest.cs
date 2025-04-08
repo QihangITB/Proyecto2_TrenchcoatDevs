@@ -22,12 +22,7 @@ public class Rest : BasicAttackScript
     public override void Effect(List<CharacterHolder> target, CharacterHolder user)
     {
         //recupera stamina
-        user.stamina += staminaRestored;
-        if (user.stamina > user.maxStamina)
-        {
-            user.stamina = user.maxStamina;
-        }
-        user.UpdateStaminaBar();
+        user.Rest(staminaRestored);
         BattleManager.instance.FinishTurn();
     }
 }

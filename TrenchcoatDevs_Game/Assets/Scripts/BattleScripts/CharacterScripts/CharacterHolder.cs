@@ -10,10 +10,16 @@ public class CharacterHolder : MonoBehaviour
     public int maxHP;
     public int attack;
     public int speed;
+    public int defense;
     public GameObject HpBar;
     public GameObject StaminaBar;
     public int stamina;
     public int maxStamina;
+    public bool isPoisoned;
+    public bool isDisgusted;
+    public bool isBurnt;
+    public bool isRegenerating;
+    public bool isRested;
 
 
     public void SelectEnemy()
@@ -22,12 +28,24 @@ public class CharacterHolder : MonoBehaviour
         maxHP = character.maxHealth;
         attack = character.damage;
         speed = character.speed;
-
+        defense = character.defense;
     }
     public void TakeDamage(int damage)
     {
+        if (isBurnt)
+        {
+            damage *= 2;
+        }
+        if (damage- defense <= 0)
+        {
+            damage = 1;
+        }
+        else
+        {
+            damage -= defense;
+        }
         HP -= damage;
-        Debug.Log("Character took " + damage + " damage");
+        Debug.Log(gameObject + " took " + damage + " damage");
         if (HP <= 0)
         {
             HP = 0;
@@ -58,5 +76,14 @@ public class CharacterHolder : MonoBehaviour
             HP = maxHP;
         }
         UpdateHPBar();
+    }
+    public void Rest(int restValue)
+    {
+        stamina += restValue;
+        if (stamina > maxStamina)
+        {
+            stamina = maxStamina;
+        }
+        UpdateStaminaBar();
     }
 }

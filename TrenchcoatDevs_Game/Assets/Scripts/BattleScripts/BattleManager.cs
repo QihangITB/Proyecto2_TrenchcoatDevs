@@ -19,6 +19,8 @@ public class BattleManager : MonoBehaviour
     public AEnemy enemyUser;
     public List<CharacterHolder> targets = new List<CharacterHolder>();
     public bool fightIsFinished = false;
+    public int poisonDamageDivisor = 10;
+    public bool canMove = true;
 
     private void Awake()
     {
@@ -70,8 +72,9 @@ public class BattleManager : MonoBehaviour
         if (!fightIsFinished)
         {
             user = character;
+            canMove = true;
             CheckConditions(character);
-            if (character.HP <= 0)
+            if (character.HP <= 0 || !canMove)
             {
                 FinishTurn();
             }
@@ -117,7 +120,55 @@ public class BattleManager : MonoBehaviour
     }
     private void CheckConditions(CharacterHolder character)
     {
-        //Ahora no hace nada
+        if (character.isPoisoned)
+        {
+            Debug.Log(character.character + " is poisoned");
+            character.TakeDamage(character.maxHP / poisonDamageDivisor);
+        }
+        if (character.isDisgusted)
+        {
+            int random = Random.Range(0, 10);
+            if (random < 3)
+            {
+                canMove = false;
+                Debug.Log(character.character + " is disgusted and can't attack");
+            }
+        }
+        if (character.isRegenerating)
+        {
+            character.Heal(character.maxHP / 20, false);
+            Debug.Log(character.character + " is regenerating and healed " + character.maxHP / 10 + " HP");
+        }
+        if (character.isRested)
+        {
+            character.Rest(character.maxStamina/20);
+            Debug.Log(character.character + " is rested and recovered " + character.maxStamina / 20 + " stamina");
+        }
+    }
+    public void GetPoisoned(CharacterHolder character)
+    {
+        character.isPoisoned = true;
+        Debug.Log(character.character + " is now poisoned");
+    }
+    public void GetDisgusted(CharacterHolder character)
+    {
+        character.isDisgusted = true;
+        Debug.Log(character.character + " is now disgusted");
+    }
+    public void GetBurnt(CharacterHolder character)
+    {
+        character.isBurnt = true;
+        Debug.Log(character.character + " is now burnt");
+    }
+    public void GetRegenerating(CharacterHolder character)
+    {
+        character.isRegenerating = true;
+        Debug.Log(character.character + " is now regenerating");
+    }
+    public void GetRested(CharacterHolder character)
+    {
+        character.isRested = true;
+        Debug.Log(character.character + " is now rested");
     }
     //ordena characters por speed
     public void OrderCharacters()
