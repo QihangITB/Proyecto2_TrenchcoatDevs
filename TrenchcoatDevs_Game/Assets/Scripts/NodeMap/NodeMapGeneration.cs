@@ -233,13 +233,18 @@ public class NodeMapGeneration : MonoBehaviour
         return -1;
     }
 
+    private void ShowNodesBelowPlayerLevel(GameObject n)
+    {
+        ShowNodesBelowPlayerLevel();
+    }
+
     private void ShowNodesBelowPlayerLevel()
     {
         int playerLevel = GetPlayerLevel();
 
         if (playerLevel >= 0)
         {
-            for (int i = 0; i <= playerLevel + 1; i++)
+            for (int i = 0; i <= playerLevel; i++)
             {
                 foreach (GameObject node in _allLevels[i])
                 {
@@ -249,37 +254,41 @@ public class NodeMapGeneration : MonoBehaviour
                     {
                         DisableNodeInteraction(node);
                     }
+                }
+            }
+        }
+    }
 
-                    if (i == playerLevel + 1)
-                    {
-                        bool pathFinded = false;
-                        int j = 0;
-                        List<Transform> paths = GetPathsToPreviousNode(node);
-                        while (j < paths.Count && !pathFinded)
-                        {
-                            Vector3 dir = paths[j].position + paths[j].forward * 10f;
-                            Vector3 pathDirection = dir - _player.transform.position;
-                            Vector3 nodeDirection = node.transform.position - _player.transform.position;
-                            Debug.DrawLine(_player.transform.position, dir, Color.red, 20f);
-                            Debug.DrawLine(_player.transform.position, node.transform.position, Color.blue, 20f);
+    private void ShowNextNodes()
+    {
+        int nextLevel = GetPlayerLevel() + 1;
 
-                            float angle = Vector3.Angle(pathDirection, nodeDirection);
+        foreach (GameObject node in _allLevels[nextLevel])
+        {
+            bool pathFinded = false;
+            int j = 0;
+            List<Transform> paths = GetPathsToPreviousNode(node);
+            while (j < paths.Count && !pathFinded)
+            {
+                Vector3 dir = paths[j].position + paths[j].forward * 10f;
+                Vector3 pathDirection = dir - _player.transform.position;
+                Vector3 nodeDirection = node.transform.position - _player.transform.position;
 
-                            if (angle < 2f)
-                            {
-                                NodeInteraction interaction = node.GetComponentInChildren<NodeInteraction>();
-                                interaction.IsInteractable = true;
-                                pathFinded = true;
-                            }
-                            else
-                            {
-                                Debug.Log("Camino no encontrado");
-                                NodeInteraction interaction = node.GetComponentInChildren<NodeInteraction>();
-                                interaction.IsInteractable = false;
-                                j++;
-                            }
-                        }
-                    }
+                Debug.DrawLine(_player.transform.position, dir, Color.red, 20f);
+                Debug.DrawLine(_player.transform.position, node.transform.position, Color.blue, 20f);
+
+                float angle = Vector3.Angle(pathDirection, nodeDirection);
+                NodeInteraction interaction = node.GetComponentInChildren<NodeInteraction>();
+
+                if (angle < 2f)
+                {
+                    interaction.IsInteractable = true;
+                    pathFinded = true;
+                }
+                else
+                {
+                    interaction.IsInteractable = false;
+                    j++;
                 }
             }
         }

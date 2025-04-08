@@ -13,7 +13,8 @@ public class NodeInteraction : MonoBehaviour
     public float PlayerDistance = 0.5f;
     public bool IsInteractable = true;
 
-    public static event Action OnPlayerArrivesToNode;
+    public static event Action<GameObject> OnPlayerArrivesToNode;
+    public static bool IsMoving = false;
     private GameObject _player;
 
     private void Start()
@@ -41,7 +42,7 @@ public class NodeInteraction : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (IsInteractable)
+        if (IsInteractable && !IsMoving)
         {
             SelectionObject.SetActive(false);
             StartCoroutine(MovePlayerToNode(PlayerSpeed, PlayerDistance));
@@ -50,6 +51,10 @@ public class NodeInteraction : MonoBehaviour
 
     private IEnumerator MovePlayerToNode(float speed, float distance)
     {
+        if (IsMoving) yield break;
+
+        IsMoving = true;
+
         Rigidbody rb = _player.GetComponent<Rigidbody>();
         float initialY = _player.transform.position.y;
 
@@ -68,8 +73,8 @@ public class NodeInteraction : MonoBehaviour
         finalPosition.y = initialY;
         rb.MovePosition(finalPosition);
 
-        OnPlayerArrivesToNode?.Invoke();
+        OnPlayerArrivesToNode?.Invoke(gameObject);
 
-        StopAllCoroutines();
+        IsMoving = false;
     }
 }

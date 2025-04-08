@@ -38,4 +38,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game/SingleMap.unity
     guid: d1a36e97b61059346ae0fb6377fdad97
+  - enabled: 1
+    path: Assets/Scenes/Game/Battle.unity
+    guid: ef02cd5f9c990ab4faaa92cdfbae716c
+  - enabled: 1
+    path: Assets/Scenes/Game/Health.unity
+    guid: 127a9cfe5443918468249ddaafa8701e
+  - enabled: 1
+    path: Assets/Scenes/Game/Recruit.unity
+    guid: 3cdf64727a8f615409d3131d256f780a
+  - enabled: 1
+    path: Assets/Scenes/Game/Shop.unity
+    guid: 18969c4ab7dbbda408c7d0f0b32fb582
+  - enabled: 1
+    path: Assets/Scenes/Game/Treasure.unity
+    guid: 20e18148400e51148b0b7801181f5114
   m_configObjects: {}
