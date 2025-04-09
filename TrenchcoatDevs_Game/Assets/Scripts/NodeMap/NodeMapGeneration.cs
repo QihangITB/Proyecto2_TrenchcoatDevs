@@ -76,11 +76,13 @@ public class NodeMapGeneration : MonoBehaviour
         HideNodes();
 
         NodeInteraction.OnPlayerArrivesToNode += ShowNodesBelowPlayerLevel;
+        NodeAccess.OnReturnToNodeMap += ShowNextNodes;
     }
 
     private void OnDestroy()
     {
         NodeInteraction.OnPlayerArrivesToNode -= ShowNodesBelowPlayerLevel;
+        NodeAccess.OnReturnToNodeMap -= ShowNextNodes;
     }
 
     // NODES
@@ -265,6 +267,8 @@ public class NodeMapGeneration : MonoBehaviour
 
         foreach (GameObject node in _allLevels[nextLevel])
         {
+            node.SetActive(true);
+
             bool pathFinded = false;
             int j = 0;
             List<Transform> paths = GetPathsToPreviousNode(node);
