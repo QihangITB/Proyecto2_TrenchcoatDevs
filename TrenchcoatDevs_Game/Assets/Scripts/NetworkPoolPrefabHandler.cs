@@ -27,21 +27,28 @@ public class NetworkPoolPrefabHandler<T> : INetworkPrefabInstanceHandler where T
         NetworkObject returnObject;
         try
         {
-            T gameObject = _pool.Pop();
+            T gameObject;
+            do
+            {
+                gameObject = _pool.Pop();
+            } while (gameObject == null);
+            
 
-            gameObject.transform.position = position;
-            gameObject.transform.rotation = rotation;
+            
 
             returnObject = gameObject.GetComponent<NetworkObject>();
+            returnObject.gameObject.SetActive(true);
         }
         catch (InvalidOperationException)
         {
             //If stack is empty, do this
-            returnObject = Instantiate(ownerClientId,position,rotation);
-            
+            returnObject = NetworkObject.Instantiate(_prefab.GetComponent().GetComponent<NetworkObject>());
+
             IPoolable<T> poolable = returnObject.GetComponent<IPoolable<T>>();
             poolable.OriginPool = _pool; 
         }
+        returnObject.transform.position = position;
+        returnObject.transform.rotation = rotation;
         return returnObject;
     }
 }

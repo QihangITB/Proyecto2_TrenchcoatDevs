@@ -13,15 +13,14 @@ public class LobbyManager : MonoBehaviour
     float _spawnEvery;
     [SerializeField]
     int _spawnLimit;
-    Stack<ScorePointClickable> _pool = new Stack<ScorePointClickable>();
     NetworkManager _networkManager;
     private void Start()
     {
         _networkManager = NetworkManager.Singleton;
-        _networkManager.PrefabHandler.AddHandler(_scoreClickablePrefab.gameObject, new NetworkPoolPrefabHandler<ScorePointClickable>(_scoreClickablePrefab, _pool));
         if (_networkManager.IsServer)
         {
             SpawnPlayer();
+            StartClickableSpawnManager();
         }
         else
         {
@@ -36,25 +35,32 @@ public class LobbyManager : MonoBehaviour
             _networkManager.SpawnManager.InstantiateAndSpawn(_playerPrefab,client,true);
         }
     }
-    void StartSpawnManager()
-    {
-        NetworkManager netManager = NetworkManager.Singleton;
-        
+    void StartClickableSpawnManager()
+    {   
         StartCoroutine(SpawnManager());
     }
     IEnumerator SpawnManager()
     {
         NetworkObject spawnableObject = _scoreClickablePrefab.GetComponent<NetworkObject>();
-        NetworkManager netManager = NetworkManager.Singleton;
+        NetworkManager netManager = _networkManager;
+        Stack<ScorePointClickable> pool = netManager.GetComponent<ScorePointPoolHandler>().GetStack(_scoreClickablePrefab);
         while (true)
         {
             yield return new WaitForSeconds(_spawnEvery);
-            if (_pool.Count > 0)
+            Camera cam = Camera.main;
+            float spawnY = Random.Range
+                (cam.ScreenToWorldPoint(new Vector2(0, 0)).y, Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height)).y);
+            float spawnX = Random.Range
+                (cam.ScreenToWorldPoint(new Vector2(0, 0)).x, Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x);
+            Vector2 randomPosition = new Vector2(spawnX, spawnY);
+            
+            if (pool.Count > 0)
             {
-                _networkManager.SpawnManager.InstantiateAndSpawn(spawnableObject,default,true);
+                _networkManager.SpawnManager.InstantiateAndSpawn(spawnableObject,default,true,default,default,randomPosition);
             }else if (_spawnLimit > 0)
             {
-                spawnableObject.Spawn(true);
+                _networkManager.SpawnManager.InstantiateAndSpawn(spawnableObject, default, true, default, default, randomPosition);
+                _spawnLimit--;
             }
         }
     }

@@ -60,6 +60,7 @@ public class PlayersCursor : NetworkBehaviour, INetworkPrefabInstanceHandler
         if (Physics.Raycast(rayInfo, out RaycastHit hitTarget) && hitTarget.transform.TryGetComponent(out ScorePointClickable clickable))
         {
             AddToScoreServerRpc(clickable.Points);
+            clickable.GetComponent<NetworkObject>().Despawn();
         }
         
     }

@@ -3,12 +3,11 @@ using Unity.Netcode;
 using UnityEngine;
 
 [RequireComponent(typeof(NetworkManager))]
-public abstract class PrefabPoolHandlerInstantiator<T,TBehavior> : MonoBehaviour where T : IPoolable<TBehavior>
-                                                                                 where TBehavior : MonoBehaviour
+public abstract class PrefabPoolHandlerInstantiator<TBehavior> : MonoBehaviour where TBehavior : MonoBehaviour
 {
     [SerializeField]
     List<TBehavior> _netPrefabs;
-    Dictionary<TBehavior, Stack<TBehavior>> _poolList;
+    Dictionary<TBehavior, Stack<TBehavior>> _poolList = new Dictionary<TBehavior, Stack<TBehavior>>();
     NetworkManager _networkManager;
 
     private void Awake()
@@ -23,9 +22,8 @@ public abstract class PrefabPoolHandlerInstantiator<T,TBehavior> : MonoBehaviour
             _networkManager.PrefabHandler.AddHandler(net.gameObject, new NetworkPoolPrefabHandler<TBehavior>(net.GetComponent<IPoolable<TBehavior>>(), _poolList[net]));
         }
     }
-    public Stack<NetworkObject> GetStack(TBehavior prefab)
+    public Stack<TBehavior> GetStack(TBehavior prefab)
     {
-        throw new System.Exception();
-        //return _poolList[prefab];
+        return _poolList[prefab];
     }
 }
