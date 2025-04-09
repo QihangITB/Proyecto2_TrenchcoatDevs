@@ -39,6 +39,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu/Result.unity
     guid: 4ee2442b24db51743841885a87739091
   - enabled: 1
-    path: Assets/Scenes/Game/SingleMap.unity
+    path: Assets/Scenes/Game/Singleplay.unity
     guid: d1a36e97b61059346ae0fb6377fdad97
   m_configObjects: {}
