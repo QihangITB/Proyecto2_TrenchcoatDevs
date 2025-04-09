@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
-using Unity.Netcode.Transports.UTP;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class HostServerFormHandler : FormHandler
 {
@@ -12,6 +8,8 @@ public class HostServerFormHandler : FormHandler
     TMP_InputField _serverName;
     [SerializeField]
     HostClientDiscovery _discovery;
+    [SerializeField]
+    GameObject _startHostObject;
     [SerializeField]
     string nextSceneOnPlayerJoined;
 
