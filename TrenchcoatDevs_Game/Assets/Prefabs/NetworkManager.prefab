@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 5566359287368363160}
   - component: {fileID: 1480612059641396714}
   - component: {fileID: 1696906967497785101}
+  - component: {fileID: -2136945900408596958}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -261,6 +262,20 @@ MonoBehaviour:
   _errorCanvas: {fileID: 5380230586502492871}
   _errorWindow: {fileID: 6834061710751183133}
   _onErrorScene: Online
+--- !u!114 &-2136945900408596958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2943761009401750479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f7bd305f1f7a0048b768649fea4b3cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _netPrefabs:
+  - {fileID: 3995672938053667893, guid: 386c1d71aaefddf4c8286f62e714ccd0, type: 3}
 --- !u!1 &2952141641037220644
 GameObject:
   m_ObjectHideFlags: 0
