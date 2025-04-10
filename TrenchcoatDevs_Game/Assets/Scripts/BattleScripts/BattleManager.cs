@@ -12,6 +12,8 @@ public class BattleManager : MonoBehaviour
     public List<CharacterHolder> CharOrderInTurn = new List<CharacterHolder>();
     public List<GameObject> playerButtons = new List<GameObject>();
     public List<GameObject> enemyButtons = new List<GameObject>();
+    public GameObject enemyTeamButton;
+    public GameObject basicAttackButton;
     public GenericAttack attack;
     public GenericAreaAttack areaAttack;
     public AAttack enemyAttack;
@@ -22,7 +24,25 @@ public class BattleManager : MonoBehaviour
     public int poisonDamageDivisor = 10;
     public bool canMove = true;
 
-    private void Awake()
+    public void CharacterAllocation(List<APlayer> listOfPlayers, List<AEnemy> listOfenemies)
+    {
+        for (int i = 0; i < listOfPlayers.Count; i++)
+        {
+            Debug.Log("Player " + i + " is " + players[i].character);
+            players[i].character = listOfPlayers[i];
+            players[i].SelectCharacter();
+        }
+        for (int i = 0; i < listOfenemies.Count; i++)
+        {
+            Debug.Log("Enemy " + i + " is " + enemies[i].character);
+            enemies[i].character = listOfenemies[i];
+            enemies[i].SelectCharacter();
+        }
+        StartRound();
+
+    }
+
+    private void Start()
     {
         if (instance == null)
         {
@@ -32,7 +52,7 @@ public class BattleManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        StartRound();
+        PlayerManager.instance.AllocateCharacters();
         playerButtons = new List<GameObject>(GameObject.FindGameObjectsWithTag("PlayerButton"));
         enemyButtons = new List<GameObject>(GameObject.FindGameObjectsWithTag("EnemyButton"));
     }
@@ -47,14 +67,14 @@ public class BattleManager : MonoBehaviour
             CharOrderInTurn.Clear();
             foreach (CharacterHolder character in enemies)
             {
-                if (!characters.Contains(character) && character.HP > 0)
+                if (!characters.Contains(character) && character.HP > 0 && character.character != null)
                 {
                     characters.Add(character);
                 }
             }
             foreach (CharacterHolder character in players)
             {
-                if (!characters.Contains(character) && character.HP > 0)
+                if (!characters.Contains(character) && character.HP > 0 && character.character != null)
                 {
                     characters.Add(character);
                 }
@@ -74,6 +94,8 @@ public class BattleManager : MonoBehaviour
             user = character;
             canMove = true;
             CheckConditions(character);
+            //vacia targets
+            targets.Clear();
             if (character.HP <= 0 || !canMove)
             {
                 FinishTurn();
@@ -85,10 +107,12 @@ public class BattleManager : MonoBehaviour
                     Debug.Log(character.character);
                     enemyUser = user.character as AEnemy;
                     enemyUser.SelectAttack();
-                    FinishTurn();
+                    StartCoroutine(WaitForTurn());
                 }
                 else
                 {
+                    //haz que basicAttackButton cambie la funcion de ataque al 
+                    basicAttackButton.GetComponent<SelectAttack>().attack = character.character.basicAttack;
                     Debug.Log(character + " elige un ataque");
                 }
             }
@@ -104,6 +128,12 @@ public class BattleManager : MonoBehaviour
                 Debug.Log("You lose");
             }
         }
+    }
+    public IEnumerator WaitForTurn()
+    {
+        yield return new WaitForSeconds(1.5f);
+        FinishTurn();
+
     }
     public void FinishTurn()
     {
@@ -145,31 +175,7 @@ public class BattleManager : MonoBehaviour
             Debug.Log(character.character + " is rested and recovered " + character.maxStamina / 20 + " stamina");
         }
     }
-    public void GetPoisoned(CharacterHolder character)
-    {
-        character.isPoisoned = true;
-        Debug.Log(character.character + " is now poisoned");
-    }
-    public void GetDisgusted(CharacterHolder character)
-    {
-        character.isDisgusted = true;
-        Debug.Log(character.character + " is now disgusted");
-    }
-    public void GetBurnt(CharacterHolder character)
-    {
-        character.isBurnt = true;
-        Debug.Log(character.character + " is now burnt");
-    }
-    public void GetRegenerating(CharacterHolder character)
-    {
-        character.isRegenerating = true;
-        Debug.Log(character.character + " is now regenerating");
-    }
-    public void GetRested(CharacterHolder character)
-    {
-        character.isRested = true;
-        Debug.Log(character.character + " is now rested");
-    }
+    
     //ordena characters por speed
     public void OrderCharacters()
     {
@@ -187,6 +193,7 @@ public class BattleManager : MonoBehaviour
     public void UseAreaAttack()
     {
         areaAttack.Effect(targets, user);
+        DeActivateTargetButtons();
     }
     public void DeActivateTargetButtons()
     {
@@ -198,5 +205,6 @@ public class BattleManager : MonoBehaviour
         {
             button.GetComponent<Image>().enabled = false;
         }
+        enemyTeamButton.GetComponent<Image>().enabled = false;
     }
 }

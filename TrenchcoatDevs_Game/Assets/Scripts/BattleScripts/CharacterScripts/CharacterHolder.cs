@@ -22,7 +22,7 @@ public class CharacterHolder : MonoBehaviour
     public bool isRested;
 
 
-    public void SelectEnemy()
+    public void SelectCharacter()
     {
         HP = character.health;
         maxHP = character.maxHealth;
@@ -59,9 +59,34 @@ public class CharacterHolder : MonoBehaviour
         }
         UpdateHPBar();
     }
+    public void GetPoisoned()
+    {
+        isPoisoned = true;
+        Debug.Log(character + " is now poisoned");
+    }
+    public void GetDisgusted()
+    {
+        isDisgusted = true;
+        Debug.Log(character + " is now disgusted");
+    }
+    public void GetBurnt()
+    {
+        isBurnt = true;
+        Debug.Log(character + " is now burnt");
+    }
+    public void GetRegenerating()
+    {
+        isRegenerating = true;
+        Debug.Log(character + " is now regenerating");
+    }
+    public void GetRested()
+    {
+        isRested = true;
+        Debug.Log(character + " is now rested");
+    }
     public void UpdateHPBar()
     {
-        HpBar.GetComponent<Slider>().value = (HP * 100 / maxHP) / 100f;
+        HpBar.GetComponent<Slider>().value = (HP * 100 / maxHP) / 100;
     }
 
     public void UpdateStaminaBar()
@@ -83,6 +108,15 @@ public class CharacterHolder : MonoBehaviour
         if (stamina > maxStamina)
         {
             stamina = maxStamina;
+        }
+        UpdateStaminaBar();
+    }
+    public void UseStamina(int staminaValue)
+    {
+        stamina -= staminaValue;
+        if (stamina < 0)
+        {
+            stamina = 0;
         }
         UpdateStaminaBar();
     }

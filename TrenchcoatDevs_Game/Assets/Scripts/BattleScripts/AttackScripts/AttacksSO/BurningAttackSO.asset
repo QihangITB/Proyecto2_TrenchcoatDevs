@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c77f2de9093b4964c89f335d2dc7e440, type: 3}
-  m_Name: RestSO
+  m_Script: {fileID: 11500000, guid: 05c5952a8df6fb84c86b68be20bcd22f, type: 3}
+  m_Name: BurningAttackSO
   m_EditorClassIdentifier: 
-  attackName: Rest
-  description: Recover some stamina for yourself
+  attackName: Light it up
+  description: Damage and burn an enemy
   cost: 0
   targetButtons: []
-  staminaRestored: 4

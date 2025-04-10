@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "BasicAttack", menuName = "Attacks/BasicAttack")]
-public class BasicAttackScript : GenericAttack
+[CreateAssetMenu(fileName = "BurningAttack", menuName = "Attacks/BurningAttack")]
+
+public class BurningAttack : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
@@ -23,6 +24,7 @@ public class BasicAttackScript : GenericAttack
         foreach (CharacterHolder target in targets)
         {
             target.TakeDamage(user.attack);
+            target.GetBurnt();
         }
         BattleManager.instance.FinishTurn();
     }
