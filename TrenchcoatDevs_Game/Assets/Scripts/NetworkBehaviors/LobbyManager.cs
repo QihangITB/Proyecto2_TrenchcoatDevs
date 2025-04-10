@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -44,6 +45,7 @@ public class LobbyManager : MonoBehaviour
         NetworkObject spawnableObject = _scoreClickablePrefab.GetComponent<NetworkObject>();
         NetworkManager netManager = _networkManager;
         Stack<ScorePointClickable> pool = netManager.GetComponent<ScorePointPoolHandler>().GetStack(_scoreClickablePrefab);
+        List<NetworkObject> spawnedObjects = new List<NetworkObject>();
         while (true)
         {
             yield return new WaitForSeconds(_spawnEvery);
@@ -53,15 +55,15 @@ public class LobbyManager : MonoBehaviour
             float spawnX = Random.Range
                 (cam.ScreenToWorldPoint(new Vector2(0, 0)).x, Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x);
             Vector2 randomPosition = new Vector2(spawnX, spawnY);
-            
             if (pool.Count > 0)
             {
                 _networkManager.SpawnManager.InstantiateAndSpawn(spawnableObject,default,true,default,default,randomPosition);
-            }else if (_spawnLimit > 0)
-            {
-                _networkManager.SpawnManager.InstantiateAndSpawn(spawnableObject, default, true, default, default, randomPosition);
-                _spawnLimit--;
             }
+            else if (spawnedObjects.Count() < _spawnLimit)
+            {
+                spawnedObjects.Add(_networkManager.SpawnManager.InstantiateAndSpawn(spawnableObject, default, true, default, default, randomPosition));
+            }
+            
         }
     }
 }
