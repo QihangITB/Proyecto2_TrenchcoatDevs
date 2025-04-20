@@ -41,7 +41,15 @@ public class BattleManager : MonoBehaviour
             }
             else
             {
-                players.RemoveAt(i);
+                //desactiva el componente imagen del objeto padre
+                foreach (Image image in players[i].gameObject.GetComponentsInParent<Image>())
+                {
+                    image.enabled = false;
+                }
+                //desactiva el slider 
+                players[i].HpBar.GetComponent<Slider>().gameObject.SetActive(false);
+                players[i].StaminaBar.GetComponent<Slider>().gameObject.SetActive(false);
+                players[i] = null;
             }
         }
         for (int i = 0; i < enemies.Count; i++)
