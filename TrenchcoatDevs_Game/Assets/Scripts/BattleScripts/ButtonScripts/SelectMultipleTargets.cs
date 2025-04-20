@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class SelectMultipleTargets : MonoBehaviour
 {
@@ -12,7 +14,10 @@ public class SelectMultipleTargets : MonoBehaviour
         BattleManager.instance.targets.Clear();
         foreach (CharacterHolder target in targets)
         {
-            BattleManager.instance.targets.Add(target);
+            if  (target.GetComponent<CharacterHolder>().character!=null)
+            {
+                BattleManager.instance.targets.Add(target);
+            }
         }
         BattleManager.instance.UseAreaAttack();
     }

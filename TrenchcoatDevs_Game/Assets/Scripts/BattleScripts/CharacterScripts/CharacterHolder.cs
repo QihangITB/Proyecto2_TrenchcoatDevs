@@ -52,10 +52,9 @@ public class CharacterHolder : MonoBehaviour
             Debug.Log(gameObject+" Is dead");
             BattleManager.instance.CharOrderInTurn.Remove(this);
             BattleManager.instance.characters.Remove(this);
-            if (BattleManager.instance.players.Count == 0 || BattleManager.instance.enemies.Count == 0)
-            {
-                BattleManager.instance.fightIsFinished = true;
-            }
+            BattleManager.instance.players.Remove(this);
+            BattleManager.instance.enemies.Remove(this);
+            BattleManager.instance.CheckWin();
         }
         UpdateHPBar();
     }
@@ -86,12 +85,12 @@ public class CharacterHolder : MonoBehaviour
     }
     public void UpdateHPBar()
     {
-        HpBar.GetComponent<Slider>().value = (HP * 100 / maxHP) / 100;
+        HpBar.GetComponent<Slider>().value = (HP * 100 / maxHP) / 100f;
     }
 
     public void UpdateStaminaBar()
     {
-        StaminaBar.GetComponent<Slider>().value = (stamina * 100 / maxStamina) / 100;
+        StaminaBar.GetComponent<Slider>().value = (stamina * 100 / maxStamina) / 100f;
     }
     public void Heal(int healing, bool overheal)
     {
