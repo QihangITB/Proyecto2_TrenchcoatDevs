@@ -33,6 +33,10 @@ public class NetNodeMapGeneration : MonoBehaviour
     [Header("Path Prefab")]
     public GameObject Path;
 
+    [Header("Player Network Ghost prefab")]
+    [SerializeField]
+    private PlayerNetGhost _netGhostPrefab;
+
     private List<List<GameObject>> _allLevels;
     private List<List<GameObject>> _actionLevels;
     private GameObject _player;
@@ -59,7 +63,14 @@ public class NetNodeMapGeneration : MonoBehaviour
             FifthLevel
         };
         _player = GameObject.FindWithTag(PlayerTag);
-
+        if (_netManager.IsServer)
+        {
+            foreach (NetworkClient client in _netManager.ConnectedClients.Values)
+            {
+                
+            }
+        }
+        
         // Static nodes
         GenerateStaticNodes();
 
