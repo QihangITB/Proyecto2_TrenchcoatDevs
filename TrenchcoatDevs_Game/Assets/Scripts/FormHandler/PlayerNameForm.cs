@@ -39,6 +39,6 @@ public class PlayerNameForm : FormHandler
 
     private void Awake()
     {
-        _playerNameField.text = HostClientDiscovery.PlayerName;
+        _playerNameField.text = HostClientDiscovery.GetPlayerName();
     }
 }

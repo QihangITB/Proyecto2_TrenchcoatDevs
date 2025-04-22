@@ -535,6 +535,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _serverName: {fileID: 1007294866}
   _discovery: {fileID: 1439330300}
+  _startHostObject: {fileID: 0}
   nextSceneOnPlayerJoined: Menu
 --- !u!1 &583159530
 GameObject:
@@ -1635,6 +1636,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: NetworkManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4698192980349702509, guid: c17ec7b1800279141a212daec205ca78, type: 3}
+      propertyPath: NetworkConfig.Prefabs.NetworkPrefabsLists.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4698192980349702509, guid: c17ec7b1800279141a212daec205ca78, type: 3}
+      propertyPath: NetworkConfig.Prefabs.NetworkPrefabsLists.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 692a88c7ce3df6f40ba650ae896d8fbe, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1812,6 +1821,18 @@ MonoBehaviour:
   OnClientConnected:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1439330300}
+        m_TargetAssemblyTypeName: NetworkDiscovery`2[[DiscoveryBroadcastData, Assembly-CSharp
+        m_MethodName: StopDiscovery
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Loby
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1642921266}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
         m_MethodName: NetworkLoadScene
@@ -1821,7 +1842,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Result
+          m_StringArgument: Loby
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!4 &1439330301
