@@ -7,8 +7,9 @@ using UnityEngine;
 public class Lightitup : APassive
 {
     public GenericAttack attack;
-    public override void ActivatePassive(ACharacter player)
+    public override void ActivatePassive(CharacterOutOfBattle player)
     {
+        player.knownPassives.Add(this);
         player.basicAttack = attack;
     }
 }

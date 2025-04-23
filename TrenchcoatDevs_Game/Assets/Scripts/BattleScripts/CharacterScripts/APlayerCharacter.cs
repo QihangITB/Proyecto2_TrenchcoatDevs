@@ -9,4 +9,5 @@ public abstract class APlayer : ACharacter
     public int maxStamina;
     public string description;
     public List<APassive> passives;
+    public List<APassive> knowablePassives;
 }

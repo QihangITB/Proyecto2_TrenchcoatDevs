@@ -15,6 +15,8 @@ public class BattleManager : MonoBehaviour
     public List<GameObject> playerButtons = new List<GameObject>();
     public List<GameObject> enemyButtons = new List<GameObject>();
     public GameObject enemyTeamButton;
+    public GameObject playerTeamButton;
+    public GameObject allCharactersButton;
     public GameObject basicAttackButton;
     public GameObject restButton;
     public List<GameObject> abilityButtons = new List<GameObject>();
@@ -29,7 +31,7 @@ public class BattleManager : MonoBehaviour
     public int poisonDamageDivisor = 10;
     public bool canMove = true;
 
-    public void CharacterAllocation(List<APlayer> listOfPlayers, List<AEnemy> listOfenemies)
+    public void CharacterAllocation(List<APlayer> listOfPlayers, List<AEnemy> listOfenemies, List<CharacterOutOfBattle> listOfOutOfBattle)
     {
         for (int i = 0; i < players.Count; i++)
         {
@@ -37,7 +39,14 @@ public class BattleManager : MonoBehaviour
             {
                 players[i].character = listOfPlayers[i];
                 Debug.Log("Player " + i + " is " + players[i].character);
-                players[i].SelectCharacter();
+                if (listOfOutOfBattle[i]!=null)
+                {
+                    players[i].SelectCharacter(listOfOutOfBattle[i]);
+                }
+                else
+                {
+                    players[i].SelectCharacter(null);
+                }
             }
             else
             {
@@ -58,7 +67,7 @@ public class BattleManager : MonoBehaviour
             {
                 enemies[i].character = listOfenemies[i];
                 Debug.Log("Enemy " + i + " is " + enemies[i].character);
-                enemies[i].SelectCharacter();
+                enemies[i].SelectCharacter(null);
             }
             else
             {
@@ -72,19 +81,6 @@ public class BattleManager : MonoBehaviour
                 enemies[i]=null;
             }
         }
-
-        /*for (int i = 0; i < listOfPlayers.Count; i++)
-        {
-            players[i].character = listOfPlayers[i];
-            Debug.Log("Player " + i + " is " + players[i].character);
-            players[i].SelectCharacter();
-        }
-        for (int i = 0; i < listOfenemies.Count; i++)
-        {
-            enemies[i].character = listOfenemies[i];
-            Debug.Log("Enemy " + i + " is " + enemies[i].character);
-            enemies[i].SelectCharacter();
-        }*/
         StartRound();
     }
 
@@ -181,14 +177,14 @@ public class BattleManager : MonoBehaviour
                     basicAttackButton.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
                     restButton.GetComponent<Image>().enabled = true;
                     restButton.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
-                    for (int i = 0; i < character.character.attacks.Count; i++)
+                    for (int i = 0; i < character.characterOutOfBattle.knownAttacks.Count; i++)
                     {
                         abilityButtons[i].GetComponent<Image>().enabled = true;
                         abilityButtons[i].GetComponentInChildren<TextMeshProUGUI>().enabled = true;
-                        abilityButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = character.character.attacks[i].attackName;
-                        AssignAbilityToButton(abilityButtons[i], character.character.attacks[i]);
+                        abilityButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = character.characterOutOfBattle.knownAttacks[i].attackName;
+                        AssignAbilityToButton(abilityButtons[i], character.characterOutOfBattle.knownAttacks[i]);
                     }
-                    basicAttackButton.GetComponent<SelectAttack>().attack = character.character.basicAttack;
+                    basicAttackButton.GetComponent<SelectAttack>().attack = character.characterOutOfBattle.basicAttack;
                     Debug.Log(character.character + " elige un ataque");
                 }
             }
@@ -198,10 +194,26 @@ public class BattleManager : MonoBehaviour
             if (win)
             {
                 Debug.Log("You win");
+                for (int i = 0; i < players.Count; i++)
+                {
+                    if (players[i] != null)
+                    {
+                        PlayerManager.instance.charactersOutOfBattle[i].characterHP = players[i].HP;
+                    }
+                }
             }
             else
             {
                 Debug.Log("You lose");
+            }
+            basicAttackButton.GetComponent<Image>().enabled = false;
+            basicAttackButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+            restButton.GetComponent<Image>().enabled = false;
+            restButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+            foreach (GameObject button in abilityButtons)
+            {
+                button.GetComponent<Image>().enabled = false;
+                button.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
             }
         }
     }
@@ -278,7 +290,7 @@ public class BattleManager : MonoBehaviour
         if (character.isPoisoned)
         {
             Debug.Log(character.character + " is poisoned");
-            character.TakeDamage(character.maxHP / poisonDamageDivisor);
+            character.TakeDamage(character.maxHP / (poisonDamageDivisor*character.characterOutOfBattle.characterPoisonModifier));
         }
         if (character.isDisgusted)
         {
@@ -331,5 +343,7 @@ public class BattleManager : MonoBehaviour
             button.GetComponent<Image>().enabled = false;
         }
         enemyTeamButton.GetComponent<Image>().enabled = false;
+        playerTeamButton.GetComponent<Image>().enabled = false;
+        allCharactersButton.GetComponent<Image>().enabled = false;
     }
 }

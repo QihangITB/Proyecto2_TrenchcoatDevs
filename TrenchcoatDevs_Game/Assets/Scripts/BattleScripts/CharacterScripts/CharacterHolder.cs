@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class CharacterHolder : MonoBehaviour
 {
     public ACharacter character;
+    public CharacterOutOfBattle characterOutOfBattle;
     public int HP;
     public int maxHP;
     public int attack;
@@ -22,13 +23,23 @@ public class CharacterHolder : MonoBehaviour
     public bool isRested;
 
 
-    public void SelectCharacter()
+    public void SelectCharacter(CharacterOutOfBattle characterOutOfBattle)
     {
-        HP = character.health;
+        if (characterOutOfBattle != null)
+        {
+            this.characterOutOfBattle = characterOutOfBattle;
+            HP = characterOutOfBattle.characterHP;
+        }
+        else
+        {
+            this.characterOutOfBattle = null;
+            HP = character.health;
+        }
         maxHP = character.maxHealth;
         attack = character.damage;
         speed = character.speed;
         defense = character.defense;
+        UpdateHPBar();
     }
     public void TakeDamage(int damage)
     {
@@ -54,6 +65,18 @@ public class CharacterHolder : MonoBehaviour
             BattleManager.instance.characters.Remove(this);
             BattleManager.instance.players.Remove(this);
             BattleManager.instance.enemies.Remove(this);
+            BattleManager.instance.enemyButtons.Remove(this.gameObject);
+            BattleManager.instance.playerButtons.Remove(this.gameObject);
+            //quita las imagenes del padre 
+            foreach (Image image in GetComponentsInParent<Image>())
+            {
+                image.enabled = false;
+            }
+            HpBar.SetActive(false);
+            if (StaminaBar != null)
+            {
+                StaminaBar.SetActive(false);
+            }
             BattleManager.instance.CheckWin();
         }
         UpdateHPBar();

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "ChainExplosion", menuName = "Attacks/ChainExplosion")]
-public class ChainExplosion : GenericAreaAttack
+[CreateAssetMenu(fileName = "FireFountain", menuName = "Attacks/FireFountain")]
+public class FireFountain : GenericAreaAttack
 {
     public override void Effect(List<CharacterHolder> targets, CharacterHolder user)
     {
@@ -20,7 +20,7 @@ public class ChainExplosion : GenericAreaAttack
             {
                 if (target != null)
                 {
-                    target.TakeDamage(user.attack);
+                    target.GetBurnt();
                 }
             }
             BattleManager.instance.FinishTurn();
@@ -28,7 +28,7 @@ public class ChainExplosion : GenericAreaAttack
     }
     public override void ActivateTargetButtons()
     {
-        targetButtons[0] = BattleManager.instance.enemyTeamButton;
+        targetButtons[0] = BattleManager.instance.allCharactersButton;
         targetButtons[0].GetComponent<Image>().enabled = true;
     }
 }

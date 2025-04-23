@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd482fff4ac035d47bcae64eb399af1c, type: 3}
-  m_Name: MEGAThunderSO
+  m_Script: {fileID: 11500000, guid: 8ec3559984b0c494e8071cb2207ac194, type: 3}
+  m_Name: DohaBatteryPassiveSO
   m_EditorClassIdentifier: 
-  attackName: MEGA Thunder
-  description: Deals a lot of damage to one enemy
-  cost: 5
-  targetButtons:
-  - {fileID: 0}
-  - {fileID: 0}
+  passiveName: Doha Battery
+  passiveDescription: An attack that heavily damages all enemies
+  DohaBattery: {fileID: 11400000, guid: c3ac0d1aef95da146aed14974d2f03e6, type: 2}

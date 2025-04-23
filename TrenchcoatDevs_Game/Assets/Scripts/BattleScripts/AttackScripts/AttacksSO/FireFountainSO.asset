@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd482fff4ac035d47bcae64eb399af1c, type: 3}
-  m_Name: MEGAThunderSO
+  m_Script: {fileID: 11500000, guid: 6f9717fcf9484be4aabb7d8fe8ce7192, type: 3}
+  m_Name: FireFountainSO
   m_EditorClassIdentifier: 
-  attackName: MEGA Thunder
-  description: Deals a lot of damage to one enemy
-  cost: 5
+  attackName: Fire fountain
+  description: Burns all characters
+  cost: 3
   targetButtons:
-  - {fileID: 0}
   - {fileID: 0}

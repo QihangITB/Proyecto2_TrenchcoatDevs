@@ -5,8 +5,20 @@ using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "MEGAThunder", menuName = "Attacks/MEGAThunder")]
 
-public class MEGAthunder : GenericAreaAttack
+public class MEGAThunder : GenericAttack
 {
+    public override void ActivateTargetButtons()
+    {
+        targetButtons = BattleManager.instance.enemyButtons;
+        foreach (GameObject button in targetButtons)
+        {
+            if (button.GetComponent<CharacterHolder>().character != null)
+            {
+                button.GetComponent<Image>().enabled = true;
+            }
+        }
+    }
+
     public override void Effect(List<CharacterHolder> targets, CharacterHolder user)
     {
         if (user.stamina < cost)
@@ -17,20 +29,13 @@ public class MEGAthunder : GenericAreaAttack
         else
         {
             user.UseStamina(cost);
+
             foreach (CharacterHolder target in targets)
             {
-                if (target != null)
-                {
-                    target.TakeDamage(user.attack*3);
-                }
+                target.TakeDamage(user.attack * 5);
             }
-            user.TakeDamage(user.maxHP / 20);
             BattleManager.instance.FinishTurn();
+
         }
-    }
-    public override void ActivateTargetButtons()
-    {
-        targetButtons.Add(BattleManager.instance.enemyTeamButton);
-        targetButtons[0].GetComponent<Image>().enabled = true;
     }
 }

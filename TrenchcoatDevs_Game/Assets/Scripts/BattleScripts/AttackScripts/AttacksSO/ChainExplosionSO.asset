@@ -15,4 +15,5 @@ MonoBehaviour:
   attackName: Chain Explosion
   description: Damage all enemies
   cost: 2
-  targetButtons: []
+  targetButtons:
+  - {fileID: 0}

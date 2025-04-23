@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "ChainExplosion", menuName = "Attacks/ChainExplosion")]
-public class ChainExplosion : GenericAreaAttack
+[CreateAssetMenu(fileName = "DohaBattery", menuName = "Attacks/DohaBattery")]
+public class DohaBattery : GenericAreaAttack
 {
     public override void Effect(List<CharacterHolder> targets, CharacterHolder user)
     {
@@ -20,9 +20,10 @@ public class ChainExplosion : GenericAreaAttack
             {
                 if (target != null)
                 {
-                    target.TakeDamage(user.attack);
+                    target.TakeDamage(user.attack*3);
                 }
             }
+            user.TakeDamage(user.maxHP / 20);
             BattleManager.instance.FinishTurn();
         }
     }
