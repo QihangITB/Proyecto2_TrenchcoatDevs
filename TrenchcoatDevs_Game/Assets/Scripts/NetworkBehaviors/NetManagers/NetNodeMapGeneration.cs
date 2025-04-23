@@ -21,7 +21,6 @@ public class NetNodeMapGeneration : MonoBehaviour
     public int TreasureNodeNum;
 
     [Header("Node Levels")]
-    public GameObject TutorialNode;
     public GameObject StartNode;
     public GameObject BossLevel;
     public List<GameObject> FirstLevel;
@@ -46,7 +45,6 @@ public class NetNodeMapGeneration : MonoBehaviour
     {
         _netManager = NetworkManager.Singleton;
         _allLevels = new List<List<GameObject>> {
-            new List<GameObject> { TutorialNode },
             new List<GameObject> { StartNode },
             FirstLevel,
             SecondLevel,
@@ -99,7 +97,6 @@ public class NetNodeMapGeneration : MonoBehaviour
     // NODES
     private void GenerateStaticNodes()
     {
-        SetNode(TutorialNode, BattleP);
         SetNode(BossLevel, BattleP);
 
         SetNode(StartNode, CharacterP);
@@ -151,14 +148,20 @@ public class NetNodeMapGeneration : MonoBehaviour
 
     private void SetNode(GameObject node, GameObject nodePrefab)
     {
-        Instantiate(nodePrefab, node.transform.position, node.transform.rotation, node.transform);
+        if (_netManager.IsServer)
+        {
+            NetworkObject netPrefab = nodePrefab.GetComponent<NetworkObject>();
+            NetworkObject netNode = node.GetComponent<NetworkObject>();
+            NetworkObject instantiatedObject = _netManager.SpawnManager.InstantiateAndSpawn(netPrefab, default, true, default, default, node.transform.position, node.transform.rotation);
+            instantiatedObject.TrySetParent(netNode, false);
+        }
+        
     }
 
 
     // PATH
     private void GeneratePath(GameObject pathPrefab)
     {
-        SetPath(TutorialNode, StartNode, pathPrefab);
 
         foreach (GameObject node in FirstLevel)
         {
@@ -198,8 +201,15 @@ public class NetNodeMapGeneration : MonoBehaviour
 
     private void SetPath(GameObject origin, GameObject destination, GameObject pathPrefab)
     {
-        Vector3 direction = origin.transform.position - destination.transform.position;
-        Instantiate(pathPrefab, destination.transform.position, Quaternion.LookRotation(direction), destination.transform);
+        if (_netManager.IsServer)
+        {
+            Vector3 direction = origin.transform.position - destination.transform.position;
+            NetworkObject netPrefab = pathPrefab.GetComponent<NetworkObject>();
+            NetworkObject netDestination = destination.GetComponent<NetworkObject>();
+            NetworkObject instantiatedObject = _netManager.SpawnManager.InstantiateAndSpawn(netPrefab,default,true,default,default,destination.transform.position, Quaternion.LookRotation(direction));
+            instantiatedObject.TrySetParent(netDestination, false);
+        }
+        
     }
 
     private List<Transform> GetPathsToPreviousNode(GameObject node)
@@ -228,7 +238,7 @@ public class NetNodeMapGeneration : MonoBehaviour
         }
 
         // Excepto el primer nodo
-        TutorialNode.SetActive(true);
+        StartNode.SetActive(true);
     }
 
     private int GetPlayerLevel()
