@@ -6,11 +6,14 @@ using UnityEngine;
 public class DohaBatteryPassive : APassive
 {
     public AAttack DohaBattery;
-    public override void ActivatePassive(CharacterOutOfBattle player)
+    public override void ObtainPassive(CharacterOutOfBattle player)
     {
         if (!player.knownAttacks.Contains(DohaBattery))
         {
             player.knownAttacks.Add(DohaBattery);
         }
+    }
+    public override void ActivatePassive(CharacterHolder player)
+    {
     }
 }

@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class SelectTypeOfAttack : MonoBehaviour
+public class SelectTypeOfAttack : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public SelectAttack attack;
     public SelectAreaAttack areaAttack;
     public bool isAreaAttack;
+    public TextMeshProUGUI description;
 
     public void SelectAttack()
     {
@@ -18,5 +22,26 @@ public class SelectTypeOfAttack : MonoBehaviour
         {
             attack.SelectGenericAttack();
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        Debug.Log("Mouse enter");
+        //activa el padre del descripcion
+        description.transform.parent.gameObject.SetActive(true);
+        if (isAreaAttack)
+        {
+            description.text = areaAttack.attack.attackName + "\n"+ areaAttack.attack.description;
+        }
+        else
+        {
+            description.text = attack.attack.attackName + "\n"+attack.attack.description;
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        description.transform.parent.gameObject.SetActive(false);
+
     }
 }

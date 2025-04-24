@@ -7,7 +7,11 @@ using UnityEngine;
 public class MEGAThunderPassive : APassive
 {
     public AAttack MEGAThunder;
-    public override void ActivatePassive(CharacterOutOfBattle player)
+    public override void ActivatePassive(CharacterHolder player)
+    {
+    }
+
+    public override void ObtainPassive(CharacterOutOfBattle player)
     {
         if (!player.knownAttacks.Contains(MEGAThunder))
         {

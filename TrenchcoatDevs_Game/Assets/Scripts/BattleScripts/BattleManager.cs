@@ -81,6 +81,24 @@ public class BattleManager : MonoBehaviour
                 enemies[i]=null;
             }
         }
+        //por cada pasiva de los personajes de la lista de jugadores, esta se activa
+        foreach (CharacterHolder character in players)
+        {
+            if (character != null)
+            {
+                //busca las pasivas del personaj de list out of battle que tenga el mismo character
+                foreach (CharacterOutOfBattle characterOutOfBattle in listOfOutOfBattle)
+                {
+                    if (character.character == characterOutOfBattle.character)
+                    {
+                        foreach (APassive passive in characterOutOfBattle.knownPassives)
+                        {
+                            passive.ActivatePassive(character);
+                        }
+                    }
+                }
+            }
+        }
         StartRound();
     }
 
