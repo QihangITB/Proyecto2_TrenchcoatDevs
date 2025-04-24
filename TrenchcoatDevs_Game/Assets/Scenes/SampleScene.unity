@@ -5219,6 +5219,7 @@ MonoBehaviour:
   characterPoisonModifier: 0
   knownPassives:
   - {fileID: 11400000, guid: 3ee1ee2eefc43cf4999175fa9760acd1, type: 2}
+  - {fileID: 11400000, guid: 3ee1ee2eefc43cf4999175fa9760acd1, type: 2}
   knownAttacks:
   - {fileID: 11400000, guid: 08bd89388246afb43922e6700521162f, type: 2}
   - {fileID: 11400000, guid: c3ac0d1aef95da146aed14974d2f03e6, type: 2}
