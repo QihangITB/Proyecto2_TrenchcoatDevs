@@ -18,7 +18,7 @@ public class NetNodeMapGeneration : NodeMapGeneration
             foreach (NetworkClient client in NetworkManager.Singleton.ConnectedClients.Values)
             {
                 NetworkObject ghostNetObject = _playerNetGhostPrefab.GetComponent<NetworkObject>();
-                NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(ghostNetObject, client.ClientId,true);
+                NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(ghostNetObject, client.ClientId,true,default,default,Player.transform.position,Player.transform.rotation);
             }
         }
     }

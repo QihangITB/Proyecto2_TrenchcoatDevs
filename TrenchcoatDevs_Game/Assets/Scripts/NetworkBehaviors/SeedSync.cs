@@ -7,11 +7,11 @@ using UnityEngine;
 public class SeedSync : NetworkBehaviour
 {
     NetworkVariable<int> _seed = new NetworkVariable<int>();
-    private void OnNetworkInstantiate()
+    public override void OnNetworkSpawn()
     {
         if (IsServer)
         {
-            _seed.Value = Convert.ToInt32(DateTime.Now.Ticks);
+            _seed.Value = unchecked((int)DateTime.Now.Ticks);
         }
 
     }

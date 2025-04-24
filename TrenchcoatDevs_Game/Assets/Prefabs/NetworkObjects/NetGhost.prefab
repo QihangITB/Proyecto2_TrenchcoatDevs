@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -7651220628390744861}
   m_Layer: 0
   m_Name: NetGhost
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5932d9da05b01684d962039b6e2df0cf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -138,6 +138,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b40645d409070741afd03bbd69e4cfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _distanceOffsetTrigger: 5
+  _onProximityOffset: {x: -3, y: -3, z: -3}
 --- !u!114 &-7651220628390744861
 MonoBehaviour:
   m_ObjectHideFlags: 0

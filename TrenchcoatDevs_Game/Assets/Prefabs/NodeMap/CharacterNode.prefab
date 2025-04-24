@@ -432,7 +432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SelectionObject: {fileID: 4638002747965019676}
   NonSelectionObject: {fileID: 1792131027947033116}
-  PlayerSpeed: 10
+  PlayerSpeed: 80
   PlayerDistance: 2
   IsInteractable: 1
 --- !u!1 &7839966804362528731
