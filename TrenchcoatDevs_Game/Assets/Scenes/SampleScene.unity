@@ -2827,11 +2827,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e672d6bb3a98df64380ca1a948aaed29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 11400000, guid: 284fa62b2b86f6243bc78844b5242b4c, type: 2}
+  character: {fileID: 11400000, guid: 621d41bae5ce8da439ae848e5f8becb6, type: 2}
   characterHP: 10
-  characterPoisonModifier: 0
-  knownPassives: []
-  knownAttacks: []
+  characterPoisonModifier: 1
+  knownPassives:
+  - {fileID: 11400000, guid: 081b1de55b239114c9f1bb193aa35e93, type: 2}
+  - {fileID: 11400000, guid: 448aa678d408f3b40b49fd30fcba5370, type: 2}
+  - {fileID: 11400000, guid: 99167549c9de1844fac0e48913e748b5, type: 2}
+  knownAttacks:
+  - {fileID: 11400000, guid: 3c035b9323e804749953170c117edd7b, type: 2}
+  - {fileID: 11400000, guid: d12853c42e0da2944a582f67eb451552, type: 2}
+  - {fileID: 11400000, guid: 6911e36ccfd00da4eb37292c0624865b, type: 2}
+  - {fileID: 11400000, guid: 9eee32df219938349bd2003bc16fbc00, type: 2}
+  - {fileID: 11400000, guid: 01d0f9ba82f8d08459847817c0cd8558, type: 2}
   basicAttack: {fileID: 11400000, guid: 370af78e6e233b448a875b62f530f850, type: 2}
 --- !u!1 &561229102
 GameObject:
@@ -3815,13 +3823,18 @@ MonoBehaviour:
   attack: 2
   speed: 2
   defense: 0
+  precisionModifier: 0
+  healingModifier: 0
   HpBar: {fileID: 1387754564}
   StaminaBar: {fileID: 0}
   stamina: 0
   maxStamina: 0
   isPoisoned: 0
+  poisonInmune: 0
   isDisgusted: 0
+  disgustInmune: 0
   isBurnt: 0
+  burnInmune: 0
   isRegenerating: 0
   isRested: 0
 --- !u!1 &714973024
@@ -5161,13 +5174,18 @@ MonoBehaviour:
   attack: 7
   speed: 3
   defense: 0
+  precisionModifier: 0
+  healingModifier: 0
   HpBar: {fileID: 579170193}
   StaminaBar: {fileID: 0}
   stamina: 0
   maxStamina: 0
   isPoisoned: 0
+  poisonInmune: 0
   isDisgusted: 0
+  disgustInmune: 0
   isBurnt: 0
+  burnInmune: 0
   isRegenerating: 0
   isRested: 0
 --- !u!1 &885739667
@@ -5216,10 +5234,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 11400000, guid: 76443ce920582c84099568732439aac9, type: 2}
   characterHP: 5
-  characterPoisonModifier: 0
+  characterPoisonModifier: 1
   knownPassives:
   - {fileID: 11400000, guid: 3ee1ee2eefc43cf4999175fa9760acd1, type: 2}
-  - {fileID: 11400000, guid: 3ee1ee2eefc43cf4999175fa9760acd1, type: 2}
+  - {fileID: 11400000, guid: 5adb95e82b3273f49b4780e0265dcecc, type: 2}
+  - {fileID: 11400000, guid: fdacffd91796aae47b5d954f0cc0d0bf, type: 2}
   knownAttacks:
   - {fileID: 11400000, guid: 08bd89388246afb43922e6700521162f, type: 2}
   - {fileID: 11400000, guid: c3ac0d1aef95da146aed14974d2f03e6, type: 2}
@@ -5849,13 +5868,18 @@ MonoBehaviour:
   attack: 1
   speed: 1
   defense: 0
+  precisionModifier: 0
+  healingModifier: 0
   HpBar: {fileID: 759440878}
   StaminaBar: {fileID: 1872103150}
   stamina: 10
   maxStamina: 10
   isPoisoned: 0
+  poisonInmune: 0
   isDisgusted: 0
+  disgustInmune: 0
   isBurnt: 0
+  burnInmune: 0
   isRegenerating: 0
   isRested: 0
 --- !u!114 &993541537
@@ -5917,7 +5941,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 11400000, guid: 284fa62b2b86f6243bc78844b5242b4c, type: 2}
   characterHP: 10
-  characterPoisonModifier: 0
+  characterPoisonModifier: 1
   knownPassives: []
   knownAttacks: []
   basicAttack: {fileID: 11400000, guid: 370af78e6e233b448a875b62f530f850, type: 2}
@@ -8841,13 +8865,18 @@ MonoBehaviour:
   attack: 3
   speed: 1
   defense: 0
+  precisionModifier: 0
+  healingModifier: 0
   HpBar: {fileID: 86791775}
   StaminaBar: {fileID: 0}
   stamina: 10
   maxStamina: 10
   isPoisoned: 0
+  poisonInmune: 0
   isDisgusted: 0
+  disgustInmune: 0
   isBurnt: 0
+  burnInmune: 0
   isRegenerating: 0
   isRested: 0
 --- !u!1 &1632337888
@@ -9887,13 +9916,18 @@ MonoBehaviour:
   attack: 1
   speed: 1
   defense: 0
+  precisionModifier: 0
+  healingModifier: 0
   HpBar: {fileID: 435510320}
   StaminaBar: {fileID: 956615324}
   stamina: 10
   maxStamina: 10
   isPoisoned: 0
+  poisonInmune: 0
   isDisgusted: 0
+  disgustInmune: 0
   isBurnt: 0
+  burnInmune: 0
   isRegenerating: 0
   isRested: 0
 --- !u!114 &1817131356
@@ -10575,13 +10609,18 @@ MonoBehaviour:
   attack: 2
   speed: 1
   defense: 0
+  precisionModifier: 0
+  healingModifier: 0
   HpBar: {fileID: 1800017157}
   StaminaBar: {fileID: 785920177}
   stamina: 10
   maxStamina: 10
   isPoisoned: 0
+  poisonInmune: 0
   isDisgusted: 0
+  disgustInmune: 0
   isBurnt: 0
+  burnInmune: 0
   isRegenerating: 0
   isRested: 0
 --- !u!114 &2024307062

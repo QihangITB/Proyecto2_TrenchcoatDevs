@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f9717fcf9484be4aabb7d8fe8ce7192, type: 3}
-  m_Name: FireFountainSO
+  m_Script: {fileID: 11500000, guid: 2078d16a65d517743b9df66febddd206, type: 3}
+  m_Name: DontWasteFoodSO
   m_EditorClassIdentifier: 
-  attackName: Fire Fountain
-  description: Burns all characters
-  cost: 3
-  targetButtons:
-  - {fileID: 0}
+  passiveName: Don't Waste Food
+  passiveDescription: Your team heals when an enemy dies

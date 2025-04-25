@@ -26,7 +26,6 @@ public class SelectTypeOfAttack : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("Mouse enter");
         //activa el padre del descripcion
         description.transform.parent.gameObject.SetActive(true);
         if (isAreaAttack)

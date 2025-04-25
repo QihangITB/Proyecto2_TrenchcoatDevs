@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f9717fcf9484be4aabb7d8fe8ce7192, type: 3}
-  m_Name: FireFountainSO
+  m_Script: {fileID: 11500000, guid: abacd09878b648d4d998621188546324, type: 3}
+  m_Name: EatMorePassiveSO
   m_EditorClassIdentifier: 
-  attackName: Fire Fountain
-  description: Burns all characters
-  cost: 3
-  targetButtons:
-  - {fileID: 0}
+  passiveName: Eat More
+  passiveDescription: Overheals the entire party
+  EatMore: {fileID: 11400000, guid: d12853c42e0da2944a582f67eb451552, type: 2}

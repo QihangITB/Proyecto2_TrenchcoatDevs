@@ -28,7 +28,15 @@ public class BasicAttack : GenericAttack
         }*/
         Debug.Log("Target: " + targets[randomIndex].gameObject.name);
         BattleManager.instance.targets.Add(targets[randomIndex]);
-        BattleManager.instance.targets[0].TakeDamage(user.attack);
+        //crea un random entre 0 y 10 y comprueba si es menor que el precisionModifier
+        int randomPrecision = Random.Range(1, 11);
+        if (randomPrecision > user.precisionModifier) {
+            Debug.Log("Attack missed");
+        }
+        else
+        {
+            BattleManager.instance.targets[0].TakeDamage(user.attack);
+        }
 
     }
 }

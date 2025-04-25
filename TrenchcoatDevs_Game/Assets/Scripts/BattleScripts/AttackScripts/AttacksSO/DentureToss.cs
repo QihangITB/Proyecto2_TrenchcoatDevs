@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "MolotovCocktail", menuName = "Attacks/MolotovCocktail")]
-public class MolotovCocktail : GenericAttack
+[CreateAssetMenu(fileName = "DentureToss", menuName = "Attacks/DentureToss")]
+public class DentureToss : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
@@ -31,7 +31,7 @@ public class MolotovCocktail : GenericAttack
             foreach (CharacterHolder target in targets)
             {
                 target.TakeDamage(user.attack * 2);
-                target.GetBurnt();
+                target.GetDisgusted();
             }
             BattleManager.instance.FinishTurn();
         }

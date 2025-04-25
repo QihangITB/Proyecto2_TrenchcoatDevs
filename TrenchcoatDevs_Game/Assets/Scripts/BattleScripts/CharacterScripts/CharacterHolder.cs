@@ -12,13 +12,18 @@ public class CharacterHolder : MonoBehaviour
     public int attack;
     public int speed;
     public int defense;
+    public int precisionModifier;
+    public int healingModifier;
     public GameObject HpBar;
     public GameObject StaminaBar;
     public int stamina;
     public int maxStamina;
     public bool isPoisoned;
+    public bool poisonInmune;
     public bool isDisgusted;
+    public bool disgustInmune;
     public bool isBurnt;
+    public bool burnInmune;
     public bool isRegenerating;
     public bool isRested;
 
@@ -39,6 +44,8 @@ public class CharacterHolder : MonoBehaviour
         attack = character.damage;
         speed = character.speed;
         defense = character.defense;
+        precisionModifier = 10;
+        healingModifier = 1;
         UpdateHPBar();
     }
     public void TakeDamage(int damage)
@@ -64,10 +71,26 @@ public class CharacterHolder : MonoBehaviour
             BattleManager.instance.CharOrderInTurn.Remove(this);
             BattleManager.instance.characters.Remove(this);
             BattleManager.instance.players.Remove(this);
-            BattleManager.instance.enemies.Remove(this);
+            if (BattleManager.instance.enemies.Contains(this))
+            {
+                BattleManager.instance.enemies.Remove(this);
+                //busca entre todas las pasivas de las lista de players si alguna tiiene dontwaste food
+                foreach (CharacterHolder player in BattleManager.instance.players)
+                {
+                    foreach (APassive passive in player.characterOutOfBattle.knownPassives)
+                    {
+                        if (passive is DontWasteFood)
+                        {
+                            foreach (CharacterHolder healedPlayer in BattleManager.instance.players)
+                            {
+                                healedPlayer.Heal(healedPlayer.maxHP/5, false);
+                            }
+                        }
+                    }
+                }
+            }
             BattleManager.instance.enemyButtons.Remove(this.gameObject);
             BattleManager.instance.playerButtons.Remove(this.gameObject);
-            //quita las imagenes del padre 
             foreach (Image image in GetComponentsInParent<Image>())
             {
                 image.enabled = false;
@@ -83,18 +106,42 @@ public class CharacterHolder : MonoBehaviour
     }
     public void GetPoisoned()
     {
-        isPoisoned = true;
-        Debug.Log(character + " is now poisoned");
+        if (poisonInmune)
+        {
+            Debug.Log(character + " is inmune to poison");
+        }
+        else
+        {
+
+            isPoisoned = true;
+            Debug.Log(character + " is now poisoned");
+        }
     }
     public void GetDisgusted()
     {
-        isDisgusted = true;
-        Debug.Log(character + " is now disgusted");
+        if (disgustInmune)
+        {
+            Debug.Log(character + " is inmune to disgust");
+        }
+        else
+        {
+            isDisgusted = true;
+            Debug.Log(character + " is now disgusted");
+        }
+
     }
     public void GetBurnt()
     {
-        isBurnt = true;
-        Debug.Log(character + " is now burnt");
+        if (burnInmune)
+        {
+            Debug.Log(character + " is inmune to burn");
+        }
+        else
+        {
+            isBurnt = true;
+            Debug.Log(character + " is now burnt");
+        }
+
     }
     public void GetRegenerating()
     {
@@ -117,6 +164,7 @@ public class CharacterHolder : MonoBehaviour
     }
     public void Heal(int healing, bool overheal)
     {
+        Debug.Log(character + " healed for " + healing);
         HP += healing;
         if (HP > maxHP && !overheal)
         {

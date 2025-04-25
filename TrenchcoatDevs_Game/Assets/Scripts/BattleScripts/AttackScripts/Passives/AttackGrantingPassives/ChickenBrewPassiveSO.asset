@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f9717fcf9484be4aabb7d8fe8ce7192, type: 3}
-  m_Name: FireFountainSO
+  m_Script: {fileID: 11500000, guid: 9a57a9dbbd3b41a4b9c05b25c4c5b4e3, type: 3}
+  m_Name: ChickenBrewPassiveSO
   m_EditorClassIdentifier: 
-  attackName: Fire Fountain
-  description: Burns all characters
-  cost: 3
-  targetButtons:
-  - {fileID: 0}
+  passiveName: Chicken Brew
+  passiveDescription: Cures an ally of any bad status and grants it rested
+  ChickenBrew: {fileID: 11400000, guid: 9eee32df219938349bd2003bc16fbc00, type: 2}

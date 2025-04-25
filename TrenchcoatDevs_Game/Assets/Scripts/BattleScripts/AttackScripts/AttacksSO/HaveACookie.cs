@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "MolotovCocktail", menuName = "Attacks/MolotovCocktail")]
-public class MolotovCocktail : GenericAttack
+[CreateAssetMenu(fileName = "HaveACookie", menuName = "Attacks/HaveACookie")]
+public class HaveACookie : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
-        targetButtons = BattleManager.instance.enemyButtons;
+        targetButtons = BattleManager.instance.playerButtons;
         foreach (GameObject button in targetButtons)
         {
             if (button.GetComponent<CharacterHolder>().character != null)
@@ -30,8 +30,8 @@ public class MolotovCocktail : GenericAttack
             user.UseStamina(cost);
             foreach (CharacterHolder target in targets)
             {
-                target.TakeDamage(user.attack * 2);
-                target.GetBurnt();
+                target.Heal((target.maxHP / 4)*user.healingModifier, true);
+                target.GetRegenerating();
             }
             BattleManager.instance.FinishTurn();
         }

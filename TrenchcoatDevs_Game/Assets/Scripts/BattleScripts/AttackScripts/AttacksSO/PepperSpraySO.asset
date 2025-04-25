@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f9717fcf9484be4aabb7d8fe8ce7192, type: 3}
-  m_Name: FireFountainSO
+  m_Script: {fileID: 11500000, guid: ce27c7098c3b35d4cb4974e9a0afa16e, type: 3}
+  m_Name: PepperSpraySO
   m_EditorClassIdentifier: 
-  attackName: Fire Fountain
-  description: Burns all characters
-  cost: 3
+  attackName: Pepper Spray
+  description: Lowers accuracy of the enemy
+  cost: 4
   targetButtons:
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}

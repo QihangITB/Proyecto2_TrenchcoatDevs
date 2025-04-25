@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f9717fcf9484be4aabb7d8fe8ce7192, type: 3}
-  m_Name: FireFountainSO
+  m_Script: {fileID: 11500000, guid: 5444fcc91d797b84898b01a6cda647d1, type: 3}
+  m_Name: ShortFuseSO
   m_EditorClassIdentifier: 
-  attackName: Fire Fountain
-  description: Burns all characters
-  cost: 3
-  targetButtons:
-  - {fileID: 0}
+  passiveName: Short Fuse
+  passiveDescription: Heavily increases speed

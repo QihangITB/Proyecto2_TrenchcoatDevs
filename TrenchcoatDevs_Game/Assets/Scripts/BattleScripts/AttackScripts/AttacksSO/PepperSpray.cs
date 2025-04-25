@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "MolotovCocktail", menuName = "Attacks/MolotovCocktail")]
-public class MolotovCocktail : GenericAttack
+[CreateAssetMenu(fileName = "PepperSpray", menuName = "Attacks/PepperSpray")]
+
+public class PepperSpray : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
@@ -17,7 +18,6 @@ public class MolotovCocktail : GenericAttack
             }
         }
     }
-
     public override void Effect(List<CharacterHolder> targets, CharacterHolder user)
     {
         if (user.stamina < cost)
@@ -25,16 +25,19 @@ public class MolotovCocktail : GenericAttack
             Debug.Log("Not enough stamina");
             return;
         }
-        else
+        foreach (CharacterHolder target in targets)
         {
-            user.UseStamina(cost);
-            foreach (CharacterHolder target in targets)
+            if (target.precisionModifier - 2 <= 5) 
             {
-                target.TakeDamage(user.attack * 2);
-                target.GetBurnt();
+                target.precisionModifier = 5;
+                Debug.Log(target.gameObject + "'s precision can't get lower");
             }
-            BattleManager.instance.FinishTurn();
+            else
+            {
+                target.precisionModifier -= 2;
+                Debug.Log(target.gameObject + "'s precision has gone down");
+            }
         }
-
+        BattleManager.instance.FinishTurn();
     }
 }

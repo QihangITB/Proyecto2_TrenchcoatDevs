@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f9717fcf9484be4aabb7d8fe8ce7192, type: 3}
-  m_Name: FireFountainSO
+  m_Script: {fileID: 11500000, guid: e9f886a41bc6e3f40a07f96f082438a3, type: 3}
+  m_Name: DentureTossPassiveSO
   m_EditorClassIdentifier: 
-  attackName: Fire Fountain
-  description: Burns all characters
-  cost: 3
-  targetButtons:
-  - {fileID: 0}
+  passiveName: Denture Toss
+  passiveDescription: Damages and disgusts an enemy
+  DentureToss: {fileID: 11400000, guid: 01d0f9ba82f8d08459847817c0cd8558, type: 2}

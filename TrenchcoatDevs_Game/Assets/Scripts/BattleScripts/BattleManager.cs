@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -28,7 +29,7 @@ public class BattleManager : MonoBehaviour
     public List<CharacterHolder> targets = new List<CharacterHolder>();
     public bool fightIsFinished = false;
     public bool win = false;
-    public int poisonDamageDivisor = 10;
+    public int poisonDamageDivisor = 5;
     public bool canMove = true;
 
     public void CharacterAllocation(List<APlayer> listOfPlayers, List<AEnemy> listOfenemies, List<CharacterOutOfBattle> listOfOutOfBattle)
@@ -216,6 +217,10 @@ public class BattleManager : MonoBehaviour
                 {
                     if (players[i] != null)
                     {
+                        if (players[i].HP > players[i].maxHP)
+                        {
+                            players[i].HP = players[i].maxHP;
+                        }
                         PlayerManager.instance.charactersOutOfBattle[i].characterHP = players[i].HP;
                     }
                 }
@@ -308,11 +313,11 @@ public class BattleManager : MonoBehaviour
         if (character.isPoisoned)
         {
             Debug.Log(character.character + " is poisoned");
-            character.TakeDamage(character.maxHP / (poisonDamageDivisor*character.characterOutOfBattle.characterPoisonModifier));
+            character.TakeDamage(character.maxHP / Convert.ToInt32(poisonDamageDivisor*character.characterOutOfBattle.characterPoisonModifier));
         }
         if (character.isDisgusted)
         {
-            int random = Random.Range(0, 10);
+            int random = UnityEngine.Random.Range(0, 10);
             if (random < 3)
             {
                 canMove = false;
@@ -321,13 +326,13 @@ public class BattleManager : MonoBehaviour
         }
         if (character.isRegenerating)
         {
-            character.Heal(character.maxHP / 20, false);
-            Debug.Log(character.character + " is regenerating and healed " + character.maxHP / 10 + " HP");
+            character.Heal(character.maxHP / 5, false);
+            Debug.Log(character.character + " is regenerating");
         }
         if (character.isRested)
         {
             character.Rest(character.maxStamina/20);
-            Debug.Log(character.character + " is rested and recovered " + character.maxStamina / 20 + " stamina");
+            Debug.Log(character.character + " is rested");
         }
     }
     
