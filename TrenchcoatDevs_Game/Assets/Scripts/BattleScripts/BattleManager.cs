@@ -21,6 +21,8 @@ public class BattleManager : MonoBehaviour
     public GameObject basicAttackButton;
     public GameObject restButton;
     public List<GameObject> abilityButtons = new List<GameObject>();
+    public GameObject hpBar;
+    public GameObject staminaBar;
     public GenericAttack attack;
     public GenericAreaAttack areaAttack;
     public AAttack enemyAttack;
@@ -178,6 +180,8 @@ public class BattleManager : MonoBehaviour
                 basicAttackButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
                 restButton.GetComponent<Image>().enabled = false;
                 restButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+                hpBar.SetActive(false);
+                staminaBar.SetActive(false);
                 foreach (GameObject button in abilityButtons)
                 {
                     button.GetComponent<Image>().enabled = false;
@@ -192,6 +196,12 @@ public class BattleManager : MonoBehaviour
                 }
                 else
                 {
+                    staminaBar.SetActive(true);
+                    hpBar.SetActive(true);
+                    hpBar.GetComponentInChildren<TextMeshProUGUI>().text = character.HP.ToString() + "HP / " + character.maxHP.ToString()+"HP";
+                    staminaBar.GetComponentInChildren<TextMeshProUGUI>().text = character.stamina.ToString() + "St / " + character.maxStamina.ToString()+"St";
+                    hpBar.GetComponentInChildren<Slider>().value = (float)character.HP / (float)character.maxHP;
+                    staminaBar.GetComponentInChildren<Slider>().value = (float)character.stamina / (float)character.maxStamina;
                     basicAttackButton.GetComponent<Image>().enabled = true;
                     basicAttackButton.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
                     restButton.GetComponent<Image>().enabled = true;
