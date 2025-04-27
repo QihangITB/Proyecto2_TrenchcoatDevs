@@ -26,10 +26,10 @@ MonoBehaviour:
   description: Heals her teammates with a seamingly unending supply of food
   passives:
   - {fileID: 11400000, guid: 081b1de55b239114c9f1bb193aa35e93, type: 2}
-  - {fileID: 11400000, guid: 99167549c9de1844fac0e48913e748b5, type: 2}
-  - {fileID: 11400000, guid: 448aa678d408f3b40b49fd30fcba5370, type: 2}
   knowablePassives:
   - {fileID: 11400000, guid: c690b2032d4a0fe43b155e1169e4b1f0, type: 2}
   - {fileID: 11400000, guid: a46c93f22d0c79c46b8f7528ce019e2b, type: 2}
   - {fileID: 11400000, guid: 10de93ee9d8276b4e9393f15d185973e, type: 2}
   - {fileID: 11400000, guid: 9e8a136feebc40e4d9c748601c2f3442, type: 2}
+  - {fileID: 11400000, guid: 448aa678d408f3b40b49fd30fcba5370, type: 2}
+  - {fileID: 11400000, guid: 99167549c9de1844fac0e48913e748b5, type: 2}

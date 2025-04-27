@@ -313,7 +313,14 @@ public class BattleManager : MonoBehaviour
         if (character.isPoisoned)
         {
             Debug.Log(character.character + " is poisoned");
-            character.TakeDamage(character.maxHP / Convert.ToInt32(poisonDamageDivisor*character.characterOutOfBattle.characterPoisonModifier));
+            if (character.characterOutOfBattle != null)
+            {
+                character.TakeDamage(character.maxHP / poisonDamageDivisor - character.characterOutOfBattle.characterPoisonModifier);
+            }
+            else
+            {
+                character.TakeDamage(character.maxHP / poisonDamageDivisor);
+            }
         }
         if (character.isDisgusted)
         {

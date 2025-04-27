@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a06c7eb7ec7d1744abeb798b9bacb74, type: 3}
-  m_Name: ThickClothesSO
+  m_Script: {fileID: 11500000, guid: 01591fe63e63fde49adeef8eb51864a6, type: 3}
+  m_Name: ReflexSprayPassiveSO
   m_EditorClassIdentifier: 
-  passiveName: Thick Clothes
-  passiveDescription: Immunity to burn
+  passiveName: Reflex Spray
+  passiveDescription: Heals and removes burns from an ally
+  ReflexSpray: {fileID: 11400000, guid: 1bdf01a25e92209418c17468071aedc9, type: 2}

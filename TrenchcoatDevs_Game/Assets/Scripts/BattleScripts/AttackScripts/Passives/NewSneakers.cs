@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(fileName = "ShortFuse", menuName = "Passives/ShortFuse")]
+[CreateAssetMenu(fileName = "NewSneakers", menuName = "Passives/NewSneakers")]
 
-public class ShortFuse : APassive
+public class NewSneakers : APassive
 {
     public override void ActivatePassive(CharacterHolder player)
     {

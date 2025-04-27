@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a06c7eb7ec7d1744abeb798b9bacb74, type: 3}
-  m_Name: ThickClothesSO
+  m_Script: {fileID: 11500000, guid: 5444fcc91d797b84898b01a6cda647d1, type: 3}
+  m_Name: NewSneakersSO
   m_EditorClassIdentifier: 
-  passiveName: Thick Clothes
-  passiveDescription: Immunity to burn
+  passiveName: New Sneakers
+  passiveDescription: Heavily increases speed

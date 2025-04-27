@@ -6,7 +6,7 @@ public class CharacterOutOfBattle : MonoBehaviour
 {
     public APlayer character;
     public int characterHP;
-    public float characterPoisonModifier;
+    public int characterPoisonModifier;
     public List<APassive> knownPassives = new List<APassive>();
     public List<AAttack> knownAttacks = new List<AAttack>();
     public GenericAttack basicAttack;

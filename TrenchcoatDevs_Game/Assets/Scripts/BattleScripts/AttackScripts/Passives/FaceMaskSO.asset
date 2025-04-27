@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5444fcc91d797b84898b01a6cda647d1, type: 3}
-  m_Name: ShortFuseSO
+  m_Script: {fileID: 11500000, guid: aa3e8b8034d940d42a9359584b93a263, type: 3}
+  m_Name: FaceMaskSO
   m_EditorClassIdentifier: 
-  passiveName: Short Fuse
-  passiveDescription: Heavily increases speed
+  passiveName: Face Mask
+  passiveDescription: Immunity to poison

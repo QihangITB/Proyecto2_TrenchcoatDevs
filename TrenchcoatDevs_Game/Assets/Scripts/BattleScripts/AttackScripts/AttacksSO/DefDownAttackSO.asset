@@ -9,8 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a06c7eb7ec7d1744abeb798b9bacb74, type: 3}
-  m_Name: ThickClothesSO
+  m_Script: {fileID: 11500000, guid: 57f85c572d7466f4896b93b978c4579f, type: 3}
+  m_Name: DefDownAttackSO
   m_EditorClassIdentifier: 
-  passiveName: Thick Clothes
-  passiveDescription: Immunity to burn
+  attackName: Corrosive Gases
+  description: Damage and lower the defense of an enemy
+  cost: 0
+  targetButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
