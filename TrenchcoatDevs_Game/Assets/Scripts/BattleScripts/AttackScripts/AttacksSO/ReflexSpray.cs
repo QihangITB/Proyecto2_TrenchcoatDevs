@@ -32,6 +32,7 @@ public class ReflexSpray : GenericAttack
             {
                 target.Heal((target.maxHP / 6) * user.healingModifier, true);
                 target.isBurnt = false;
+                target.burnIcon.SetActive(false);
                 Debug.Log(target.character.characterName + " is no longer burned");
             }
             BattleManager.instance.FinishTurn();

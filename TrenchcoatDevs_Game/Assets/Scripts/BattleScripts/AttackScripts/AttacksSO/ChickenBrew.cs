@@ -31,8 +31,11 @@ public class ChickenBrew : GenericAttack
             foreach (CharacterHolder target in targets)
             {
                 target.isBurnt = false;
+                target.burnIcon.SetActive(false);
                 target.isDisgusted = false;
+                target.disgustIcon.SetActive(false);
                 target.isPoisoned = false;
+                target.poisonIcon.SetActive(false);
                 Debug.Log(target + " is cured from all statuses");
                 target.GetRested();
             }

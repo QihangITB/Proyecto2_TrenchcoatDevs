@@ -7,6 +7,12 @@ public class CharacterHolder : MonoBehaviour
 {
     public ACharacter character;
     public CharacterOutOfBattle characterOutOfBattle;
+    public GameObject characterTurnIndicator;
+    public GameObject poisonIcon;
+    public GameObject disgustIcon;
+    public GameObject burnIcon;
+    public GameObject regenerateIcon;
+    public GameObject restIcon;
     public int HP;
     public int maxHP;
     public int attack;
@@ -67,6 +73,11 @@ public class CharacterHolder : MonoBehaviour
         if (HP <= 0)
         {
             HP = 0;
+            poisonIcon.SetActive(false);
+            disgustIcon.SetActive(false);
+            burnIcon.SetActive(false);
+            regenerateIcon.SetActive(false);
+            restIcon.SetActive(false);
             Debug.Log(gameObject+" Is dead");
             BattleManager.instance.CharOrderInTurn.Remove(this);
             BattleManager.instance.characters.Remove(this);
@@ -112,7 +123,7 @@ public class CharacterHolder : MonoBehaviour
         }
         else
         {
-
+            poisonIcon.SetActive(true);
             isPoisoned = true;
             Debug.Log(character + " is now poisoned");
         }
@@ -125,6 +136,7 @@ public class CharacterHolder : MonoBehaviour
         }
         else
         {
+            disgustIcon.SetActive(true);
             isDisgusted = true;
             Debug.Log(character + " is now disgusted");
         }
@@ -138,6 +150,7 @@ public class CharacterHolder : MonoBehaviour
         }
         else
         {
+            burnIcon.SetActive(true);
             isBurnt = true;
             Debug.Log(character + " is now burnt");
         }
@@ -145,11 +158,13 @@ public class CharacterHolder : MonoBehaviour
     }
     public void GetRegenerating()
     {
+        regenerateIcon.SetActive(true);
         isRegenerating = true;
         Debug.Log(character + " is now regenerating");
     }
     public void GetRested()
     {
+        restIcon.SetActive(true);
         isRested = true;
         Debug.Log(character + " is now rested");
     }

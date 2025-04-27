@@ -166,6 +166,14 @@ public class BattleManager : MonoBehaviour
         WaitForTurn(0.5f);
         if (!fightIsFinished)
         {
+            foreach (CharacterHolder characterInTurn in characters)
+            {
+                if (characterInTurn != null)
+                {
+                    characterInTurn.characterTurnIndicator.SetActive(false);
+                }
+            }
+            character.characterTurnIndicator.SetActive(true);
             user = character;
             canMove = true;
             CheckConditions(character);
