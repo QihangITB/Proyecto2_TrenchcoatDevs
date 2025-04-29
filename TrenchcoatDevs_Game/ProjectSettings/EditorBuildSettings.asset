@@ -30,9 +30,18 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu/Join.unity
     guid: 4dee1f7a57494454d8d254ff80a699b8
   - enabled: 1
+    path: Assets/Scenes/Menu/Loby.unity
+    guid: 5b0bdcd772df45540a71863216d7ba0f
+  - enabled: 1
     path: Assets/Scenes/Menu/Selection.unity
     guid: 1d0dab78e12200641a0858e185c2ac59
   - enabled: 1
     path: Assets/Scenes/Menu/Result.unity
     guid: 4ee2442b24db51743841885a87739091
+  - enabled: 1
+    path: Assets/Scenes/Game/Singleplay.unity
+    guid: d1a36e97b61059346ae0fb6377fdad97
+  - enabled: 1
+    path: Assets/Scenes/Game/MultiPlayer.unity
+    guid: 8a312967f8c29c542be2fe4102652daa
   m_configObjects: {}
