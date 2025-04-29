@@ -13,6 +13,7 @@ public class CharacterHolder : MonoBehaviour
     public GameObject burnIcon;
     public GameObject regenerateIcon;
     public GameObject restIcon;
+    public GameObject tauntIcon;
     public int HP;
     public int maxHP;
     public int attack;
@@ -33,6 +34,7 @@ public class CharacterHolder : MonoBehaviour
     public bool burnInmune;
     public bool isRegenerating;
     public bool isRested;
+    public bool isTaunting;
 
 
     public void SelectCharacter(CharacterOutOfBattle characterOutOfBattle)
@@ -202,6 +204,12 @@ public class CharacterHolder : MonoBehaviour
         restIcon.SetActive(true);
         isRested = true;
         Debug.Log(character + " is now rested");
+    }
+    public void Taunt()
+    {
+        tauntIcon.SetActive(true);
+        isTaunting = true;
+        Debug.Log(character + " is now taunting");
     }
     public void UpdateHPBar()
     {

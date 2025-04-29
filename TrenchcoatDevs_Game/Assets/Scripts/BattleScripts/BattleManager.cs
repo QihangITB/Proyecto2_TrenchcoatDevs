@@ -366,6 +366,11 @@ public class BattleManager : MonoBehaviour
             character.Rest(character.maxStamina/20);
             Debug.Log(character.character + " is rested");
         }
+        if (character.isTaunting)
+        {
+            character.isTaunting = false;
+            character.tauntIcon.SetActive(false);
+        }
     }
     
     //ordena characters por speed
