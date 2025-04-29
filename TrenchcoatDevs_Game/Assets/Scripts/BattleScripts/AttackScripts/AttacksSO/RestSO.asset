@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c77f2de9093b4964c89f335d2dc7e440, type: 3}
   m_Name: RestSO
   m_EditorClassIdentifier: 
+  attackName: Rest
+  description: Recover some stamina for yourself
+  cost: 0
   targetButtons: []
+  staminaRestored: 4

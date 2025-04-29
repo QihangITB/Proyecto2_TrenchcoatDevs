@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8771767e421b124bbb35e50d01c498e, type: 3}
+  m_Name: GrandmaCharSO
+  m_EditorClassIdentifier: 
+  health: 8
+  maxHealth: 8
+  damage: 2
+  speed: 1
+  defense: 0
+  attacks:
+  - {fileID: 11400000, guid: 3c035b9323e804749953170c117edd7b, type: 2}
+  basicAttack: {fileID: 11400000, guid: 370af78e6e233b448a875b62f530f850, type: 2}
+  characterName: Grandma
+  stamina: 10
+  maxStamina: 10
+  description: Heals her teammates with a seamingly unending supply of food
+  passives:
+  - {fileID: 11400000, guid: 081b1de55b239114c9f1bb193aa35e93, type: 2}
+  knowablePassives:
+  - {fileID: 11400000, guid: c690b2032d4a0fe43b155e1169e4b1f0, type: 2}
+  - {fileID: 11400000, guid: a46c93f22d0c79c46b8f7528ce019e2b, type: 2}
+  - {fileID: 11400000, guid: 10de93ee9d8276b4e9393f15d185973e, type: 2}
+  - {fileID: 11400000, guid: 9e8a136feebc40e4d9c748601c2f3442, type: 2}
+  - {fileID: 11400000, guid: 448aa678d408f3b40b49fd30fcba5370, type: 2}
+  - {fileID: 11400000, guid: 99167549c9de1844fac0e48913e748b5, type: 2}

@@ -12,16 +12,31 @@ public class BasicAttack : GenericAttack
 
     public override void Effect(List<CharacterHolder> targets, CharacterHolder user)
     {
-        //selecciona un objetivo aleatorio de la lista de players de battlemanager
         int randomIndex = Random.Range(0, BattleManager.instance.players.Count);
-        iterationLimit = 20;
-        while (targets[randomIndex].character.health <= 0 && iterationLimit>0)
+        iterationLimit = 500; //si no se pone unity lo cuenta como bucle infinito
+        while (BattleManager.instance.players[randomIndex] == null || targets[randomIndex].character.health <= 0 && iterationLimit > 0)
         {
-            randomIndex = Random.Range(0, BattleManager.instance.players.Count);
+            targets.RemoveAt(randomIndex);
+            randomIndex = Random.Range(0, targets.Count);
             iterationLimit--;
         }
+        /*while (targets[randomIndex].character.health <= 0 && iterationLimit > 0)
+        {
+            targets.RemoveAt(randomIndex);
+            randomIndex = Random.Range(0, targets.Count);
+            iterationLimit--;
+        }*/
+        Debug.Log("Target: " + targets[randomIndex].gameObject.name);
         BattleManager.instance.targets.Add(targets[randomIndex]);
-        // Apply damage to the target
-        BattleManager.instance.targets[0].TakeDamage(user.attack);
+        //crea un random entre 0 y 10 y comprueba si es menor que el precisionModifier
+        int randomPrecision = Random.Range(1, 11);
+        if (randomPrecision > user.precisionModifier) {
+            Debug.Log("Attack missed");
+        }
+        else
+        {
+            BattleManager.instance.targets[0].TakeDamage(user.attack);
+        }
+
     }
 }
