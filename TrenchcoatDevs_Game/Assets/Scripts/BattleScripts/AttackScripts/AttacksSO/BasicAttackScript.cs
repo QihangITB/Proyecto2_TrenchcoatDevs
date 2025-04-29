@@ -11,7 +11,10 @@ public class BasicAttackScript : GenericAttack
         targetButtons = BattleManager.instance.enemyButtons;
         foreach (GameObject button in targetButtons)
         {
-            button.GetComponent<Image>().enabled = true;
+            if (button.GetComponent<CharacterHolder>().character != null)
+            {
+                button.GetComponent<Image>().enabled = true;
+            }
         }
     }
 
