@@ -38,7 +38,11 @@ public class NodeMapGeneration : MonoBehaviour
     private List<List<GameObject>> _actionLevels;
     private GameObject _player;
 
-    void Start()
+    protected GameObject Player
+    {
+        get { return _player; }
+    }
+    protected virtual void Start()
     {
         _allLevels = new List<List<GameObject>> {
             new List<GameObject> { TutorialNode },
