@@ -14,6 +14,7 @@ public class SelectTypeOfAttack : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     public void SelectAttack()
     {
+        BattleManager.instance.DeActivateTargetButtons();
         if (isAreaAttack)
         {
             areaAttack.SelectGenericAreaAttack();

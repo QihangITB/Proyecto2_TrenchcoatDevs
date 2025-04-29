@@ -123,9 +123,42 @@ public class CharacterHolder : MonoBehaviour
         }
         else
         {
-            poisonIcon.SetActive(true);
-            isPoisoned = true;
-            Debug.Log(character + " is now poisoned");
+            if (!isPoisoned)
+            {
+                //busca entre todas las pasivas de las lista de players si alguna tiene PoisonRush
+                foreach (CharacterHolder player in BattleManager.instance.players)
+                {
+                    foreach (APassive passive in player.characterOutOfBattle.knownPassives)
+                    {
+                        if (passive is PoisonRush)
+                        {
+                            attack += 3;
+                            speed += 3;
+                            Debug.Log(character.characterName + " is now faster and stronger");
+                        }
+                    }
+                }
+                poisonIcon.SetActive(true);
+                isPoisoned = true;
+                Debug.Log(character + " is now poisoned");
+            }
+        }
+    }
+    public void GetUnPoisoned()
+    {
+        isPoisoned = false;
+        poisonIcon.SetActive(false);
+        foreach (CharacterHolder player in BattleManager.instance.players)
+        {
+            foreach (APassive passive in player.characterOutOfBattle.knownPassives)
+            {
+                if (passive is PoisonRush)
+                {
+                    attack -= 3;
+                    speed -= 3;
+                    Debug.Log(character.characterName + " is now slower and weaker");
+                }
+            }
         }
     }
     public void GetDisgusted()

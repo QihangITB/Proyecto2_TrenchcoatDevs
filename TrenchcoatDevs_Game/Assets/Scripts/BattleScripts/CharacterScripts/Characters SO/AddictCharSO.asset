@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fcb1ae6080b0544c87b52f7c60073d2, type: 3}
+  m_Name: AddictCharSO
+  m_EditorClassIdentifier: 
+  health: 7
+  maxHealth: 7
+  damage: 2
+  speed: 1
+  defense: 0
+  attacks:
+  - {fileID: 11400000, guid: 86cce72c2a07a30499d8b69794a68ae7, type: 2}
+  basicAttack: {fileID: 11400000, guid: 370af78e6e233b448a875b62f530f850, type: 2}
+  characterName: Addict
+  stamina: 4
+  maxStamina: 4
+  description: Weak normally but very powerful attacker if poisoned
+  passives:
+  - {fileID: 11400000, guid: 74131d9eb20e186409fd91ad30754bfb, type: 2}
+  knowablePassives:
+  - {fileID: 11400000, guid: a0681da22baf802459487dff9f715162, type: 2}
+  - {fileID: 11400000, guid: 995c88a8fc61b1a4592a089f545f7e67, type: 2}
+  - {fileID: 11400000, guid: 1e7f66db11e127b4381870371545ea89, type: 2}
+  - {fileID: 11400000, guid: 98c6ebb77f39e8149985043c650206fa, type: 2}
+  - {fileID: 11400000, guid: ee50ea774671f604a889235c42a8175f, type: 2}
+  - {fileID: 11400000, guid: 4d17e4506d94a5847a8ee3d0495ba9d0, type: 2}

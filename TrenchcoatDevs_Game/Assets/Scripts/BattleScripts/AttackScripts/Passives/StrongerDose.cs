@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "HealthyDiet", menuName = "Passives/HealthyDiet")]
-public class HealthyDiet : APassive
+[CreateAssetMenu(fileName = "StrongerDose", menuName = "Passives/StrongerDose")]
+public class StrongerDose : APassive
 {
     public override void ObtainPassive(CharacterOutOfBattle player)
     {
@@ -11,6 +11,6 @@ public class HealthyDiet : APassive
     }
     public override void ActivatePassive(CharacterHolder player)
     {
-        player.characterOutOfBattle.characterPoisonModifier = +1;
+        BattleManager.instance.poisonDamageDivisor = 4;
     }
 }

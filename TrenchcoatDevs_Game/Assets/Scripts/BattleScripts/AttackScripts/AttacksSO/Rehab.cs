@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "ChickenBrew", menuName = "Attacks/ChickenBrew")]
-public class ChickenBrew : GenericAttack
+[CreateAssetMenu(fileName = "Rehab", menuName = "Attacks/Rehab")]
+public class Rehab : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
@@ -30,13 +30,8 @@ public class ChickenBrew : GenericAttack
             user.UseStamina(cost);
             foreach (CharacterHolder target in targets)
             {
-                target.isBurnt = false;
-                target.burnIcon.SetActive(false);
-                target.isDisgusted = false;
-                target.disgustIcon.SetActive(false);
                 target.GetUnPoisoned();
-                Debug.Log(target + " is cured from all statuses");
-                target.GetRested();
+                Debug.Log(target + " is cured from poison");
             }
             BattleManager.instance.FinishTurn();
         }

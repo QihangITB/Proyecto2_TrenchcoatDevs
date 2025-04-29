@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "ChickenBrew", menuName = "Attacks/ChickenBrew")]
-public class ChickenBrew : GenericAttack
+[CreateAssetMenu(fileName = "HiddenNeedle", menuName = "Attacks/HiddenNeedle")]
+public class HiddenNeedle : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
-        targetButtons = BattleManager.instance.playerButtons;
+        targetButtons = BattleManager.instance.enemyButtons;
         foreach (GameObject button in targetButtons)
         {
             if (button.GetComponent<CharacterHolder>().character != null)
@@ -30,13 +30,8 @@ public class ChickenBrew : GenericAttack
             user.UseStamina(cost);
             foreach (CharacterHolder target in targets)
             {
-                target.isBurnt = false;
-                target.burnIcon.SetActive(false);
-                target.isDisgusted = false;
-                target.disgustIcon.SetActive(false);
-                target.GetUnPoisoned();
-                Debug.Log(target + " is cured from all statuses");
-                target.GetRested();
+                target.TakeDamage(user.attack);
+                target.GetPoisoned();
             }
             BattleManager.instance.FinishTurn();
         }
