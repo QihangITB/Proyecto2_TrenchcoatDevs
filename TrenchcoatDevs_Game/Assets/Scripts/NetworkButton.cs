@@ -14,7 +14,10 @@ public class NetworkButton : MonoBehaviour
         Button interactable = GetComponent<Button>();
         if (_onlyHostCanInteract)
         {
-            interactable.interactable = NetworkManager.Singleton.IsHost;
+            if (!NetworkManager.Singleton.IsHost)
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 }
