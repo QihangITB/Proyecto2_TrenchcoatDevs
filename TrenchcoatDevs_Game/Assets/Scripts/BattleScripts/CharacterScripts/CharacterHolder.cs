@@ -22,6 +22,7 @@ public class CharacterHolder : MonoBehaviour
     public int healingModifier;
     public GameObject HpBar;
     public GameObject StaminaBar;
+    public int staminaRecovery;
     public int stamina;
     public int maxStamina;
     public bool isPoisoned;
@@ -52,6 +53,7 @@ public class CharacterHolder : MonoBehaviour
         defense = character.defense;
         precisionModifier = 10;
         healingModifier = 1;
+        staminaRecovery = 4;
         UpdateHPBar();
     }
     public void TakeDamage(int damage)

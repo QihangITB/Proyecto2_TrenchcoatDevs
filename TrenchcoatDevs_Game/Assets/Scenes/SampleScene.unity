@@ -4661,6 +4661,7 @@ MonoBehaviour:
   healingModifier: 0
   HpBar: {fileID: 1387754564}
   StaminaBar: {fileID: 0}
+  staminaRecovery: 0
   stamina: 0
   maxStamina: 0
   isPoisoned: 0
@@ -6356,6 +6357,7 @@ MonoBehaviour:
   healingModifier: 0
   HpBar: {fileID: 579170193}
   StaminaBar: {fileID: 0}
+  staminaRecovery: 0
   stamina: 0
   maxStamina: 0
   isPoisoned: 0
@@ -6525,20 +6527,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e672d6bb3a98df64380ca1a948aaed29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 11400000, guid: 76443ce920582c84099568732439aac9, type: 2}
-  characterHP: 5
+  character: {fileID: 11400000, guid: 20e733692edf76e4b8a4b072f290b474, type: 2}
+  characterHP: 7
   characterPoisonModifier: 1
   knownPassives:
-  - {fileID: 11400000, guid: 3ee1ee2eefc43cf4999175fa9760acd1, type: 2}
-  - {fileID: 11400000, guid: 5adb95e82b3273f49b4780e0265dcecc, type: 2}
-  - {fileID: 11400000, guid: fdacffd91796aae47b5d954f0cc0d0bf, type: 2}
+  - {fileID: 11400000, guid: 4d17e4506d94a5847a8ee3d0495ba9d0, type: 2}
+  - {fileID: 11400000, guid: ee50ea774671f604a889235c42a8175f, type: 2}
+  - {fileID: 11400000, guid: 74131d9eb20e186409fd91ad30754bfb, type: 2}
+  - {fileID: 11400000, guid: a0681da22baf802459487dff9f715162, type: 2}
   knownAttacks:
-  - {fileID: 11400000, guid: 08bd89388246afb43922e6700521162f, type: 2}
-  - {fileID: 11400000, guid: c3ac0d1aef95da146aed14974d2f03e6, type: 2}
-  - {fileID: 11400000, guid: b7d26a291c450bc4fb2fa828b75786bb, type: 2}
-  - {fileID: 11400000, guid: 6ec28d5103dd2e3458deeaeed6844e2e, type: 2}
-  - {fileID: 11400000, guid: fd381b5328248a340a2fa9aa60fd78b4, type: 2}
-  basicAttack: {fileID: 11400000, guid: f9290bfaa2e3dc94f8d5a7462036db92, type: 2}
+  - {fileID: 11400000, guid: 86cce72c2a07a30499d8b69794a68ae7, type: 2}
+  - {fileID: 11400000, guid: 2896eeadee81a474898061d1ea65b740, type: 2}
+  - {fileID: 11400000, guid: a159b475c7fc13647a01321141f9605d, type: 2}
+  - {fileID: 11400000, guid: e23a9faa9acf4f54c9b41675836fe240, type: 2}
+  basicAttack: {fileID: 11400000, guid: e1ecc301136a1fb4d9b3bb4e7477ff94, type: 2}
 --- !u!1 &909916131
 GameObject:
   m_ObjectHideFlags: 0
@@ -7326,6 +7328,7 @@ MonoBehaviour:
   healingModifier: 0
   HpBar: {fileID: 759440878}
   StaminaBar: {fileID: 1872103150}
+  staminaRecovery: 0
   stamina: 10
   maxStamina: 10
   isPoisoned: 0
@@ -11358,6 +11361,7 @@ MonoBehaviour:
   healingModifier: 0
   HpBar: {fileID: 86791775}
   StaminaBar: {fileID: 0}
+  staminaRecovery: 0
   stamina: 10
   maxStamina: 10
   isPoisoned: 0
@@ -12684,6 +12688,7 @@ MonoBehaviour:
   healingModifier: 0
   HpBar: {fileID: 435510320}
   StaminaBar: {fileID: 956615324}
+  staminaRecovery: 0
   stamina: 10
   maxStamina: 10
   isPoisoned: 0
@@ -13608,6 +13613,7 @@ MonoBehaviour:
   healingModifier: 0
   HpBar: {fileID: 1800017157}
   StaminaBar: {fileID: 785920177}
+  staminaRecovery: 0
   stamina: 10
   maxStamina: 10
   isPoisoned: 0
