@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class APassive : ScriptableObject
+public abstract class APassive : ScriptableObject, IStructable<APassiveNetStruct>
 {
     public string passiveName;
     public string passiveDescription;

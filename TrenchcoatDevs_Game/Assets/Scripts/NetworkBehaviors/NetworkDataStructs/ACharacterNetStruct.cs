@@ -1,48 +1,20 @@
 using System.Collections.Generic;
-using Unity.Collections;
 using Unity.Netcode;
+using UnityEngine.UI;
 
 public struct ACharacterNetStruct : INetworkSerializable
 {
-    private int _stamina;
-    private int _maxStamina;
-    private FixedString512Bytes _description;
-    private FixedList4096Bytes<APassiveNetStruct> _passives;
-    private FixedList4096Bytes<APassiveNetStruct> _knowablePassives;
-    public int Stamina
-    {
-        set
-        {
-            _stamina = value;
-        }
-    }
-    public int MaxStamina
-    {
-        set
-        {
-            _maxStamina = value;
-        }
-    }
-    public string Description
-    {
-        set
-        {
-            _description = value;
-        }
-    }
-    public List<APassive> Passives
-    {
-        set
-        {
-            FixedList4096Bytes<APassiveNetStruct> passives = new FixedList4096Bytes<APassiveNetStruct>();
-            
-        }
-    }
-
+    public int health;
+    public int maxHealth;
+    public int damage;
+    public int speed;
+    public int defense;
+    public List<AAttack> attacks;
+    public GenericAttack basicAttack;
+    public string characterName;
+    public Image sprite;
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
     {
-        serializer.SerializeValue(ref _stamina);
-        serializer.SerializeValue(ref _stamina);
-        serializer.SerializeValue(ref _stamina);
+        throw new System.NotImplementedException();
     }
 }
