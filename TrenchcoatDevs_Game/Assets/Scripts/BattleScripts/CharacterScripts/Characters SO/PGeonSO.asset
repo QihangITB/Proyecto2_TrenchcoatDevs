@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 14
   maxHealth: 14
-  damage: 4
+  damage: 6
   speed: 2
   defense: 2
   attacks:
