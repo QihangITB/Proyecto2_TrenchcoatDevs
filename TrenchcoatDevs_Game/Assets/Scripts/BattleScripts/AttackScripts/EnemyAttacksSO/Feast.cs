@@ -44,7 +44,7 @@ public class Feast : GenericAttack
                     if (onion.character.characterName == "Onion")
                     {
                         BattleManager.instance.targets.Add(onion);
-                        user.Heal(5, false);
+                        user.Heal(10, false);
                     }
                 }
             }
