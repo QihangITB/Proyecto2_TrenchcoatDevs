@@ -8,15 +8,12 @@ public class ProteinShake : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
-        targetButtons.Clear();
-        //pon el boton de user de battlemanager como boton en buttontargetlist
-        targetButtons = new List<GameObject>
+        foreach (GameObject button in BattleManager.instance.playerButtons)
         {
-            BattleManager.instance.user.gameObject
-        };
-        foreach (GameObject button in targetButtons)
-        {
-            button.GetComponent<Image>().enabled = true;
+            if (button.GetComponent<CharacterHolder>().character != null)
+            {
+                button.GetComponent<Image>().enabled = true;
+            }
         }
     }
 

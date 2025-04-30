@@ -8,9 +8,7 @@ public class CoffeTime : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
-        targetButtons.Clear();
-        targetButtons = BattleManager.instance.playerButtons;
-        foreach (GameObject button in targetButtons)
+        foreach (GameObject button in BattleManager.instance.playerButtons)
         {
             if (button.GetComponent<CharacterHolder>().character != null)
             {

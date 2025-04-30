@@ -11,13 +11,12 @@ public class ToxicSpray : GenericAttack
         targetButtons.Clear();
         foreach (GameObject button in BattleManager.instance.playerButtons)
         {
-            targetButtons.Add(button);
+            if (button.GetComponent<CharacterHolder>().character != null)
+            {
+                button.GetComponent<Image>().enabled = true;
+            }
         }
         foreach (GameObject button in BattleManager.instance.enemyButtons)
-        {
-            targetButtons.Add(button);
-        }
-        foreach (GameObject button in targetButtons)
         {
             if (button.GetComponent<CharacterHolder>().character != null)
             {

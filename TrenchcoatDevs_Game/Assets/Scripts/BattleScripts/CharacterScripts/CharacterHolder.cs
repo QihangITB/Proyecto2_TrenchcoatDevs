@@ -107,7 +107,14 @@ public class CharacterHolder : MonoBehaviour
                     }
                 }
             }
-            BattleManager.instance.enemyButtons.Remove(this.gameObject);
+            for (int i = 0; i < BattleManager.instance.enemyButtons.Count; i++)
+            {
+                if (BattleManager.instance.enemyButtons[i] == this.gameObject)
+                {
+                    BattleManager.instance.enemyButtons[i].GetComponent<CharacterHolder>().character=null;
+                    break;
+                }
+            }
             BattleManager.instance.playerButtons.Remove(this.gameObject);
             foreach (Image image in GetComponentsInParent<Image>())
             {
