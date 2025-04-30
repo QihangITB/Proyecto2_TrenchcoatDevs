@@ -20,15 +20,15 @@ public class BasicAttack : GenericAttack
             randomIndex = Random.Range(0, targets.Count);
             iterationLimit--;
         }
-        /*while (targets[randomIndex].character.health <= 0 && iterationLimit > 0)
-        {
-            targets.RemoveAt(randomIndex);
-            randomIndex = Random.Range(0, targets.Count);
-            iterationLimit--;
-        }*/
-        Debug.Log("Target: " + targets[randomIndex].gameObject.name);
         BattleManager.instance.targets.Add(targets[randomIndex]);
-        //crea un random entre 0 y 10 y comprueba si es menor que el precisionModifier
+        foreach (CharacterHolder target in targets)
+        {
+            if (target.isTaunting)
+            {
+                BattleManager.instance.targets[0]=target;
+            }
+        }
+
         int randomPrecision = Random.Range(1, 11);
         if (randomPrecision > user.precisionModifier) {
             Debug.Log("Attack missed");

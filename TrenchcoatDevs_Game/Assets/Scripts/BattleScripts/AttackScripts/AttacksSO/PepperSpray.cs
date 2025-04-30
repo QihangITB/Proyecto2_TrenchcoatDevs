@@ -9,6 +9,7 @@ public class PepperSpray : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
+        targetButtons.Clear();
         targetButtons = BattleManager.instance.enemyButtons;
         foreach (GameObject button in targetButtons)
         {

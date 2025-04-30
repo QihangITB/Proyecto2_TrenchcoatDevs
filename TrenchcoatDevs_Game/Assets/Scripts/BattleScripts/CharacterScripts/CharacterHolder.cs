@@ -73,6 +73,8 @@ public class CharacterHolder : MonoBehaviour
             damage -= defense;
         }
         HP -= damage;
+        BattleManager.instance.basicAttackButton.GetComponent<SelectTypeOfAttack>().description.transform.parent.gameObject.SetActive(true);
+        BattleManager.instance.basicAttackButton.GetComponent<SelectTypeOfAttack>().description.text = character.characterName + " took " + damage + " damage";
         Debug.Log(gameObject + " took " + damage + " damage");
         if (HP <= 0)
         {
@@ -83,6 +85,7 @@ public class CharacterHolder : MonoBehaviour
             regenerateIcon.SetActive(false);
             restIcon.SetActive(false);
             Debug.Log(gameObject+" Is dead");
+            BattleManager.instance.basicAttackButton.GetComponent<SelectTypeOfAttack>().description.text = character.characterName + " died";
             BattleManager.instance.CharOrderInTurn.Remove(this);
             BattleManager.instance.characters.Remove(this);
             BattleManager.instance.players.Remove(this);

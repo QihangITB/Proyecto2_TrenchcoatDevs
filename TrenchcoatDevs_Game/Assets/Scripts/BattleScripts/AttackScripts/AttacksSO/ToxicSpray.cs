@@ -8,6 +8,7 @@ public class ToxicSpray : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
+        targetButtons.Clear();
         foreach (GameObject button in BattleManager.instance.playerButtons)
         {
             targetButtons.Add(button);

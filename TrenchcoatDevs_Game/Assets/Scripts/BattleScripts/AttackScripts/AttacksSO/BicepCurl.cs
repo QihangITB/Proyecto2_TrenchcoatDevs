@@ -8,6 +8,7 @@ public class BicepCurl : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
+        targetButtons.Clear();
         //pon el boton de user de battlemanager como boton en buttontargetlist
         targetButtons = new List<GameObject>
         {

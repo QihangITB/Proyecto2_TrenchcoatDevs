@@ -8,6 +8,7 @@ public class AdrenalineShot : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
+        targetButtons.Clear();
         targetButtons = BattleManager.instance.playerButtons;
         foreach (GameObject button in targetButtons)
         {

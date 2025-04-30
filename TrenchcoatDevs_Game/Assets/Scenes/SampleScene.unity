@@ -1980,12 +1980,12 @@ GameObject:
   - component: {fileID: 332420179}
   - component: {fileID: 332420178}
   m_Layer: 5
-  m_Name: TurnOrder
+  m_Name: TurnOrder(notUsed)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &332420177
 RectTransform:
   m_ObjectHideFlags: 0

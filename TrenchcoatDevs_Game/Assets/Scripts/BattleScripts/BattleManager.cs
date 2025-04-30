@@ -384,13 +384,13 @@ public class BattleManager : MonoBehaviour
     public void UseAttack()
     {
  
-        attack.Effect(targets, user);
         DeActivateTargetButtons();
+        attack.Effect(targets, user);
     }
     public void UseAreaAttack()
     {
-        areaAttack.Effect(targets, user);
         DeActivateTargetButtons();
+        areaAttack.Effect(targets, user);
     }
     public void DeActivateTargetButtons()
     {

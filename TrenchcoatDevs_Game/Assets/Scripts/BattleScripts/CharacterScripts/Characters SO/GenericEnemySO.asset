@@ -19,3 +19,5 @@ MonoBehaviour:
   defense: 1
   attacks:
   - {fileID: 11400000, guid: 7e2ae10404a9a094396f5879f939ee88, type: 2}
+  basicAttack: {fileID: 0}
+  characterName: 
