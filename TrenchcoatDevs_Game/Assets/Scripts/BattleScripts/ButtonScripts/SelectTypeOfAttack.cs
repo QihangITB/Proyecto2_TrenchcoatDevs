@@ -14,6 +14,7 @@ public class SelectTypeOfAttack : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     public void SelectAttack()
     {
+        BattleManager.instance.DeActivateTargetButtons();
         if (isAreaAttack)
         {
             areaAttack.SelectGenericAreaAttack();
@@ -30,11 +31,11 @@ public class SelectTypeOfAttack : MonoBehaviour, IPointerEnterHandler, IPointerE
         description.transform.parent.gameObject.SetActive(true);
         if (isAreaAttack)
         {
-            description.text = areaAttack.attack.attackName + "\n"+ areaAttack.attack.description;
+            description.text = areaAttack.attack.attackName + "  " + areaAttack.attack.cost + "\n"+ areaAttack.attack.description;
         }
         else
         {
-            description.text = attack.attack.attackName + "\n"+attack.attack.description;
+            description.text = attack.attack.attackName + "  " + attack.attack.cost + "\n"+attack.attack.description;
         }
     }
 

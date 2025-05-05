@@ -8,8 +8,7 @@ public class ChickenBrew : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
-        targetButtons = BattleManager.instance.playerButtons;
-        foreach (GameObject button in targetButtons)
+        foreach (GameObject button in BattleManager.instance.playerButtons)
         {
             if (button.GetComponent<CharacterHolder>().character != null)
             {
@@ -34,8 +33,7 @@ public class ChickenBrew : GenericAttack
                 target.burnIcon.SetActive(false);
                 target.isDisgusted = false;
                 target.disgustIcon.SetActive(false);
-                target.isPoisoned = false;
-                target.poisonIcon.SetActive(false);
+                target.GetUnPoisoned();
                 Debug.Log(target + " is cured from all statuses");
                 target.GetRested();
             }

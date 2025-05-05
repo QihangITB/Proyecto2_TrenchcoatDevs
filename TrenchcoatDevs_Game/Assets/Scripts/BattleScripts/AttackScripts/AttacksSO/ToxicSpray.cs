@@ -8,12 +8,15 @@ public class ToxicSpray : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
-        targetButtons = BattleManager.instance.enemyButtons;
+        targetButtons.Clear();
         foreach (GameObject button in BattleManager.instance.playerButtons)
         {
-            targetButtons.Add(button);
+            if (button.GetComponent<CharacterHolder>().character != null)
+            {
+                button.GetComponent<Image>().enabled = true;
+            }
         }
-        foreach (GameObject button in targetButtons)
+        foreach (GameObject button in BattleManager.instance.enemyButtons)
         {
             if (button.GetComponent<CharacterHolder>().character != null)
             {

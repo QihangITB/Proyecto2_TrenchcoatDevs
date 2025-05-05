@@ -11,6 +11,6 @@ public class HealthyDiet : APassive
     }
     public override void ActivatePassive(CharacterHolder player)
     {
-        player.characterOutOfBattle.characterPoisonModifier = -1;
+        player.characterOutOfBattle.characterPoisonModifier = +1;
     }
 }

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f537ff82c26eef49b2287059333e434, type: 3}
+  m_Name: PecFlexSO
+  m_EditorClassIdentifier: 
+  attackName: Pec Flex
+  description: The user taunts the enemies for a turn and raises its defense
+  cost: 4
+  targetButtons: []

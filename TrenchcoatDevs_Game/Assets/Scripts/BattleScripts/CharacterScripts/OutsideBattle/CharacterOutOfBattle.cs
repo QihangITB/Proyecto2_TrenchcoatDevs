@@ -10,6 +10,9 @@ public class CharacterOutOfBattle : MonoBehaviour
     public List<APassive> knownPassives = new List<APassive>();
     public List<AAttack> knownAttacks = new List<AAttack>();
     public GenericAttack basicAttack;
+    public int level;
+    public int timesToLevelUp;
+    public int fightsToLevelUp;
 
     public void UpdateCharacter()
     {
@@ -29,5 +32,12 @@ public class CharacterOutOfBattle : MonoBehaviour
                 knownAttacks.Add(attack);
             }
         }
+    }
+
+    public void LevelUp()
+    {
+        level++;
+        characterHP += 2;
+        fightsToLevelUp = 2;
     }
 }
