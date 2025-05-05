@@ -9,10 +9,12 @@ using UnityEngine.UI;
 public class BattleManager : MonoBehaviour
 {
     public static BattleManager instance;
+    public int currentRound = 0;
     public List<CharacterHolder> enemies = new List<CharacterHolder>();
     public List<CharacterHolder> players = new List<CharacterHolder>();
     public List<CharacterHolder> characters = new List<CharacterHolder>();
     public List<CharacterHolder> CharOrderInTurn = new List<CharacterHolder>();
+    public List<CharacterHolder> enemySelectors = new List<CharacterHolder>();
     public List<GameObject> playerButtons = new List<GameObject>();
     public List<GameObject> enemyButtons = new List<GameObject>();
     public GameObject enemyTeamButton;
@@ -81,6 +83,7 @@ public class BattleManager : MonoBehaviour
                 }
                 //desactiva el slider 
                 enemies[i].HpBar.GetComponent<Slider>().gameObject.SetActive(false);
+                enemySelectors.Add(enemies[i]);
                 enemies[i]=null;
             }
         }
@@ -107,6 +110,7 @@ public class BattleManager : MonoBehaviour
 
     private void Start()
     {
+        currentRound = 0;
         if (instance == null)
         {
             instance = this;
@@ -121,7 +125,7 @@ public class BattleManager : MonoBehaviour
     }
     public void StartRound()
     {
-
+        currentRound++;
         if (fightIsFinished)
         {
             StartTurn(null);
@@ -333,7 +337,14 @@ public class BattleManager : MonoBehaviour
             Debug.Log(character.character + " is poisoned");
             if (character.characterOutOfBattle != null)
             {
-                character.TakeDamage(character.maxHP / poisonDamageDivisor - character.characterOutOfBattle.characterPoisonModifier);
+                if (character.characterOutOfBattle.characterPoisonModifier == 0)
+                {
+                    character.Heal(character.maxHP / poisonDamageDivisor, false);
+                }
+                else
+                {
+                    character.TakeDamage(character.maxHP / (poisonDamageDivisor - character.characterOutOfBattle.characterPoisonModifier));
+                }
             }
             else
             {
@@ -359,6 +370,11 @@ public class BattleManager : MonoBehaviour
             character.Rest(character.maxStamina/20);
             Debug.Log(character.character + " is rested");
         }
+        if (character.isTaunting)
+        {
+            character.isTaunting = false;
+            character.tauntIcon.SetActive(false);
+        }
     }
     
     //ordena characters por speed
@@ -372,13 +388,13 @@ public class BattleManager : MonoBehaviour
     public void UseAttack()
     {
  
-        attack.Effect(targets, user);
         DeActivateTargetButtons();
+        attack.Effect(targets, user);
     }
     public void UseAreaAttack()
     {
-        areaAttack.Effect(targets, user);
         DeActivateTargetButtons();
+        areaAttack.Effect(targets, user);
     }
     public void DeActivateTargetButtons()
     {

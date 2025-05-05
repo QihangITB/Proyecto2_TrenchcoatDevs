@@ -8,8 +8,7 @@ public class ReflexSpray : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
-        targetButtons = BattleManager.instance.playerButtons;
-        foreach (GameObject button in targetButtons)
+        foreach (GameObject button in BattleManager.instance.playerButtons)
         {
             if (button.GetComponent<CharacterHolder>().character != null)
             {
