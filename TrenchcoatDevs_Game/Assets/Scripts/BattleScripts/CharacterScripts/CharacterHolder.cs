@@ -49,8 +49,23 @@ public class CharacterHolder : MonoBehaviour
             this.characterOutOfBattle = null;
             HP = character.health;
         }
-        maxHP = character.maxHealth;
-        attack = character.damage;
+        
+        if (characterOutOfBattle != null)
+        {
+            maxHP = character.maxHealth + characterOutOfBattle.level*2;
+        }
+        else
+        {
+            maxHP = character.maxHealth;
+        }
+        if (characterOutOfBattle != null)
+        {
+            attack = character.damage + characterOutOfBattle.level;
+        }
+        else
+        {
+            attack = character.damage;
+        }
         speed = character.speed;
         defense = character.defense;
         precisionModifier = 10;

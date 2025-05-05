@@ -36,8 +36,12 @@ public class CharacterOutOfBattle : MonoBehaviour
 
     public void LevelUp()
     {
-        level++;
-        characterHP += 2;
-        fightsToLevelUp = 2;
+        while (timesToLevelUp > 0)
+        {
+            timesToLevelUp--;
+            level++;
+            characterHP += 2;
+            fightsToLevelUp = 2;
+        }
     }
 }

@@ -244,6 +244,12 @@ public class BattleManager : MonoBehaviour
                             players[i].HP = players[i].maxHP;
                         }
                         PlayerManager.instance.charactersOutOfBattle[i].characterHP = players[i].HP;
+                        PlayerManager.instance.charactersOutOfBattle[i].fightsToLevelUp--;
+                        if (PlayerManager.instance.charactersOutOfBattle[i].fightsToLevelUp <= 0)
+                        {
+                            PlayerManager.instance.charactersOutOfBattle[i].timesToLevelUp = 1;
+                            PlayerManager.instance.charactersOutOfBattle[i].LevelUp();
+                        }
                     }
                 }
             }
