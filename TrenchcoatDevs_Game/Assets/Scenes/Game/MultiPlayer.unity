@@ -229,8 +229,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 181884016}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -535,7 +535,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &89713475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1022,7 +1022,7 @@ RectTransform:
   m_Father: {fileID: 1872184096}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1097,7 +1097,7 @@ RectTransform:
   m_Father: {fileID: 770573397}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1192,20 +1192,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 11400000, guid: 284fa62b2b86f6243bc78844b5242b4c, type: 2}
+  characterOutOfBattle: {fileID: 0}
+  characterTurnIndicator: {fileID: 0}
+  poisonIcon: {fileID: 0}
+  disgustIcon: {fileID: 0}
+  burnIcon: {fileID: 0}
+  regenerateIcon: {fileID: 0}
+  restIcon: {fileID: 0}
+  tauntIcon: {fileID: 0}
   HP: 10
   maxHP: 10
   attack: 2
   speed: 1
   defense: 0
+  precisionModifier: 0
+  healingModifier: 0
   HpBar: {fileID: 226601841}
   StaminaBar: {fileID: 1342038012}
+  staminaRecovery: 0
   stamina: 10
   maxStamina: 10
   isPoisoned: 0
+  poisonInmune: 0
   isDisgusted: 0
+  disgustInmune: 0
   isBurnt: 0
+  burnInmune: 0
   isRegenerating: 0
   isRested: 0
+  isTaunting: 0
 --- !u!114 &134404065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2508,7 +2523,7 @@ RectTransform:
   m_Father: {fileID: 1539925161}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2603,20 +2618,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 11400000, guid: 284fa62b2b86f6243bc78844b5242b4c, type: 2}
+  characterOutOfBattle: {fileID: 0}
+  characterTurnIndicator: {fileID: 0}
+  poisonIcon: {fileID: 0}
+  disgustIcon: {fileID: 0}
+  burnIcon: {fileID: 0}
+  regenerateIcon: {fileID: 0}
+  restIcon: {fileID: 0}
+  tauntIcon: {fileID: 0}
   HP: 10
   maxHP: 10
   attack: 1
   speed: 1
   defense: 0
+  precisionModifier: 0
+  healingModifier: 0
   HpBar: {fileID: 1807616807}
   StaminaBar: {fileID: 1310720585}
+  staminaRecovery: 0
   stamina: 10
   maxStamina: 10
   isPoisoned: 0
+  poisonInmune: 0
   isDisgusted: 0
+  disgustInmune: 0
   isBurnt: 0
+  burnInmune: 0
   isRegenerating: 0
   isRested: 0
+  isTaunting: 0
 --- !u!114 &340783419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2965,7 +2995,7 @@ RectTransform:
   m_Father: {fileID: 352818831}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3253,8 +3283,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1454181986}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3788,7 +3818,7 @@ RectTransform:
   m_Father: {fileID: 1569600712}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4381,20 +4411,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 11400000, guid: 284fa62b2b86f6243bc78844b5242b4c, type: 2}
+  characterOutOfBattle: {fileID: 0}
+  characterTurnIndicator: {fileID: 0}
+  poisonIcon: {fileID: 0}
+  disgustIcon: {fileID: 0}
+  burnIcon: {fileID: 0}
+  regenerateIcon: {fileID: 0}
+  restIcon: {fileID: 0}
+  tauntIcon: {fileID: 0}
   HP: 10
   maxHP: 10
   attack: 1
   speed: 1
   defense: 0
+  precisionModifier: 0
+  healingModifier: 0
   HpBar: {fileID: 1095230343}
   StaminaBar: {fileID: 1751351250}
+  staminaRecovery: 0
   stamina: 10
   maxStamina: 10
   isPoisoned: 0
+  poisonInmune: 0
   isDisgusted: 0
+  disgustInmune: 0
   isBurnt: 0
+  burnInmune: 0
   isRegenerating: 0
   isRested: 0
+  isTaunting: 0
 --- !u!114 &584985446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5128,7 +5173,7 @@ RectTransform:
   m_Father: {fileID: 875757815}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5600,7 +5645,7 @@ RectTransform:
   m_Father: {fileID: 1784271387}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7051,8 +7096,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 484891334}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7260,8 +7305,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 685471971}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8083,20 +8128,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 11400000, guid: 2f796570a8ed866429c848820525aa6f, type: 2}
+  characterOutOfBattle: {fileID: 0}
+  characterTurnIndicator: {fileID: 0}
+  poisonIcon: {fileID: 0}
+  disgustIcon: {fileID: 0}
+  burnIcon: {fileID: 0}
+  regenerateIcon: {fileID: 0}
+  restIcon: {fileID: 0}
+  tauntIcon: {fileID: 0}
   HP: 10
   maxHP: 10
   attack: 7
   speed: 3
   defense: 0
+  precisionModifier: 0
+  healingModifier: 0
   HpBar: {fileID: 596114975}
   StaminaBar: {fileID: 0}
+  staminaRecovery: 0
   stamina: 0
   maxStamina: 0
   isPoisoned: 0
+  poisonInmune: 0
   isDisgusted: 0
+  disgustInmune: 0
   isBurnt: 0
+  burnInmune: 0
   isRegenerating: 0
   isRested: 0
+  isTaunting: 0
 --- !u!114 &1111831430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8893,7 +8953,7 @@ RectTransform:
   m_Father: {fileID: 877208142}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9043,7 +9103,7 @@ RectTransform:
   m_Father: {fileID: 289705776}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9780,8 +9840,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 762529260}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9912,20 +9972,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 11400000, guid: 2f796570a8ed866429c848820525aa6f, type: 2}
+  characterOutOfBattle: {fileID: 0}
+  characterTurnIndicator: {fileID: 0}
+  poisonIcon: {fileID: 0}
+  disgustIcon: {fileID: 0}
+  burnIcon: {fileID: 0}
+  regenerateIcon: {fileID: 0}
+  restIcon: {fileID: 0}
+  tauntIcon: {fileID: 0}
   HP: 10
   maxHP: 10
   attack: 3
   speed: 1
   defense: 0
+  precisionModifier: 0
+  healingModifier: 0
   HpBar: {fileID: 2057571024}
   StaminaBar: {fileID: 0}
+  staminaRecovery: 0
   stamina: 10
   maxStamina: 10
   isPoisoned: 0
+  poisonInmune: 0
   isDisgusted: 0
+  disgustInmune: 0
   isBurnt: 0
+  burnInmune: 0
   isRegenerating: 0
   isRested: 0
+  isTaunting: 0
 --- !u!114 &1456109182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10099,20 +10174,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 11400000, guid: 2f796570a8ed866429c848820525aa6f, type: 2}
+  characterOutOfBattle: {fileID: 0}
+  characterTurnIndicator: {fileID: 0}
+  poisonIcon: {fileID: 0}
+  disgustIcon: {fileID: 0}
+  burnIcon: {fileID: 0}
+  regenerateIcon: {fileID: 0}
+  restIcon: {fileID: 0}
+  tauntIcon: {fileID: 0}
   HP: 10
   maxHP: 10
   attack: 2
   speed: 2
   defense: 0
+  precisionModifier: 0
+  healingModifier: 0
   HpBar: {fileID: 933112867}
   StaminaBar: {fileID: 0}
+  staminaRecovery: 0
   stamina: 0
   maxStamina: 0
   isPoisoned: 0
+  poisonInmune: 0
   isDisgusted: 0
+  disgustInmune: 0
   isBurnt: 0
+  burnInmune: 0
   isRegenerating: 0
   isRested: 0
+  isTaunting: 0
 --- !u!114 &1501949158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11501,7 +11591,7 @@ RectTransform:
   m_Father: {fileID: 2083910015}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -12156,6 +12246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 364b626b851229e41bd16bbd79a1b188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentRound: 0
   enemies:
   - {fileID: 1456109181}
   - {fileID: 1501949157}
@@ -12166,8 +12257,17 @@ MonoBehaviour:
   - {fileID: 340783418}
   characters: []
   CharOrderInTurn: []
+  enemySelectors: []
   playerButtons: []
   enemyButtons: []
+  enemyTeamButton: {fileID: 0}
+  playerTeamButton: {fileID: 0}
+  allCharactersButton: {fileID: 0}
+  basicAttackButton: {fileID: 0}
+  restButton: {fileID: 0}
+  abilityButtons: []
+  hpBar: {fileID: 0}
+  staminaBar: {fileID: 0}
   attack: {fileID: 0}
   areaAttack: {fileID: 0}
   enemyAttack: {fileID: 0}
@@ -12175,6 +12275,7 @@ MonoBehaviour:
   enemyUser: {fileID: 0}
   targets: []
   fightIsFinished: 0
+  win: 0
   poisonDamageDivisor: 10
   canMove: 1
 --- !u!1 &1869914879
@@ -12331,7 +12432,7 @@ RectTransform:
   m_Father: {fileID: 1374838455}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -12442,7 +12543,7 @@ RectTransform:
   m_Father: {fileID: 1822992980}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -12809,8 +12910,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 96656946}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
