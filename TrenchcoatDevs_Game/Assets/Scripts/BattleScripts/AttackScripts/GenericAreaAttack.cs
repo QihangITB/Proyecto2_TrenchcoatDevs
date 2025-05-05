@@ -4,4 +4,6 @@ using UnityEngine;
 
 public abstract class GenericAreaAttack : AAttack
 {
+    public List<GameObject> targetButtons;
+    public abstract void ActivateTargetButtons();
 }

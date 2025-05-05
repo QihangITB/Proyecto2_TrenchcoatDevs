@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce3dbac0bc02172429f216849b5492af, type: 3}
   m_Name: BasicAttackSO
   m_EditorClassIdentifier: 
+  attackName: Basic attack
+  description: Damage an enemy
+  cost: 0
   targetButtons: []
