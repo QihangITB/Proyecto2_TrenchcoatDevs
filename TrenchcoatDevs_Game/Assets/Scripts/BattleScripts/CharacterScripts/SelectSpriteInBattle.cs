@@ -6,57 +6,60 @@ using UnityEngine.UI;
 public class SelectSpriteInBattle : MonoBehaviour
 {
     public CharacterHolder character;
-    public List<Camera> cameras;
     // Update is called once per frame
-    private void Awake()
+    private void OnEnable()
     {
-        cameras.Add(GameObject.Find("GrandmaCam").GetComponent<Camera>());
-        cameras.Add(GameObject.Find("AddictedCam").GetComponent<Camera>());
-        cameras.Add(GameObject.Find("PyroCam").GetComponent<Camera>());
-        cameras.Add(GameObject.Find("InternCam").GetComponent<Camera>());
-        cameras.Add(GameObject.Find("StreetArtistCam").GetComponent<Camera>());
-        cameras.Add(GameObject.Find("BodybuilderCam").GetComponent<Camera>());
-        cameras.Add(GameObject.Find("NullCam").GetComponent<Camera>());
-
         StartCoroutine(SelectSprite());
     }
     void Update()
     {
         if (character.HP <= 0)
         {
-            GetComponent<RawImage>().texture = cameras[6].targetTexture;
+            GetComponent<RawImage>().texture = BattleManager.instance.cameras[BattleManager.instance.cameras.Count - 1].targetTexture;
         }
     }
-    IEnumerator SelectSprite()
+    public IEnumerator SelectSprite()
     {
-        yield return new WaitForSeconds(0.001f);
+        yield return new WaitForSeconds(0.00001f);
 
-        switch (character.character)
+        if (character.character != null)
         {
-            case GrandmaCharacter g:
-                Debug.Log("Abuela");
-                GetComponent<RawImage>().texture = cameras[0].targetTexture;
-                break;
-            case AddictCharacter ad:
-                Debug.Log("Drogo");
-                GetComponent<RawImage>().texture = cameras[1].targetTexture;
-                break;
-            case PiromaniacCharacter py:
-                Debug.Log("Piro");
-                GetComponent<RawImage>().texture = cameras[2].targetTexture;
-                break;
-            case InternCharacter i:
-                Debug.Log("Becario");
-                GetComponent<RawImage>().texture = cameras[3].targetTexture;
-                break;
-            case GraffitiPainterCharacter sa:
-                Debug.Log("Raphinha");
-                GetComponent<RawImage>().texture = cameras[4].targetTexture;
-                break;
-            case CulturistCharacter c:
-                Debug.Log("Mazao");
-                GetComponent<RawImage>().texture = cameras[5].targetTexture;
-                break;
+            switch (character.character)
+            {
+                case GrandmaCharacter grandma:
+                    GetComponent<RawImage>().texture = BattleManager.instance.cameras[0].targetTexture;
+                    break;
+                case AddictCharacter addicted:
+                    GetComponent<RawImage>().texture = BattleManager.instance.cameras[1].targetTexture;
+                    break;
+                case PiromaniacCharacter pyro:
+                    GetComponent<RawImage>().texture = BattleManager.instance.cameras[2].targetTexture;
+                    break;
+                case InternCharacter intern:
+                    GetComponent<RawImage>().texture = BattleManager.instance.cameras[3].targetTexture;
+                    break;
+                case GraffitiPainterCharacter streetartist:
+                    GetComponent<RawImage>().texture = BattleManager.instance.cameras[4].targetTexture;
+                    break;
+                case CulturistCharacter bodybuilder:
+                    GetComponent<RawImage>().texture = BattleManager.instance.cameras[5].targetTexture;
+                    break;
+                case PrincessEnemy princess:
+                    GetComponent<RawImage>().texture = BattleManager.instance.cameras[6].targetTexture;
+                    break;
+            }
+            if (character.character.GetType().Name == "PrincessEnemy")
+            {
+                GetComponent<RawImage>().transform.localScale = Vector3.one * 2;
+            }
+            else
+            {
+                GetComponent<RawImage>().transform.localScale = Vector3.one;
+            }
+        }
+        else
+        {
+            GetComponent<RawImage>().texture = BattleManager.instance.cameras[BattleManager.instance.cameras.Count - 1].targetTexture;
         }
     }
 }

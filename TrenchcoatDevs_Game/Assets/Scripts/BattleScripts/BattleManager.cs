@@ -36,6 +36,12 @@ public class BattleManager : MonoBehaviour
     public int poisonDamageDivisor = 5;
     public bool canMove = true;
 
+    public List<Camera> cameras = new List<Camera>();
+    public Dictionary<Camera, bool> onionCams;
+    public Dictionary<Camera, bool> brocoliCams;
+    public Dictionary<Camera, bool> pgeonCams;
+
+
     public void CharacterAllocation(List<APlayer> listOfPlayers, List<AEnemy> listOfenemies, List<CharacterOutOfBattle> listOfOutOfBattle)
     {
         for (int i = 0; i < players.Count; i++)
@@ -390,6 +396,7 @@ public class BattleManager : MonoBehaviour
  
         DeActivateTargetButtons();
         attack.Effect(targets, user);
+
     }
     public void UseAreaAttack()
     {
@@ -409,5 +416,33 @@ public class BattleManager : MonoBehaviour
         enemyTeamButton.GetComponent<Image>().enabled = false;
         playerTeamButton.GetComponent<Image>().enabled = false;
         allCharactersButton.GetComponent<Image>().enabled = false;
+    }
+
+    public void OnEnable()
+    {
+        //Para tomar a los personajes únicos en escena
+        cameras.Add(GameObject.Find("GrandmaCam").GetComponent<Camera>());
+        cameras.Add(GameObject.Find("AddictedCam").GetComponent<Camera>());
+        cameras.Add(GameObject.Find("PyroCam").GetComponent<Camera>());
+        cameras.Add(GameObject.Find("InternCam").GetComponent<Camera>());
+        cameras.Add(GameObject.Find("StreetArtistCam").GetComponent<Camera>());
+        cameras.Add(GameObject.Find("BodybuilderCam").GetComponent<Camera>());
+
+        onionCams.Add(GameObject.Find("OnionCam").GetComponent<Camera>(), true);
+        onionCams.Add(GameObject.Find("OnionCam2").GetComponent<Camera>(), true);
+        onionCams.Add(GameObject.Find("OnionCam3").GetComponent<Camera>(), true);
+
+
+        brocoliCams.Add(GameObject.Find("BrocoliCam").GetComponent<Camera>(), true);
+        brocoliCams.Add(GameObject.Find("BrocoliCam2").GetComponent<Camera>(), true);
+        brocoliCams.Add(GameObject.Find("BrocoliCam3").GetComponent<Camera>(), true);
+
+        pgeonCams.Add(GameObject.Find("PigeonCam").GetComponent<Camera>(), true);
+        pgeonCams.Add(GameObject.Find("PigeonCam2").GetComponent<Camera>(), true);
+        pgeonCams.Add(GameObject.Find("PigeonCam3").GetComponent<Camera>(), true);
+
+        cameras.Add(GameObject.Find("PrincessCam").GetComponent<Camera>());
+
+        cameras.Add(GameObject.Find("NullCam").GetComponent<Camera>());
     }
 }
