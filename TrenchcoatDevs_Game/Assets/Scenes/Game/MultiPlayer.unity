@@ -1192,20 +1192,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 11400000, guid: 284fa62b2b86f6243bc78844b5242b4c, type: 2}
+  characterOutOfBattle: {fileID: 0}
+  characterTurnIndicator: {fileID: 0}
+  poisonIcon: {fileID: 0}
+  disgustIcon: {fileID: 0}
+  burnIcon: {fileID: 0}
+  regenerateIcon: {fileID: 0}
+  restIcon: {fileID: 0}
+  tauntIcon: {fileID: 0}
   HP: 10
   maxHP: 10
   attack: 2
   speed: 1
   defense: 0
+  precisionModifier: 0
+  healingModifier: 0
   HpBar: {fileID: 226601841}
   StaminaBar: {fileID: 1342038012}
+  staminaRecovery: 0
   stamina: 10
   maxStamina: 10
   isPoisoned: 0
+  poisonInmune: 0
   isDisgusted: 0
+  disgustInmune: 0
   isBurnt: 0
+  burnInmune: 0
   isRegenerating: 0
   isRested: 0
+  isTaunting: 0
 --- !u!114 &134404065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2603,20 +2618,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 11400000, guid: 284fa62b2b86f6243bc78844b5242b4c, type: 2}
+  characterOutOfBattle: {fileID: 0}
+  characterTurnIndicator: {fileID: 0}
+  poisonIcon: {fileID: 0}
+  disgustIcon: {fileID: 0}
+  burnIcon: {fileID: 0}
+  regenerateIcon: {fileID: 0}
+  restIcon: {fileID: 0}
+  tauntIcon: {fileID: 0}
   HP: 10
   maxHP: 10
   attack: 1
   speed: 1
   defense: 0
+  precisionModifier: 0
+  healingModifier: 0
   HpBar: {fileID: 1807616807}
   StaminaBar: {fileID: 1310720585}
+  staminaRecovery: 0
   stamina: 10
   maxStamina: 10
   isPoisoned: 0
+  poisonInmune: 0
   isDisgusted: 0
+  disgustInmune: 0
   isBurnt: 0
+  burnInmune: 0
   isRegenerating: 0
   isRested: 0
+  isTaunting: 0
 --- !u!114 &340783419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4381,20 +4411,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 11400000, guid: 284fa62b2b86f6243bc78844b5242b4c, type: 2}
+  characterOutOfBattle: {fileID: 0}
+  characterTurnIndicator: {fileID: 0}
+  poisonIcon: {fileID: 0}
+  disgustIcon: {fileID: 0}
+  burnIcon: {fileID: 0}
+  regenerateIcon: {fileID: 0}
+  restIcon: {fileID: 0}
+  tauntIcon: {fileID: 0}
   HP: 10
   maxHP: 10
   attack: 1
   speed: 1
   defense: 0
+  precisionModifier: 0
+  healingModifier: 0
   HpBar: {fileID: 1095230343}
   StaminaBar: {fileID: 1751351250}
+  staminaRecovery: 0
   stamina: 10
   maxStamina: 10
   isPoisoned: 0
+  poisonInmune: 0
   isDisgusted: 0
+  disgustInmune: 0
   isBurnt: 0
+  burnInmune: 0
   isRegenerating: 0
   isRested: 0
+  isTaunting: 0
 --- !u!114 &584985446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8083,20 +8128,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 11400000, guid: 2f796570a8ed866429c848820525aa6f, type: 2}
+  characterOutOfBattle: {fileID: 0}
+  characterTurnIndicator: {fileID: 0}
+  poisonIcon: {fileID: 0}
+  disgustIcon: {fileID: 0}
+  burnIcon: {fileID: 0}
+  regenerateIcon: {fileID: 0}
+  restIcon: {fileID: 0}
+  tauntIcon: {fileID: 0}
   HP: 10
   maxHP: 10
   attack: 7
   speed: 3
   defense: 0
+  precisionModifier: 0
+  healingModifier: 0
   HpBar: {fileID: 596114975}
   StaminaBar: {fileID: 0}
+  staminaRecovery: 0
   stamina: 0
   maxStamina: 0
   isPoisoned: 0
+  poisonInmune: 0
   isDisgusted: 0
+  disgustInmune: 0
   isBurnt: 0
+  burnInmune: 0
   isRegenerating: 0
   isRested: 0
+  isTaunting: 0
 --- !u!114 &1111831430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8433,6 +8493,50 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1194149664
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1194149666}
+  - component: {fileID: 1194149665}
+  m_Layer: 0
+  m_Name: MarkPlayerReady
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1194149665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1194149664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fef69ea7907eb9642a63e083bafc6f42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1194149666
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1194149664}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -16.306883, y: 18.766552, z: 51.89651}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1195961657
 GameObject:
   m_ObjectHideFlags: 0
@@ -9912,20 +10016,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 11400000, guid: 2f796570a8ed866429c848820525aa6f, type: 2}
+  characterOutOfBattle: {fileID: 0}
+  characterTurnIndicator: {fileID: 0}
+  poisonIcon: {fileID: 0}
+  disgustIcon: {fileID: 0}
+  burnIcon: {fileID: 0}
+  regenerateIcon: {fileID: 0}
+  restIcon: {fileID: 0}
+  tauntIcon: {fileID: 0}
   HP: 10
   maxHP: 10
   attack: 3
   speed: 1
   defense: 0
+  precisionModifier: 0
+  healingModifier: 0
   HpBar: {fileID: 2057571024}
   StaminaBar: {fileID: 0}
+  staminaRecovery: 0
   stamina: 10
   maxStamina: 10
   isPoisoned: 0
+  poisonInmune: 0
   isDisgusted: 0
+  disgustInmune: 0
   isBurnt: 0
+  burnInmune: 0
   isRegenerating: 0
   isRested: 0
+  isTaunting: 0
 --- !u!114 &1456109182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10099,20 +10218,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 11400000, guid: 2f796570a8ed866429c848820525aa6f, type: 2}
+  characterOutOfBattle: {fileID: 0}
+  characterTurnIndicator: {fileID: 0}
+  poisonIcon: {fileID: 0}
+  disgustIcon: {fileID: 0}
+  burnIcon: {fileID: 0}
+  regenerateIcon: {fileID: 0}
+  restIcon: {fileID: 0}
+  tauntIcon: {fileID: 0}
   HP: 10
   maxHP: 10
   attack: 2
   speed: 2
   defense: 0
+  precisionModifier: 0
+  healingModifier: 0
   HpBar: {fileID: 933112867}
   StaminaBar: {fileID: 0}
+  staminaRecovery: 0
   stamina: 0
   maxStamina: 0
   isPoisoned: 0
+  poisonInmune: 0
   isDisgusted: 0
+  disgustInmune: 0
   isBurnt: 0
+  burnInmune: 0
   isRegenerating: 0
   isRested: 0
+  isTaunting: 0
 --- !u!114 &1501949158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12156,6 +12290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 364b626b851229e41bd16bbd79a1b188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentRound: 0
   enemies:
   - {fileID: 1456109181}
   - {fileID: 1501949157}
@@ -12166,8 +12301,17 @@ MonoBehaviour:
   - {fileID: 340783418}
   characters: []
   CharOrderInTurn: []
+  enemySelectors: []
   playerButtons: []
   enemyButtons: []
+  enemyTeamButton: {fileID: 0}
+  playerTeamButton: {fileID: 0}
+  allCharactersButton: {fileID: 0}
+  basicAttackButton: {fileID: 0}
+  restButton: {fileID: 0}
+  abilityButtons: []
+  hpBar: {fileID: 0}
+  staminaBar: {fileID: 0}
   attack: {fileID: 0}
   areaAttack: {fileID: 0}
   enemyAttack: {fileID: 0}
@@ -12175,6 +12319,7 @@ MonoBehaviour:
   enemyUser: {fileID: 0}
   targets: []
   fightIsFinished: 0
+  win: 0
   poisonDamageDivisor: 10
   canMove: 1
 --- !u!1 &1869914879
@@ -13659,6 +13804,71 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2043901944}
   m_SourcePrefab: {fileID: 100100000, guid: 957ff1a3eaa9f294ab4de00b5ad08e28, type: 3}
+--- !u!1001 &3214135830450539184
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6206957888709694357, guid: 39a2c937508bfbc4fb8ef62d2054bb0c, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3977183714
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206957888709694357, guid: 39a2c937508bfbc4fb8ef62d2054bb0c, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 1177653537
+      objectReference: {fileID: 0}
+    - target: {fileID: 7165740685530987107, guid: 39a2c937508bfbc4fb8ef62d2054bb0c, type: 3}
+      propertyPath: m_Name
+      value: ReadyCheck
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709644839111243591, guid: 39a2c937508bfbc4fb8ef62d2054bb0c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -29.221851
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709644839111243591, guid: 39a2c937508bfbc4fb8ef62d2054bb0c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.2421627
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709644839111243591, guid: 39a2c937508bfbc4fb8ef62d2054bb0c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -106.664246
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709644839111243591, guid: 39a2c937508bfbc4fb8ef62d2054bb0c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709644839111243591, guid: 39a2c937508bfbc4fb8ef62d2054bb0c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709644839111243591, guid: 39a2c937508bfbc4fb8ef62d2054bb0c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709644839111243591, guid: 39a2c937508bfbc4fb8ef62d2054bb0c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709644839111243591, guid: 39a2c937508bfbc4fb8ef62d2054bb0c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709644839111243591, guid: 39a2c937508bfbc4fb8ef62d2054bb0c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709644839111243591, guid: 39a2c937508bfbc4fb8ef62d2054bb0c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 39a2c937508bfbc4fb8ef62d2054bb0c, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -13673,3 +13883,5 @@ SceneRoots:
   - {fileID: 1758032618}
   - {fileID: 114403343}
   - {fileID: 640413498}
+  - {fileID: 1194149666}
+  - {fileID: 3214135830450539184}
