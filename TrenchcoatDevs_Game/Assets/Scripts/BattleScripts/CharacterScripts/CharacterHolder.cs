@@ -36,9 +36,11 @@ public class CharacterHolder : MonoBehaviour
     public bool isRested;
     public bool isTaunting;
 
+    GameObject hitSprite;
 
     public void SelectCharacter(CharacterOutOfBattle characterOutOfBattle)
     {
+        hitSprite = transform.parent.Find("Hit").gameObject;
         if (characterOutOfBattle != null)
         {
             this.characterOutOfBattle = characterOutOfBattle;
@@ -60,6 +62,8 @@ public class CharacterHolder : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
+        hitSprite.GetComponent<Image>().enabled = true;
+        StartCoroutine(UnableHit());
         if (isBurnt)
         {
             damage *= 2;
@@ -257,5 +261,12 @@ public class CharacterHolder : MonoBehaviour
             stamina = 0;
         }
         UpdateStaminaBar();
+    }
+
+    IEnumerator UnableHit()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        hitSprite.GetComponent<Image>().enabled = false;
     }
 }

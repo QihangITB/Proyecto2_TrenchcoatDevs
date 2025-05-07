@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
@@ -37,10 +38,10 @@ public class BattleManager : MonoBehaviour
     public bool canMove = true;
 
     public List<Camera> cameras = new List<Camera>();
-    public Dictionary<Camera, bool> onionCams;
-    public Dictionary<Camera, bool> brocoliCams;
-    public Dictionary<Camera, bool> pgeonCams;
 
+    public List<Camera> onionCams;
+    public List<Camera> brocoliCams;
+    public List<Camera> pgeonCams;
 
     public void CharacterAllocation(List<APlayer> listOfPlayers, List<AEnemy> listOfenemies, List<CharacterOutOfBattle> listOfOutOfBattle)
     {
@@ -173,7 +174,14 @@ public class BattleManager : MonoBehaviour
     }
     public void StartTurn(CharacterHolder character)
     {
+        Debug.LogWarning("Entra");
         WaitForTurn(0.5f);
+        StartCoroutine(LittlePause(character));
+    }
+
+    IEnumerator LittlePause(CharacterHolder character)
+    {
+        yield return new WaitForSeconds(1);
         if (!fightIsFinished)
         {
             foreach (CharacterHolder characterInTurn in characters)
@@ -210,14 +218,14 @@ public class BattleManager : MonoBehaviour
                     Debug.Log(character.character);
                     enemyUser = user.character as AEnemy;
                     enemyUser.SelectAttack();
-                    StartCoroutine(WaitForTurn(1.5f));
+                    StartCoroutine(WaitForTurn(0));
                 }
                 else
                 {
                     staminaBar.SetActive(true);
                     hpBar.SetActive(true);
-                    hpBar.GetComponentInChildren<TextMeshProUGUI>().text = character.HP.ToString() + "HP / " + character.maxHP.ToString()+"HP";
-                    staminaBar.GetComponentInChildren<TextMeshProUGUI>().text = character.stamina.ToString() + "St / " + character.maxStamina.ToString()+"St";
+                    hpBar.GetComponentInChildren<TextMeshProUGUI>().text = character.HP.ToString() + "HP / " + character.maxHP.ToString() + "HP";
+                    staminaBar.GetComponentInChildren<TextMeshProUGUI>().text = character.stamina.ToString() + "St / " + character.maxStamina.ToString() + "St";
                     hpBar.GetComponentInChildren<Slider>().value = (float)character.HP / (float)character.maxHP;
                     staminaBar.GetComponentInChildren<Slider>().value = (float)character.stamina / (float)character.maxStamina;
                     basicAttackButton.GetComponent<Image>().enabled = true;
@@ -428,21 +436,21 @@ public class BattleManager : MonoBehaviour
         cameras.Add(GameObject.Find("StreetArtistCam").GetComponent<Camera>());
         cameras.Add(GameObject.Find("BodybuilderCam").GetComponent<Camera>());
 
-        onionCams.Add(GameObject.Find("OnionCam").GetComponent<Camera>(), true);
-        onionCams.Add(GameObject.Find("OnionCam2").GetComponent<Camera>(), true);
-        onionCams.Add(GameObject.Find("OnionCam3").GetComponent<Camera>(), true);
-
-
-        brocoliCams.Add(GameObject.Find("BrocoliCam").GetComponent<Camera>(), true);
-        brocoliCams.Add(GameObject.Find("BrocoliCam2").GetComponent<Camera>(), true);
-        brocoliCams.Add(GameObject.Find("BrocoliCam3").GetComponent<Camera>(), true);
-
-        pgeonCams.Add(GameObject.Find("PigeonCam").GetComponent<Camera>(), true);
-        pgeonCams.Add(GameObject.Find("PigeonCam2").GetComponent<Camera>(), true);
-        pgeonCams.Add(GameObject.Find("PigeonCam3").GetComponent<Camera>(), true);
-
         cameras.Add(GameObject.Find("PrincessCam").GetComponent<Camera>());
 
         cameras.Add(GameObject.Find("NullCam").GetComponent<Camera>());
+
+        onionCams.Add(GameObject.Find("OnionCam").GetComponent<Camera>());
+        onionCams.Add(GameObject.Find("OnionCam2").GetComponent<Camera>());
+        onionCams.Add(GameObject.Find("OnionCam").GetComponent<Camera>());
+
+        brocoliCams.Add(GameObject.Find("BrocoliCam").GetComponent<Camera>());
+        brocoliCams.Add(GameObject.Find("BrocoliCam2").GetComponent<Camera>());
+        brocoliCams.Add(GameObject.Find("BrocoliCam3").GetComponent<Camera>());
+
+        pgeonCams.Add(GameObject.Find("PigeonCam").GetComponent<Camera>());
+        pgeonCams.Add(GameObject.Find("PigeonCam2").GetComponent<Camera>());
+        pgeonCams.Add(GameObject.Find("PigeonCam3").GetComponent<Camera>());
+
     }
 }

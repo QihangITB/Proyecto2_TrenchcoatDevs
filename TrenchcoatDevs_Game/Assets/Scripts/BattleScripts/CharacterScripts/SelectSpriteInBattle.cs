@@ -21,6 +21,8 @@ public class SelectSpriteInBattle : MonoBehaviour
     public IEnumerator SelectSprite()
     {
         yield return new WaitForSeconds(0.00001f);
+        GetComponent<RawImage>().enabled = true;
+        Camera thisCam = null;
 
         if (character.character != null)
         {
@@ -46,6 +48,24 @@ public class SelectSpriteInBattle : MonoBehaviour
                     break;
                 case PrincessEnemy princess:
                     GetComponent<RawImage>().texture = BattleManager.instance.cameras[6].targetTexture;
+                    break;
+                case OnionEnemy onion:
+                    thisCam = BattleManager.instance.onionCams[0];
+                    GetComponent<RawImage>().texture = thisCam.targetTexture;
+                    BattleManager.instance.onionCams.Remove(thisCam);
+                    BattleManager.instance.onionCams.Add(thisCam);
+                    break;
+                case BroColiEnemy brocoli:
+                    thisCam = BattleManager.instance.brocoliCams[0];
+                    GetComponent<RawImage>().texture = thisCam.targetTexture;
+                    BattleManager.instance.brocoliCams.Remove(thisCam);
+                    BattleManager.instance.brocoliCams.Add(thisCam);
+                    break;
+                case PGeon pgeon:
+                    thisCam = BattleManager.instance.pgeonCams[0];
+                    GetComponent<RawImage>().texture = thisCam.targetTexture;
+                    BattleManager.instance.pgeonCams.Remove(thisCam);
+                    BattleManager.instance.pgeonCams.Add(thisCam);
                     break;
             }
             if (character.character.GetType().Name == "PrincessEnemy")
