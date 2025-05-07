@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.HID;
 
+[System.Serializable]
 public class NodeMapGeneration : MonoBehaviour
 {
     public const string PlayerTag = "Player";
@@ -54,12 +55,12 @@ public class NodeMapGeneration : MonoBehaviour
             FifthLevel,
             new List<GameObject> { BossLevel }
         };
-        _actionLevels = new List<List<GameObject>> { 
-            FirstLevel, 
-            SecondLevel, 
-            ThirdLevel, 
-            FourthLevel, 
-            FifthLevel 
+        _actionLevels = new List<List<GameObject>> {
+            FirstLevel,
+            SecondLevel,
+            ThirdLevel,
+            FourthLevel,
+            FifthLevel
         };
         _player = GameObject.FindWithTag(PlayerTag);
 
@@ -309,4 +310,32 @@ public class NodeMapGeneration : MonoBehaviour
             sc.enabled = false;
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public override string ToString()
+    {
+        string data = "{\"name\":\"patata\"}";
+
+
+        return data;
+    }
+
+
 }

@@ -6,6 +6,6 @@ public class SaveData : MonoBehaviour
 {
     public void SaveNodeMap(NodeMapGeneration nodeMap)
     {
-        JsonDataManager.SaveToJson(nodeMap, "data");
+        JsonDataManager.SaveJsonToJson(nodeMap.ToString(), "data");
     }
 }

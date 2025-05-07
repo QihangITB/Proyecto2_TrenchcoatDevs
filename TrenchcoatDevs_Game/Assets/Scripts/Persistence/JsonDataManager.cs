@@ -6,9 +6,16 @@ using UnityEngine;
 public class JsonDataManager : MonoBehaviour
 {
     // Guarda un objeto como JSON en un archivo
-    public static void SaveToJson<T>(T data, string fileName)
+    public static void SaveDataToJson<T>(T data, string fileName)
     {
         string json = JsonUtility.ToJson(data, true); // true para formato "pretty"
+        string path = GetFilePath(fileName);
+        File.AppendAllText(path, json);
+        Debug.Log($"Datos guardados en: {path}");
+    }
+
+    public static void SaveJsonToJson(string json, string fileName)
+    {
         string path = GetFilePath(fileName);
         File.AppendAllText(path, json);
         Debug.Log($"Datos guardados en: {path}");
