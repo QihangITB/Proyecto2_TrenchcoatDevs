@@ -42,6 +42,13 @@ public class NodeMapGeneration : MonoBehaviour
     {
         get { return _player; }
     }
+    protected List<List<GameObject>> AllLevels
+    {
+        get
+        {
+            return _allLevels;
+        }
+    }
     protected virtual void Start()
     {
         _allLevels = new List<List<GameObject>> {
@@ -89,7 +96,7 @@ public class NodeMapGeneration : MonoBehaviour
     }
 
     // NODES
-    private void GenerateStaticNodes()
+    protected virtual void GenerateStaticNodes()
     {
         SetNode(TutorialNode, BattleP);
         SetNode(BossLevel, BattleP);
@@ -141,14 +148,14 @@ public class NodeMapGeneration : MonoBehaviour
         return _actionLevels[levelNum][nodeNum].transform.childCount == 0;
     }
 
-    private void SetNode(GameObject node, GameObject nodePrefab)
+    protected void SetNode(GameObject node, GameObject nodePrefab)
     {
         Instantiate(nodePrefab, node.transform.position, node.transform.rotation, node.transform);
     }
 
 
     // PATH
-    private void GeneratePath(GameObject pathPrefab)
+    protected virtual void GeneratePath(GameObject pathPrefab)
     {
         SetPath(TutorialNode, StartNode, pathPrefab);
 
@@ -161,7 +168,6 @@ public class NodeMapGeneration : MonoBehaviour
         {
             SetPath(node, BossLevel, pathPrefab);
         }
-
         for (int i = 0; i < _actionLevels.Count - 1; i++)
         {
             ConnectNodesWithPath(_actionLevels[i], _actionLevels[i + 1], pathPrefab);
@@ -188,7 +194,7 @@ public class NodeMapGeneration : MonoBehaviour
         }
     }
 
-    private void SetPath(GameObject origin, GameObject destination, GameObject pathPrefab)
+    protected void SetPath(GameObject origin, GameObject destination, GameObject pathPrefab)
     {
         Vector3 direction = origin.transform.position - destination.transform.position;
         Instantiate(pathPrefab, destination.transform.position, Quaternion.LookRotation(direction), destination.transform);
@@ -208,7 +214,7 @@ public class NodeMapGeneration : MonoBehaviour
     }
 
     // PLAYER LEVEL
-    private void HideNodes()
+    protected void HideNodes()
     {
         // Ocultamos todos los nodos
         foreach (List<GameObject> level in _allLevels)
