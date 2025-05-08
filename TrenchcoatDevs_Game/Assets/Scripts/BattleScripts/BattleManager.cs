@@ -81,6 +81,7 @@ public class BattleManager : MonoBehaviour
                 enemies[i].character = listOfenemies[i];
                 Debug.Log("Enemy " + i + " is " + enemies[i].character);
                 enemies[i].SelectCharacter(null);
+
             }
             else
             {
@@ -92,7 +93,7 @@ public class BattleManager : MonoBehaviour
                 //desactiva el slider 
                 enemies[i].HpBar.GetComponent<Slider>().gameObject.SetActive(false);
                 enemySelectors.Add(enemies[i]);
-                enemies[i]=null;
+                enemies[i].character=null;
             }
         }
         //por cada pasiva de los personajes de la lista de jugadores, esta se activa
@@ -116,7 +117,7 @@ public class BattleManager : MonoBehaviour
         StartRound();
     }
 
-    private void Start()
+    private void Awake()
     {
         currentRound = 0;
         if (instance == null)
@@ -421,6 +422,17 @@ public class BattleManager : MonoBehaviour
  
         DeActivateTargetButtons();
         AttackAnimation(user);
+        basicAttackButton.GetComponent<Image>().enabled = false;
+        basicAttackButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        restButton.GetComponent<Image>().enabled = false;
+        restButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        hpBar.SetActive(false);
+        staminaBar.SetActive(false);
+        foreach (GameObject button in abilityButtons)
+        {
+            button.GetComponent<Image>().enabled = false;
+            button.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        }
         attack.Effect(targets, user);
 
     }
@@ -428,6 +440,17 @@ public class BattleManager : MonoBehaviour
     {
         DeActivateTargetButtons();
         AttackAnimation(user);
+        basicAttackButton.GetComponent<Image>().enabled = false;
+        basicAttackButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        restButton.GetComponent<Image>().enabled = false;
+        restButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        hpBar.SetActive(false);
+        staminaBar.SetActive(false);
+        foreach (GameObject button in abilityButtons)
+        {
+            button.GetComponent<Image>().enabled = false;
+            button.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        }
         areaAttack.Effect(targets, user);
     }
 

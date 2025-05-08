@@ -92,7 +92,7 @@ public class SelectSpriteInBattle : MonoBehaviour
             }
             else
             {
-                GetComponent<RawImage>().transform.localScale = Vector3.one * 1.25f;
+                GetComponent<RawImage>().transform.localScale = Vector3.one * 1.2f;
             }
         }
         else
