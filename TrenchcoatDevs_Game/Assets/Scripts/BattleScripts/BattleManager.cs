@@ -43,6 +43,7 @@ public class BattleManager : MonoBehaviour
     public List<Camera> brocoliCams;
     public List<Camera> pgeonCams;
 
+
     public void CharacterAllocation(List<APlayer> listOfPlayers, List<AEnemy> listOfenemies, List<CharacterOutOfBattle> listOfOutOfBattle)
     {
         for (int i = 0; i < players.Count; i++)
@@ -133,6 +134,17 @@ public class BattleManager : MonoBehaviour
     public void StartRound()
     {
         currentRound++;
+        basicAttackButton.GetComponent<Image>().enabled = false;
+        basicAttackButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        restButton.GetComponent<Image>().enabled = false;
+        restButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        hpBar.SetActive(false);
+        staminaBar.SetActive(false);
+        foreach (GameObject button in abilityButtons)
+        {
+            button.GetComponent<Image>().enabled = false;
+            button.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        }
         if (fightIsFinished)
         {
             StartTurn(null);
@@ -174,14 +186,13 @@ public class BattleManager : MonoBehaviour
     }
     public void StartTurn(CharacterHolder character)
     {
-        Debug.LogWarning("Entra");
         WaitForTurn(0.5f);
         StartCoroutine(LittlePause(character));
     }
 
     IEnumerator LittlePause(CharacterHolder character)
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.5f);
         if (!fightIsFinished)
         {
             foreach (CharacterHolder characterInTurn in characters)
@@ -218,6 +229,7 @@ public class BattleManager : MonoBehaviour
                     Debug.Log(character.character);
                     enemyUser = user.character as AEnemy;
                     enemyUser.SelectAttack();
+                    AttackAnimation(user);
                     StartCoroutine(WaitForTurn(0));
                 }
                 else
@@ -258,6 +270,11 @@ public class BattleManager : MonoBehaviour
                             players[i].HP = players[i].maxHP;
                         }
                         PlayerManager.instance.charactersOutOfBattle[i].characterHP = players[i].HP;
+                        players[i].characterOutOfBattle.fightsToLevelUp--;
+                        if (players[i].characterOutOfBattle.fightsToLevelUp == 0)
+                        {
+                            players[i].characterOutOfBattle.timesToLevelUp++;
+                        }
                     }
                 }
             }
@@ -403,14 +420,24 @@ public class BattleManager : MonoBehaviour
     {
  
         DeActivateTargetButtons();
+        AttackAnimation(user);
         attack.Effect(targets, user);
 
     }
     public void UseAreaAttack()
     {
         DeActivateTargetButtons();
+        AttackAnimation(user);
         areaAttack.Effect(targets, user);
     }
+
+    void AttackAnimation(CharacterHolder user)
+    {
+        Debug.Log(user.character.characterName + " animación");
+        GameObject activeAttacker = user.transform.parent.GetComponentInChildren<RawImage>().gameObject.GetComponent<SelectSpriteInBattle>().spriteReference;
+        activeAttacker.GetComponent<Animator>().SetTrigger("Attack");
+    }
+
     public void DeActivateTargetButtons()
     {
         foreach (GameObject button in playerButtons)
