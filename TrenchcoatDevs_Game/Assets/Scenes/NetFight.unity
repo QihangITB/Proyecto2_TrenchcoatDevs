@@ -1402,7 +1402,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &284862417
 Transform:
   m_ObjectHideFlags: 0
@@ -3557,6 +3557,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9eee32df219938349bd2003bc16fbc00, type: 2}
   - {fileID: 11400000, guid: 01d0f9ba82f8d08459847817c0cd8558, type: 2}
   basicAttack: {fileID: 11400000, guid: 370af78e6e233b448a875b62f530f850, type: 2}
+  level: 0
+  timesToLevelUp: 0
+  fightsToLevelUp: 0
 --- !u!1 &561229102
 GameObject:
   m_ObjectHideFlags: 0
@@ -4652,6 +4655,7 @@ MonoBehaviour:
   burnIcon: {fileID: 303794767}
   regenerateIcon: {fileID: 92236371}
   restIcon: {fileID: 1969551725}
+  tauntIcon: {fileID: 0}
   HP: 0
   maxHP: 10
   attack: 2
@@ -4661,6 +4665,7 @@ MonoBehaviour:
   healingModifier: 0
   HpBar: {fileID: 1387754564}
   StaminaBar: {fileID: 0}
+  staminaRecovery: 0
   stamina: 0
   maxStamina: 0
   isPoisoned: 0
@@ -4671,6 +4676,7 @@ MonoBehaviour:
   burnInmune: 0
   isRegenerating: 0
   isRested: 0
+  isTaunting: 0
 --- !u!1 &714973024
 GameObject:
   m_ObjectHideFlags: 0
@@ -6347,6 +6353,7 @@ MonoBehaviour:
   burnIcon: {fileID: 844646004}
   regenerateIcon: {fileID: 1398259896}
   restIcon: {fileID: 881583396}
+  tauntIcon: {fileID: 0}
   HP: 0
   maxHP: 10
   attack: 7
@@ -6356,6 +6363,7 @@ MonoBehaviour:
   healingModifier: 0
   HpBar: {fileID: 579170193}
   StaminaBar: {fileID: 0}
+  staminaRecovery: 0
   stamina: 0
   maxStamina: 0
   isPoisoned: 0
@@ -6366,6 +6374,7 @@ MonoBehaviour:
   burnInmune: 0
   isRegenerating: 0
   isRested: 0
+  isTaunting: 0
 --- !u!1 &881583396
 GameObject:
   m_ObjectHideFlags: 0
@@ -6539,6 +6548,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6ec28d5103dd2e3458deeaeed6844e2e, type: 2}
   - {fileID: 11400000, guid: fd381b5328248a340a2fa9aa60fd78b4, type: 2}
   basicAttack: {fileID: 11400000, guid: f9290bfaa2e3dc94f8d5a7462036db92, type: 2}
+  level: 0
+  timesToLevelUp: 0
+  fightsToLevelUp: 0
 --- !u!1 &909916131
 GameObject:
   m_ObjectHideFlags: 0
@@ -7317,6 +7329,7 @@ MonoBehaviour:
   burnIcon: {fileID: 44073610}
   regenerateIcon: {fileID: 1924446715}
   restIcon: {fileID: 1190093997}
+  tauntIcon: {fileID: 0}
   HP: 10
   maxHP: 10
   attack: 1
@@ -7326,6 +7339,7 @@ MonoBehaviour:
   healingModifier: 0
   HpBar: {fileID: 759440878}
   StaminaBar: {fileID: 1872103150}
+  staminaRecovery: 0
   stamina: 10
   maxStamina: 10
   isPoisoned: 0
@@ -7336,6 +7350,7 @@ MonoBehaviour:
   burnInmune: 0
   isRegenerating: 0
   isRested: 0
+  isTaunting: 0
 --- !u!114 &993541537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7407,6 +7422,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d328d971fa7271a4e8bfd6c27f9a84be, type: 2}
   - {fileID: 11400000, guid: 1bdf01a25e92209418c17468071aedc9, type: 2}
   basicAttack: {fileID: 11400000, guid: cf9850caa1863d54781cbd14a1622760, type: 2}
+  level: 0
+  timesToLevelUp: 0
+  fightsToLevelUp: 0
 --- !u!1 &1015021352
 GameObject:
   m_ObjectHideFlags: 0
@@ -11349,6 +11367,7 @@ MonoBehaviour:
   burnIcon: {fileID: 1174286897}
   regenerateIcon: {fileID: 636513671}
   restIcon: {fileID: 1811405636}
+  tauntIcon: {fileID: 0}
   HP: 0
   maxHP: 10
   attack: 3
@@ -11358,6 +11377,7 @@ MonoBehaviour:
   healingModifier: 0
   HpBar: {fileID: 86791775}
   StaminaBar: {fileID: 0}
+  staminaRecovery: 0
   stamina: 10
   maxStamina: 10
   isPoisoned: 0
@@ -11368,6 +11388,7 @@ MonoBehaviour:
   burnInmune: 0
   isRegenerating: 0
   isRested: 0
+  isTaunting: 0
 --- !u!1 &1632337888
 GameObject:
   m_ObjectHideFlags: 0
@@ -12299,6 +12320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 364b626b851229e41bd16bbd79a1b188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentRound: 0
   enemies:
   - {fileID: 1585587362}
   - {fileID: 700954263}
@@ -12309,6 +12331,7 @@ MonoBehaviour:
   - {fileID: 993541536}
   characters: []
   CharOrderInTurn: []
+  enemySelectors: []
   playerButtons: []
   enemyButtons: []
   enemyTeamButton: {fileID: 714973024}
@@ -12675,6 +12698,7 @@ MonoBehaviour:
   burnIcon: {fileID: 756997148}
   regenerateIcon: {fileID: 451810895}
   restIcon: {fileID: 475820956}
+  tauntIcon: {fileID: 0}
   HP: 10
   maxHP: 10
   attack: 1
@@ -12684,6 +12708,7 @@ MonoBehaviour:
   healingModifier: 0
   HpBar: {fileID: 435510320}
   StaminaBar: {fileID: 956615324}
+  staminaRecovery: 0
   stamina: 10
   maxStamina: 10
   isPoisoned: 0
@@ -12694,6 +12719,7 @@ MonoBehaviour:
   burnInmune: 0
   isRegenerating: 0
   isRested: 0
+  isTaunting: 0
 --- !u!114 &1817131356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13599,6 +13625,7 @@ MonoBehaviour:
   burnIcon: {fileID: 1493968611}
   regenerateIcon: {fileID: 35833923}
   restIcon: {fileID: 1502019923}
+  tauntIcon: {fileID: 0}
   HP: 10
   maxHP: 10
   attack: 2
@@ -13608,6 +13635,7 @@ MonoBehaviour:
   healingModifier: 0
   HpBar: {fileID: 1800017157}
   StaminaBar: {fileID: 785920177}
+  staminaRecovery: 0
   stamina: 10
   maxStamina: 10
   isPoisoned: 0
@@ -13618,6 +13646,7 @@ MonoBehaviour:
   burnInmune: 0
   isRegenerating: 0
   isRested: 0
+  isTaunting: 0
 --- !u!114 &2024307062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13667,6 +13696,51 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2065303348
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2065303349}
+  - component: {fileID: 2065303350}
+  m_Layer: 0
+  m_Name: PlayerNetTesting
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2065303349
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065303348}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 347.8676, y: 147.23811, z: 102.3547}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2065303350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065303348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c34c65233a06ae143895a960911d9190, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterSyncPrefab: {fileID: 4206367711581373717, guid: c14ae9ababc7468498b58a2d5d941254, type: 3}
 --- !u!1 &2084562558
 GameObject:
   m_ObjectHideFlags: 0
@@ -14045,4 +14119,5 @@ SceneRoots:
   - {fileID: 571242371}
   - {fileID: 1803028927}
   - {fileID: 284862417}
+  - {fileID: 2065303349}
   - {fileID: 139803468}
