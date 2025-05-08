@@ -64,14 +64,26 @@ public class NodeMapGeneration : MonoBehaviour
         };
         _player = GameObject.FindWithTag(PlayerTag);
 
-        // Static nodes
-        GenerateStaticNodes();
+        if(JsonDataManager.FileExists("gamedata"))
+        {
+            // Load node map data from JSON
+            LoadNodeMapData();
 
-        // Random nodes
-        GenerateSpecialNodes();
+            Debug.Log("Node map loaded from JSON.");
+        }
+        else
+        {
+            // Static nodes
+            GenerateStaticNodes();
 
-        // Fill empty nodes
-        FillEmptyNodes(BattleP);
+            // Random nodes
+            GenerateSpecialNodes();
+
+            // Fill empty nodes
+            FillEmptyNodes(BattleP);
+
+            Debug.Log("Node map generated randomly.");
+        }
 
         // NodePaths
         GeneratePath(Path);
@@ -311,23 +323,53 @@ public class NodeMapGeneration : MonoBehaviour
         }
     }
 
+    // GENERATE MAP WITH JSON
+    private void LoadNodeMapData()
+    {
+        LevelData levelData = JsonDataManager.LoadFromJson<LevelData>("gamedata");
+        ChargeNodeMapWithData(levelData);
+    }
 
+    private void ChargeNodeMapWithData(LevelData data)
+    {
+        SetNode(TutorialNode, GetNodePrefabByName(data.tutorial));
+        SetNode(StartNode, GetNodePrefabByName(data.start));
 
+        var levelData = new[] { data.level1, data.level2, data.level3, data.level4, data.level5 };
 
+        for (int i = 0; i < _actionLevels.Count; i++)
+        {
+            var nodeArray = _actionLevels[i];
+            var level = levelData[i];
+            for (int j = 0; j < nodeArray.Count; j++)
+            {
+                string nodeName = (string)level.GetType().GetField($"node{j + 1}").GetValue(level);
+                SetNode(nodeArray[j], GetNodePrefabByName(nodeName));
+            }
+        }
 
+        SetNode(BossLevel, GetNodePrefabByName(data.boss));
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
+    private GameObject GetNodePrefabByName(string name)
+    {
+        switch(name)
+        {
+            case "BattleNode":
+                return BattleP;
+            case "HealthNode":
+                return HealthP;
+            case "CharacterNode":
+                return CharacterP;
+            case "ShopNode":
+                return ShopP;
+            case "TreasureNode":
+                return TreasureP;
+            default:
+                Debug.LogError($"Node prefab with name {name} not found.");
+                return null;
+        }
+    }
 
     public override string ToString()
     {
