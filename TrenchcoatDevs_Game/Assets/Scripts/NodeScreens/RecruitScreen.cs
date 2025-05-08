@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.IO;
 
 public class RecruitScreen : MonoBehaviour
 {
@@ -30,6 +31,12 @@ public class RecruitScreen : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+
+            if (JsonDataManager.FileExists(SaveData.characterFileName))
+            {
+                // FALTA COMPROBAR
+                allCharacters = JsonDataManager.LoadFromJson<List<APlayer>>(SaveData.characterFileName);
+            }
         }
         else
         {
@@ -90,6 +97,7 @@ public class RecruitScreen : MonoBehaviour
         team.data.fightsToLevelUp = 2;
         team.data.timesToLevelUp = team.data.level-1;
         team.data.level = 1;
+        team.data.characterPoisonModifier = 1;
         allCharacters.Remove(selectedCharacter);
 
         ShowTeamSelection(false);

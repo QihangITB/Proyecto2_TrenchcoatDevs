@@ -12,6 +12,7 @@ public class JsonDataManager : MonoBehaviour
         SaveJsonToJson(json, fileName);
     }
 
+    // Guarda un string JSON en un archivo
     public static void SaveJsonToJson(string json, string fileName)
     {
         string path = GetFilePath(fileName);

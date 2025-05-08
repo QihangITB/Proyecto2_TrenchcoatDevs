@@ -64,10 +64,11 @@ public class NodeMapGeneration : MonoBehaviour
         };
         _player = GameObject.FindWithTag(PlayerTag);
 
-        if(JsonDataManager.FileExists("gamedata"))
+        if(JsonDataManager.FileExists(SaveData.nodeMapFileName))
         {
             // Load node map data from JSON
-            LoadNodeMapData();
+            NodeMapSaveData data = JsonDataManager.LoadFromJson<NodeMapSaveData>(SaveData.nodeMapFileName);
+            LoadNodeMapData(data);
 
             Debug.Log("Node map loaded from JSON.");
         }
@@ -324,13 +325,7 @@ public class NodeMapGeneration : MonoBehaviour
     }
 
     // GENERATE MAP WITH JSON
-    private void LoadNodeMapData()
-    {
-        LevelData levelData = JsonDataManager.LoadFromJson<LevelData>("gamedata");
-        ChargeNodeMapWithData(levelData);
-    }
-
-    private void ChargeNodeMapWithData(LevelData data)
+    private void LoadNodeMapData(NodeMapSaveData data)
     {
         SetNode(TutorialNode, GetNodePrefabByName(data.tutorial));
         SetNode(StartNode, GetNodePrefabByName(data.start));
@@ -373,42 +368,42 @@ public class NodeMapGeneration : MonoBehaviour
 
     public override string ToString()
     {
-        LevelData levelData = new LevelData();
+        NodeMapSaveData map = new NodeMapSaveData();
 
-        levelData.tutorial = TutorialNode.transform.GetChild(0).name.Replace("(Clone)", "");
-        levelData.start = StartNode.transform.GetChild(0).name.Replace("(Clone)", "");
+        map.tutorial = TutorialNode.transform.GetChild(0).name.Replace("(Clone)", "");
+        map.start = StartNode.transform.GetChild(0).name.Replace("(Clone)", "");
 
-        levelData.level1 = new Level();
-        levelData.level1.node1 = FirstLevel[0].transform.GetChild(0).name.Replace("(Clone)", "");
-        levelData.level1.node2 = FirstLevel[1].transform.GetChild(0).name.Replace("(Clone)", "");
-        levelData.level1.node3 = FirstLevel[2].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level1 = new Level();
+        map.level1.node1 = FirstLevel[0].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level1.node2 = FirstLevel[1].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level1.node3 = FirstLevel[2].transform.GetChild(0).name.Replace("(Clone)", "");
 
-        levelData.level2 = new Level();
-        levelData.level2.node1 = SecondLevel[0].transform.GetChild(0).name.Replace("(Clone)", "");
-        levelData.level2.node2 = SecondLevel[1].transform.GetChild(0).name.Replace("(Clone)", "");
-        levelData.level2.node3 = SecondLevel[2].transform.GetChild(0).name.Replace("(Clone)", "");
-        levelData.level2.node4 = SecondLevel[3].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level2 = new Level();
+        map.level2.node1 = SecondLevel[0].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level2.node2 = SecondLevel[1].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level2.node3 = SecondLevel[2].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level2.node4 = SecondLevel[3].transform.GetChild(0).name.Replace("(Clone)", "");
 
-        levelData.level3 = new Level();
-        levelData.level3.node1 = ThirdLevel[0].transform.GetChild(0).name.Replace("(Clone)", "");
-        levelData.level3.node2 = ThirdLevel[1].transform.GetChild(0).name.Replace("(Clone)", "");
-        levelData.level3.node3 = ThirdLevel[2].transform.GetChild(0).name.Replace("(Clone)", "");
-        levelData.level3.node4 = ThirdLevel[3].transform.GetChild(0).name.Replace("(Clone)", "");
-        levelData.level3.node5 = ThirdLevel[4].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level3 = new Level();
+        map.level3.node1 = ThirdLevel[0].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level3.node2 = ThirdLevel[1].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level3.node3 = ThirdLevel[2].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level3.node4 = ThirdLevel[3].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level3.node5 = ThirdLevel[4].transform.GetChild(0).name.Replace("(Clone)", "");
 
-        levelData.level4 = new Level();
-        levelData.level4.node1 = FourthLevel[0].transform.GetChild(0).name.Replace("(Clone)", "");
-        levelData.level4.node2 = FourthLevel[1].transform.GetChild(0).name.Replace("(Clone)", "");
-        levelData.level4.node3 = FourthLevel[2].transform.GetChild(0).name.Replace("(Clone)", "");
-        levelData.level4.node4 = FourthLevel[3].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level4 = new Level();
+        map.level4.node1 = FourthLevel[0].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level4.node2 = FourthLevel[1].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level4.node3 = FourthLevel[2].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level4.node4 = FourthLevel[3].transform.GetChild(0).name.Replace("(Clone)", "");
 
-        levelData.level5 = new Level();
-        levelData.level5.node1 = FifthLevel[0].transform.GetChild(0).name.Replace("(Clone)", "");
-        levelData.level5.node2 = FifthLevel[1].transform.GetChild(0).name.Replace("(Clone)", "");
-        levelData.level5.node3 = FifthLevel[2].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level5 = new Level();
+        map.level5.node1 = FifthLevel[0].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level5.node2 = FifthLevel[1].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level5.node3 = FifthLevel[2].transform.GetChild(0).name.Replace("(Clone)", "");
 
-        levelData.boss = BossLevel.transform.GetChild(0).name.Replace("(Clone)", "");
+        map.boss = BossLevel.transform.GetChild(0).name.Replace("(Clone)", "");
 
-        return JsonUtility.ToJson(levelData, true);
+        return JsonUtility.ToJson(map, true);
     }
 }

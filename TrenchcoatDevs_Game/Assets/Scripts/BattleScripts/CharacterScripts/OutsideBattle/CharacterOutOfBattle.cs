@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
+[System.Serializable]
 public class CharacterOutOfBattle : MonoBehaviour
 {
     public APlayer character;
@@ -39,5 +41,22 @@ public class CharacterOutOfBattle : MonoBehaviour
         level++;
         characterHP += 2;
         fightsToLevelUp = 2;
+    }
+
+    public CharacterJson ConvertToCharacterJson()
+    {
+        CharacterJson data = new CharacterJson
+        {
+            character = character != null ? character.name : null,
+            characterHP = characterHP,
+            characterPoisonModifier = characterPoisonModifier,
+            knownPassives = knownPassives.Select(p => p != null ? p.name : null).ToList(),
+            knownAttacks = knownAttacks.Select(a => a != null ? a.name : null).ToList(),
+            basicAttack = basicAttack != null ? basicAttack.name : null,
+            level = level,
+            timesToLevelUp = timesToLevelUp,
+            fightsToLevelUp = fightsToLevelUp
+        };
+        return data;
     }
 }
