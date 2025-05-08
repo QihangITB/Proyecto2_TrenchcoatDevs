@@ -331,11 +331,42 @@ public class NodeMapGeneration : MonoBehaviour
 
     public override string ToString()
     {
-        string data = "{\"name\":\"patata\"}";
+        LevelData levelData = new LevelData();
 
+        levelData.tutorial = TutorialNode.transform.GetChild(0).name.Replace("(Clone)", "");
+        levelData.start = StartNode.transform.GetChild(0).name.Replace("(Clone)", "");
 
-        return data;
+        levelData.level1 = new Level();
+        levelData.level1.node1 = FirstLevel[0].transform.GetChild(0).name.Replace("(Clone)", "");
+        levelData.level1.node2 = FirstLevel[1].transform.GetChild(0).name.Replace("(Clone)", "");
+        levelData.level1.node3 = FirstLevel[2].transform.GetChild(0).name.Replace("(Clone)", "");
+
+        levelData.level2 = new Level();
+        levelData.level2.node1 = SecondLevel[0].transform.GetChild(0).name.Replace("(Clone)", "");
+        levelData.level2.node2 = SecondLevel[1].transform.GetChild(0).name.Replace("(Clone)", "");
+        levelData.level2.node3 = SecondLevel[2].transform.GetChild(0).name.Replace("(Clone)", "");
+        levelData.level2.node4 = SecondLevel[3].transform.GetChild(0).name.Replace("(Clone)", "");
+
+        levelData.level3 = new Level();
+        levelData.level3.node1 = ThirdLevel[0].transform.GetChild(0).name.Replace("(Clone)", "");
+        levelData.level3.node2 = ThirdLevel[1].transform.GetChild(0).name.Replace("(Clone)", "");
+        levelData.level3.node3 = ThirdLevel[2].transform.GetChild(0).name.Replace("(Clone)", "");
+        levelData.level3.node4 = ThirdLevel[3].transform.GetChild(0).name.Replace("(Clone)", "");
+        levelData.level3.node5 = ThirdLevel[4].transform.GetChild(0).name.Replace("(Clone)", "");
+
+        levelData.level4 = new Level();
+        levelData.level4.node1 = FourthLevel[0].transform.GetChild(0).name.Replace("(Clone)", "");
+        levelData.level4.node2 = FourthLevel[1].transform.GetChild(0).name.Replace("(Clone)", "");
+        levelData.level4.node3 = FourthLevel[2].transform.GetChild(0).name.Replace("(Clone)", "");
+        levelData.level4.node4 = FourthLevel[3].transform.GetChild(0).name.Replace("(Clone)", "");
+
+        levelData.level5 = new Level();
+        levelData.level5.node1 = FifthLevel[0].transform.GetChild(0).name.Replace("(Clone)", "");
+        levelData.level5.node2 = FifthLevel[1].transform.GetChild(0).name.Replace("(Clone)", "");
+        levelData.level5.node3 = FifthLevel[2].transform.GetChild(0).name.Replace("(Clone)", "");
+
+        levelData.boss = BossLevel.transform.GetChild(0).name.Replace("(Clone)", "");
+
+        return JsonUtility.ToJson(levelData, true);
     }
-
-
 }

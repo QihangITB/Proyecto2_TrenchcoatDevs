@@ -8,10 +8,8 @@ public class JsonDataManager : MonoBehaviour
     // Guarda un objeto como JSON en un archivo
     public static void SaveDataToJson<T>(T data, string fileName)
     {
-        string json = JsonUtility.ToJson(data, true); // true para formato "pretty"
-        string path = GetFilePath(fileName);
-        File.AppendAllText(path, json);
-        Debug.Log($"Datos guardados en: {path}");
+        string json = JsonUtility.ToJson(data, true);
+        SaveJsonToJson(json, fileName);
     }
 
     public static void SaveJsonToJson(string json, string fileName)
