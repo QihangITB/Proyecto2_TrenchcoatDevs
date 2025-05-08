@@ -13,15 +13,17 @@ using UnityEngine.UI;
 public class FightAssetsIndexer : ScriptableObject
 {
     [SerializeField]
-    List<Image> _sprites;
+    List<Texture2D> _sprites;
     [SerializeField]
     List<AAttack> _attacks;
+    [SerializeField]
+    List<APassive> _passives;
 
-    public int GetSpriteIndex(Image sprite)
+    public int GetSpriteIndex(Texture2D sprite)
     {
         return _sprites.IndexOf(sprite);
     }
-    public Image GetSprite(int index)
+    public Texture2D GetSprite(int index)
     {
         return _sprites[index];
     }
@@ -32,5 +34,13 @@ public class FightAssetsIndexer : ScriptableObject
     public AAttack GetAttack(int index)
     {
         return _attacks[index];
+    }
+    public APassive GetPassive(int index)
+    {
+        return _passives[index];
+    }
+    public int GetPassiveIndex(APassive passive)
+    {
+        return _passives.IndexOf(passive);
     }
 }
