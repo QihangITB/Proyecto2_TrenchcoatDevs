@@ -1,19 +1,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Netcode;
+using UnityEngine;
 
 public class CharacterSyncManager : NetworkBehaviour
 {
-    private static Dictionary<ulong, CharacterSyncManager> _instances;
+    private static Dictionary<ulong, CharacterSyncManager> _instances = new Dictionary<ulong, CharacterSyncManager>();
 
     private FightAssetsIndexer _assetsIndexer;
     private APlayer _firstSlotChar;
     private APlayer _secondSlotChar;
     private APlayer _thirdSlotChar;
     private APlayer[] _playerIndexer;
-    private NetworkVariable<APlayerNetStruct> _firstSlotSyncer = new NetworkVariable<APlayerNetStruct>();
-    private NetworkVariable<APlayerNetStruct> _secondSlotSyncer = new NetworkVariable<APlayerNetStruct>();
-    private NetworkVariable<APlayerNetStruct> _thirdSlotSyncer = new NetworkVariable<APlayerNetStruct>();
+    private NetworkVariable<APlayerNetStruct> _firstSlotSyncer = new NetworkVariable<APlayerNetStruct>(default,default,NetworkVariableWritePermission.Owner);
+    private NetworkVariable<APlayerNetStruct> _secondSlotSyncer = new NetworkVariable<APlayerNetStruct>(default, default, NetworkVariableWritePermission.Owner);
+    private NetworkVariable<APlayerNetStruct> _thirdSlotSyncer = new NetworkVariable<APlayerNetStruct>(default, default, NetworkVariableWritePermission.Owner);
     private NetworkVariable<APlayerNetStruct>[] _charSyncerIndexer;
     public static CharacterSyncManager OwnerInstance
     {
@@ -54,6 +55,15 @@ public class CharacterSyncManager : NetworkBehaviour
                 _secondSlotSyncer,
                 _thirdSlotSyncer,
             };
+            if (IsOwner)
+            {
+                _firstSlotSyncer.Value = new APlayerNetStruct()
+                {
+                    health = 1,
+                    maxHealth = 1,
+                };
+            }
+            Debug.Log(_firstSlotSyncer.Value.health);
         }
     }
     public void SetCharSlot(int slot, APlayer character)
