@@ -12,6 +12,7 @@ public class BicepCurlPassive : APassive
         {
             player.knownAttacks.Add(BicepCurl);
         }
+        player.knownPassives.Add(this);
     }
     public override void ActivatePassive(CharacterHolder player)
     {

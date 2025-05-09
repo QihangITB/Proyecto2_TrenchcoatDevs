@@ -73,6 +73,8 @@ public class BattleManager : MonoBehaviour
                 enemies[i].character = listOfenemies[i];
                 Debug.Log("Enemy " + i + " is " + enemies[i].character);
                 enemies[i].SelectCharacter(null);
+
+                ///aqui hay que tocar cosas
             }
             else
             {
@@ -84,7 +86,7 @@ public class BattleManager : MonoBehaviour
                 //desactiva el slider 
                 enemies[i].HpBar.GetComponent<Slider>().gameObject.SetActive(false);
                 enemySelectors.Add(enemies[i]);
-                enemies[i]=null;
+                enemies[i].character=null;
             }
         }
         //por cada pasiva de los personajes de la lista de jugadores, esta se activa
@@ -108,7 +110,7 @@ public class BattleManager : MonoBehaviour
         StartRound();
     }
 
-    private void Start()
+    private void Awake()
     {
         currentRound = 0;
         if (instance == null)
@@ -119,7 +121,6 @@ public class BattleManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        PlayerManager.instance.AllocateCharacters();
         playerButtons = new List<GameObject>(GameObject.FindGameObjectsWithTag("PlayerButton"));
         enemyButtons = new List<GameObject>(GameObject.FindGameObjectsWithTag("EnemyButton"));
     }

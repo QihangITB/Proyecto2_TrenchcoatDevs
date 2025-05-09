@@ -223,7 +223,7 @@ public class NodeMapGeneration : MonoBehaviour
         TutorialNode.SetActive(true);
     }
 
-    private int GetPlayerLevel()
+    public int GetPlayerLevel()
     {
         for (int i = 0; i < _allLevels.Count; i++)
         {

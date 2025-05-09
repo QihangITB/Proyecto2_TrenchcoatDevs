@@ -12,6 +12,7 @@ public class LegDayPassive : APassive
         {
             player.knownAttacks.Add(LegDay);
         }
+        player.knownPassives.Add(this);
     }
     public override void ActivatePassive(CharacterHolder player)
     {

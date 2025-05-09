@@ -12,6 +12,7 @@ public class DentureTossPassive : APassive
         {
             player.knownAttacks.Add(DentureToss);
         }
+        player.knownPassives.Add(this);
     }
     public override void ActivatePassive(CharacterHolder player)
     {
