@@ -131,8 +131,10 @@ public class RecruitScreen : MonoBehaviour
             onTeamCharacters[i].level = characters[i].level;
 
             // PREFABS VALUES
-            onTeamCharacters[i].character = allCharacters.Find(x => x.characterName == characters[i].character);
-            onTeamCharacters[i].basicAttack = allCharacters.Find(x => x.characterName == characters[i].character).basicAttack;
+            //var result = allCharacters.Find(x => characters[i].character.Contains(x.characterName));
+            //Debug.Log(result);
+            onTeamCharacters[i].character = allCharacters.Find(x => characters[i].character.Contains(x.characterName));
+            onTeamCharacters[i].basicAttack = allCharacters.Find(x => characters[i].character.Contains(x.characterName)).basicAttack;
             onTeamCharacters[i].knownPassives = new List<APassive>();
             for (int j = 0; j < characters[i].knownPassives.Count; j++)
             {
