@@ -1884,7 +1884,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e23a9faa9acf4f54c9b41675836fe240, type: 2}
   basicAttack: {fileID: 11400000, guid: e1ecc301136a1fb4d9b3bb4e7477ff94, type: 2}
   level: 1
-  timesToLevelUp: 1
+  timesToLevelUp: 0
   fightsToLevelUp: 2
 --- !u!1 &217662045
 GameObject:
@@ -22851,7 +22851,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 01d0f9ba82f8d08459847817c0cd8558, type: 2}
   basicAttack: {fileID: 11400000, guid: 370af78e6e233b448a875b62f530f850, type: 2}
   level: 1
-  timesToLevelUp: 1
+  timesToLevelUp: 0
   fightsToLevelUp: 2
 --- !u!1 &2145753880
 GameObject:
