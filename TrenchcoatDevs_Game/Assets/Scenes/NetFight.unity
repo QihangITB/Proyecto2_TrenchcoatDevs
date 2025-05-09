@@ -13741,6 +13741,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterSyncPrefab: {fileID: 4206367711581373717, guid: c14ae9ababc7468498b58a2d5d941254, type: 3}
+  _outOfFightCharacters:
+  - {fileID: 885739669}
+  - {fileID: 527681577}
+  - {fileID: 1008545901}
 --- !u!1 &2084562558
 GameObject:
   m_ObjectHideFlags: 0

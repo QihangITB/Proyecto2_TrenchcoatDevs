@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Netcode;
@@ -6,7 +7,7 @@ using UnityEngine;
 public class CharacterSyncManager : NetworkBehaviour
 {
     private static Dictionary<ulong, CharacterSyncManager> _instances = new Dictionary<ulong, CharacterSyncManager>();
-
+    [SerializeField]
     private FightAssetsIndexer _assetsIndexer;
     private APlayer _firstSlotChar;
     private APlayer _secondSlotChar;
@@ -20,18 +21,34 @@ public class CharacterSyncManager : NetworkBehaviour
     {
         get
         {
-            ulong clientId = NetworkManager.Singleton.LocalClientId;
-            return _instances[clientId];
+            try
+            {
+                ulong clientId = NetworkManager.Singleton.LocalClientId;
+                return _instances[clientId];
+            }
+            catch (KeyNotFoundException)
+            {
+                return null;
+            }
+            
         }
     }
     public static CharacterSyncManager OtherUserInstance
     {
         get
         {
-            CharacterSyncManager manager;
-            ulong clientId = NetworkManager.Singleton.LocalClientId;
-            manager = _instances.Where(obj => obj.Key != clientId).First().Value;
-            return manager;
+            try
+            {
+                CharacterSyncManager manager;
+                ulong clientId = NetworkManager.Singleton.LocalClientId;
+                manager = _instances.Where(obj => obj.Key != clientId).First().Value;
+                return manager;
+            }
+            catch (InvalidOperationException)
+            {
+                return null;
+            }
+            
         }
     }
     public override void OnNetworkSpawn()
@@ -42,6 +59,7 @@ public class CharacterSyncManager : NetworkBehaviour
         }
         else 
         {
+           
             _instances.Add(OwnerClientId, this);
             _playerIndexer = new APlayer[]
             {
@@ -55,19 +73,49 @@ public class CharacterSyncManager : NetworkBehaviour
                 _secondSlotSyncer,
                 _thirdSlotSyncer,
             };
-            if (IsOwner)
+            
+            foreach(NetworkVariable<APlayerNetStruct> netVar in _charSyncerIndexer)
             {
-                _firstSlotSyncer.Value = new APlayerNetStruct()
+                netVar.OnValueChanged += (prev, next) =>
                 {
-                    health = 1,
-                    maxHealth = 1,
+                    Debug.Log($"Client {OwnerClientId} CharName = ${next.characterName}");
+                    foreach(int index in next.passivesindexes)
+                    {
+                        Debug.Log($"Client {OwnerClientId} passive number = ${index}");
+                    }
+                    foreach(int index in next.attacksIndex)
+                    {
+                        Debug.Log($"Client {OwnerClientId} attack number = ${index}");
+                    }
                 };
             }
-            Debug.Log(_firstSlotSyncer.Value.health);
         }
     }
+    
     public void SetCharSlot(int slot, APlayer character)
     {
-        _playerIndexer[slot] = character;
+        if (IsOwner)
+        {
+            _playerIndexer[slot] = character;
+            _charSyncerIndexer[slot].Value = new APlayerNetStruct(character, _assetsIndexer);
+        }
+    }
+    
+    public void SetCharSlot(APlayer character)
+    {
+        if (IsOwner)
+        {
+            int slot = _playerIndexer.ToList().IndexOf(character);
+            SetCharSlot(slot, character);
+        }
+        
+    }
+    public void SetOnChangeEvent(int slotEvent,NetworkVariable<APlayerNetStruct>.OnValueChangedDelegate onChange)
+    {
+        _charSyncerIndexer[slotEvent].OnValueChanged += onChange;
+    }
+    public void UnsetOnChangeEvent(int slotEvent, NetworkVariable<APlayerNetStruct>.OnValueChangedDelegate onChange)
+    {
+        _charSyncerIndexer[slotEvent].OnValueChanged -= onChange;
     }
 }
