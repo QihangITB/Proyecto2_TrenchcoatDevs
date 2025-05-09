@@ -15,6 +15,7 @@ public class JsonDataManager : MonoBehaviour
     // Guarda un string JSON en un archivo
     public static void SaveJsonToJson(string json, string fileName)
     {
+        Debug.Log(json);
         string path = GetFilePath(fileName);
         File.AppendAllText(path, json);
         Debug.Log($"Datos guardados en: {path}");

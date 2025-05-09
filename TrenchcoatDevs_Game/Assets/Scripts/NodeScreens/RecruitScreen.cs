@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.IO;
+using System.Linq;
 
 public class RecruitScreen : MonoBehaviour
 {
@@ -19,12 +20,17 @@ public class RecruitScreen : MonoBehaviour
     public TMP_Text nameTwo;
     public TMP_Text descriptionTwo;
 
-    public List<APlayer> allCharacters;
-    private APlayer selectedCharacter;
-
     [Header("Canvas")]
     public GameObject randomSelectionObject;
     public GameObject teamSelectionObject;
+
+    [Header("Team Data")]
+    public List<APlayer> allCharacters;
+    public List<APlayer> availableCharacters;
+    public List<APassive> allPassives;
+    public List<AAttack> allAttacks;
+
+    private APlayer selectedCharacter;
 
     private void Awake()
     {
@@ -34,15 +40,18 @@ public class RecruitScreen : MonoBehaviour
 
             if (JsonDataManager.FileExists(SaveData.teamFileName))
             {
-                // FALTA COMPROBAR
-                allCharacters = JsonDataManager.LoadFromJson<List<APlayer>>(SaveData.teamFileName);
+                CharacterSaveData data = JsonDataManager.LoadFromJson<CharacterSaveData>(SaveData.teamFileName);
+                LoadRecruitmentData(data);
+            }
+            else
+            {
+                availableCharacters = allCharacters;
             }
         }
         else
         {
             Destroy(gameObject);
         }
-
     }
 
     private void OnEnable()
@@ -52,24 +61,24 @@ public class RecruitScreen : MonoBehaviour
 
     private void ShowRandomCharacter()
     {
-        int randomOne = Random.Range(0, allCharacters.Count);
-        int randomTwo = Random.Range(0, allCharacters.Count);
+        int randomOne = Random.Range(0, availableCharacters.Count);
+        int randomTwo = Random.Range(0, availableCharacters.Count);
 
         while(randomOne == randomTwo)
         {
-            randomTwo = Random.Range(0, allCharacters.Count);
+            randomTwo = Random.Range(0, availableCharacters.Count);
         }
 
-        nameOne.text = allCharacters[randomOne].characterName;
-        descriptionOne.text = allCharacters[randomOne].description;
+        nameOne.text = availableCharacters[randomOne].characterName;
+        descriptionOne.text = availableCharacters[randomOne].description;
 
-        nameTwo.text = allCharacters[randomTwo].characterName;
-        descriptionTwo.text = allCharacters[randomTwo].description;
+        nameTwo.text = availableCharacters[randomTwo].characterName;
+        descriptionTwo.text = availableCharacters[randomTwo].description;
     }
 
     public void SelectCharacter(TMP_Text message)
     {
-        selectedCharacter = allCharacters.Find(x => x.characterName == message.text);
+        selectedCharacter = availableCharacters.Find(x => x.characterName == message.text);
         ShowTeamSelection(true);
     }
 
@@ -98,11 +107,60 @@ public class RecruitScreen : MonoBehaviour
         team.data.timesToLevelUp = team.data.level-1;
         team.data.level = 1;
         team.data.characterPoisonModifier = 1;
-        allCharacters.Remove(selectedCharacter);
+        availableCharacters.Remove(selectedCharacter);
 
         ShowTeamSelection(false);
 
         NodeAccess nodeAccess = FindObjectOfType<NodeAccess>();
         nodeAccess.OnExitButtonClick();
+    }
+
+    private void LoadTeamCharactersData(CharacterSaveData data)
+    {
+        List<CharacterOutOfBattle> onTeamCharacters = Resources
+        .FindObjectsOfTypeAll<CharacterOutOfBattle>()
+        .Where(c => c.gameObject.scene.IsValid()) // Solo en escena (no assets)
+        .ToList();
+
+        for (int i = 0; i < onTeamCharacters.Count; i++)
+        {
+            // INT VALUES
+            onTeamCharacters[i].characterHP = data.characters[i].characterHP;
+            onTeamCharacters[i].characterPoisonModifier = data.characters[i].characterPoisonModifier;
+            onTeamCharacters[i].fightsToLevelUp = data.characters[i].fightsToLevelUp;
+            onTeamCharacters[i].timesToLevelUp = data.characters[i].timesToLevelUp;
+            onTeamCharacters[i].level = data.characters[i].level;
+
+            // PREFABS VALUES
+            onTeamCharacters[i].character = allCharacters.Find(x => x.characterName == data.characters[i].character);
+            onTeamCharacters[i].basicAttack = allCharacters.Find(x => x.characterName == data.characters[i].character).basicAttack;
+            onTeamCharacters[i].knownPassives = new List<APassive>();
+            //for (int j = 0; j < data.characters[i].knownPassives.Count; j++)
+            //{
+            //    if (allCharAbilities.Find(x => x.name.Contains(data.characters[i].knownPassives[j])) != null)
+            //    {
+            //        onTeamCharacters[i].knownPassives.Add(allCharAbilities.Find(x => x.name.Contains(data.characters[i].knownPassives[j])));
+            //    }
+            //}
+            //onTeamCharacters[i].knownAttacks = new List<AAttack>();
+            //for (int j = 0; j < data.characters[i].knownAttacks.Count; j++)
+            //{
+            //    if (allCharAbilities.Find(x => x.name.Contains(data.characters[i].knownAttacks[j])) != null)
+            //    {
+            //        onTeamCharacters[i].knownAttacks.Add(allCharAbilities.Find(x => x.name.Contains(data.characters[i].knownAttacks[j])));
+            //    }
+            //}
+        }
+    }
+
+    private void LoadRecruitmentData(CharacterSaveData data)
+    {
+        for (int i = 0; i < allCharacters.Count; i++)
+        {
+            if (data.recruitment.Contains(allCharacters[i].characterName))
+            {
+                availableCharacters.Add(allCharacters[i]);
+            }
+        }
     }
 }

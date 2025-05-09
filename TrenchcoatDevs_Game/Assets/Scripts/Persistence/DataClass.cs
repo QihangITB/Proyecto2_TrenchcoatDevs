@@ -31,9 +31,7 @@ public class  Level
 [System.Serializable]
 public class CharacterSaveData
 {
-    public CharacterJson charcter1;
-    public CharacterJson charcter2;
-    public CharacterJson charcter3;
+    public List<CharacterJson> characters;
     public List<string> recruitment;
 }
 

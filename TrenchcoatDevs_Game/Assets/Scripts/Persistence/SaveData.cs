@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class SaveData : MonoBehaviour
 {
-    public static string nodeMapFileName = "node_map_data";
-    public static string teamFileName = "team_data";
+    public static string nodeMapFileName = "nodemapdata";
+    public static string teamFileName = "teamdata";
     public void SaveNodeMap()
     {
         NodeMapGeneration nmg = FindObjectOfType<NodeMapGeneration>();
@@ -17,14 +17,18 @@ public class SaveData : MonoBehaviour
     {
         CharacterSaveData data = new CharacterSaveData();
 
-        List<CharacterOutOfBattle> onPartyCharacters = Resources
+        List<CharacterOutOfBattle> onTeamCharacters = Resources
             .FindObjectsOfTypeAll<CharacterOutOfBattle>()
             .Where(c => c.gameObject.scene.IsValid()) // Solo en escena (no assets)
             .ToList();
 
-        data.charcter1 = onPartyCharacters[0].ConvertToJsonClass();
-        data.charcter2 = onPartyCharacters[1].ConvertToJsonClass();
-        data.charcter3 = onPartyCharacters[2].ConvertToJsonClass();
+        data.characters = new List<CharacterJson>
+        {
+            onTeamCharacters[0].ConvertToJsonClass(),
+            onTeamCharacters[1].ConvertToJsonClass(),
+            onTeamCharacters[2].ConvertToJsonClass()
+        };
+
         data.recruitment = new List<string>();
 
         foreach (APlayer character in RecruitScreen.Instance.allCharacters)
