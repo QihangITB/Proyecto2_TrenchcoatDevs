@@ -6,13 +6,14 @@ using UnityEngine;
 public class SaveData : MonoBehaviour
 {
     public static string nodeMapFileName = "node_map_data";
-    public static string characterFileName = "characters_data";
-    public void SaveNodeMap(NodeMapGeneration nodeMap)
+    public static string teamFileName = "team_data";
+    public void SaveNodeMap()
     {
-        JsonDataManager.SaveJsonToJson(nodeMap.ToString(), nodeMapFileName);
+        NodeMapGeneration nmg = FindObjectOfType<NodeMapGeneration>();
+        JsonDataManager.SaveJsonToJson(nmg.ToString(), nodeMapFileName);
     }
 
-    public void SaveCharacters()
+    public void SaveTeam()
     {
         CharacterSaveData data = new CharacterSaveData();
 
@@ -20,15 +21,17 @@ public class SaveData : MonoBehaviour
             .FindObjectsOfTypeAll<CharacterOutOfBattle>()
             .Where(c => c.gameObject.scene.IsValid()) // Solo en escena (no assets)
             .ToList();
-        Debug.Log($"Characters in party: {onPartyCharacters.Count}");
 
-        data.charcter1 = onPartyCharacters[0].ConvertToCharacterJson();
-        data.charcter2 = onPartyCharacters[1].ConvertToCharacterJson();
-        data.charcter3 = onPartyCharacters[2].ConvertToCharacterJson();
+        data.charcter1 = onPartyCharacters[0].ConvertToJsonClass();
+        data.charcter2 = onPartyCharacters[1].ConvertToJsonClass();
+        data.charcter3 = onPartyCharacters[2].ConvertToJsonClass();
         data.recruitment = new List<string>();
 
-        Debug.Log($"Character 1: {data.charcter1.character}");
+        foreach (APlayer character in RecruitScreen.Instance.allCharacters)
+        {
+            data.recruitment.Add(character.characterName);
+        }
 
-        JsonDataManager.SaveDataToJson(data, characterFileName);
+        JsonDataManager.SaveDataToJson(data, teamFileName);
     }
 }

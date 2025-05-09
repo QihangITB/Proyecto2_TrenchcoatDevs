@@ -32,10 +32,10 @@ public class RecruitScreen : MonoBehaviour
         {
             Instance = this;
 
-            if (JsonDataManager.FileExists(SaveData.characterFileName))
+            if (JsonDataManager.FileExists(SaveData.teamFileName))
             {
                 // FALTA COMPROBAR
-                allCharacters = JsonDataManager.LoadFromJson<List<APlayer>>(SaveData.characterFileName);
+                allCharacters = JsonDataManager.LoadFromJson<List<APlayer>>(SaveData.teamFileName);
             }
         }
         else

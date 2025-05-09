@@ -43,7 +43,7 @@ public class CharacterOutOfBattle : MonoBehaviour
         fightsToLevelUp = 2;
     }
 
-    public CharacterJson ConvertToCharacterJson()
+    public CharacterJson ConvertToJsonClass()
     {
         CharacterJson data = new CharacterJson
         {
