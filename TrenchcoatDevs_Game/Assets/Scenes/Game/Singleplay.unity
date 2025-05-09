@@ -2343,6 +2343,7 @@ MonoBehaviour:
   win: 0
   poisonDamageDivisor: 10
   canMove: 1
+  nodeAccess: {fileID: 952330833}
 --- !u!1 &256044443
 GameObject:
   m_ObjectHideFlags: 0
