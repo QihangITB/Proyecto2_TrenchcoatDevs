@@ -91,14 +91,16 @@ public class BattleManager : MonoBehaviour
 
                 //aqui hay que tocar cosas
 
-                for (int j = 0; j < enemies[i].gameObject.GetComponentsInParent<Image>().Count(); j++)
+                /*for (int j = 0; j < enemies[i].gameObject.GetComponentsInParent<Image>().Count(); j++)
                 {
                     if (j == 1)
                     {
                         enemies[i].gameObject.GetComponentsInParent<Image>()[j].enabled = true;
                     }
-                }
-                
+                }*/
+
+                enemies[i].gameObject.transform.parent.GetComponentInChildren<RawImage>().enabled = true;
+
                 //desactiva el slider 
                 enemies[i].HpBar.GetComponent<Slider>().gameObject.SetActive(true);
             }
@@ -498,7 +500,6 @@ public class BattleManager : MonoBehaviour
 
     public void OnEnable()
     {
-        //Para tomar a los personajes �nicos en escena
         cameras.Add(GameObject.Find("GrandmaCam").GetComponent<Camera>());
         cameras.Add(GameObject.Find("AddictedCam").GetComponent<Camera>());
         cameras.Add(GameObject.Find("PyroCam").GetComponent<Camera>());
@@ -521,6 +522,5 @@ public class BattleManager : MonoBehaviour
         pgeonCams.Add(GameObject.Find("PigeonCam").GetComponent<Camera>());
         pgeonCams.Add(GameObject.Find("PigeonCam2").GetComponent<Camera>());
         pgeonCams.Add(GameObject.Find("PigeonCam3").GetComponent<Camera>());
-
     }
 }
