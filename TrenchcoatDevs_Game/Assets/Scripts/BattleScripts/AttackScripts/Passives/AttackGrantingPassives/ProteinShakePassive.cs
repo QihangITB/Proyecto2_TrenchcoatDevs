@@ -12,6 +12,7 @@ public class ProteinShakePassive : APassive
         {
             player.knownAttacks.Add(ProteinShake);
         }
+        player.knownPassives.Add(this);
     }
     public override void ActivatePassive(CharacterHolder player)
     {

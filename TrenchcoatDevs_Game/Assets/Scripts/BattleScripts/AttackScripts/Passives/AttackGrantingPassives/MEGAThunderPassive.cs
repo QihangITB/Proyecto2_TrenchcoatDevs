@@ -17,5 +17,6 @@ public class MEGAThunderPassive : APassive
         {
             player.knownAttacks.Add(MEGAThunder);
         }
+        player.knownPassives.Add(this);
     }
 }

@@ -12,6 +12,7 @@ public class PoisonCloudPassive : APassive
         {
             player.knownAttacks.Add(PoisonCloud);
         }
+        player.knownPassives.Add(this);
     }
     public override void ActivatePassive(CharacterHolder player)
     {

@@ -36,30 +36,46 @@ public class CharacterHolder : MonoBehaviour
     public bool isRested;
     public bool isTaunting;
 
+    GameObject hitSprite, healSprite;
 
     public void SelectCharacter(CharacterOutOfBattle characterOutOfBattle)
     {
-        if (characterOutOfBattle != null)
+        hitSprite = transform.parent.Find("Hit").gameObject;
+        healSprite = transform.parent.Find("Heal").gameObject;
+        //apaga los iconos de estado
+        poisonIcon.SetActive(false);
+        disgustIcon.SetActive(false);
+        burnIcon.SetActive(false);
+        regenerateIcon.SetActive(false);
+        restIcon.SetActive(false);
+        tauntIcon.SetActive(false);
+        if (character != null)
         {
-            this.characterOutOfBattle = characterOutOfBattle;
-            HP = characterOutOfBattle.characterHP;
+            if (characterOutOfBattle != null)
+            {
+                this.characterOutOfBattle = characterOutOfBattle;
+                HP = characterOutOfBattle.characterHP;
+            }
+            else
+            {
+                this.characterOutOfBattle = null;
+                HP = character.health;
+            }
+            maxHP = character.maxHealth;
+            attack = character.damage;
+            speed = character.speed;
+            defense = character.defense;
+            precisionModifier = 10;
+            healingModifier = 1;
+            staminaRecovery = 4;
+            UpdateHPBar();
         }
-        else
-        {
-            this.characterOutOfBattle = null;
-            HP = character.health;
-        }
-        maxHP = character.maxHealth;
-        attack = character.damage;
-        speed = character.speed;
-        defense = character.defense;
-        precisionModifier = 10;
-        healingModifier = 1;
-        staminaRecovery = 4;
-        UpdateHPBar();
+        
     }
     public void TakeDamage(int damage)
     {
+        hitSprite.GetComponent<Image>().enabled = true;
+        StartCoroutine(UnableHit());
         if (isBurnt)
         {
             damage *= 2;
@@ -84,14 +100,15 @@ public class CharacterHolder : MonoBehaviour
             burnIcon.SetActive(false);
             regenerateIcon.SetActive(false);
             restIcon.SetActive(false);
+            tauntIcon.SetActive(false);
             Debug.Log(gameObject+" Is dead");
             BattleManager.instance.basicAttackButton.GetComponent<SelectTypeOfAttack>().description.text = character.characterName + " died";
             BattleManager.instance.CharOrderInTurn.Remove(this);
             BattleManager.instance.characters.Remove(this);
-            BattleManager.instance.players.Remove(this);
+            character = null;
             if (BattleManager.instance.enemies.Contains(this))
             {
-                BattleManager.instance.enemies.Remove(this);
+                character = null;
                 //busca entre todas las pasivas de las lista de players si alguna tiiene dontwaste food
                 foreach (CharacterHolder player in BattleManager.instance.players)
                 {
@@ -148,7 +165,6 @@ public class CharacterHolder : MonoBehaviour
                         {
                             attack += 3;
                             speed += 3;
-                            Debug.Log(character.characterName + " is now faster and stronger");
                         }
                     }
                 }
@@ -232,6 +248,8 @@ public class CharacterHolder : MonoBehaviour
     }
     public void Heal(int healing, bool overheal)
     {
+        healSprite.GetComponent<Image>().enabled = true;
+        StartCoroutine(UnableHeal());
         Debug.Log(character + " healed for " + healing);
         HP += healing;
         if (HP > maxHP && !overheal)
@@ -257,5 +275,18 @@ public class CharacterHolder : MonoBehaviour
             stamina = 0;
         }
         UpdateStaminaBar();
+    }
+
+    IEnumerator UnableHit()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        hitSprite.GetComponent<Image>().enabled = false;
+    }
+    IEnumerator UnableHeal()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        healSprite.GetComponent<Image>().enabled = false;
     }
 }

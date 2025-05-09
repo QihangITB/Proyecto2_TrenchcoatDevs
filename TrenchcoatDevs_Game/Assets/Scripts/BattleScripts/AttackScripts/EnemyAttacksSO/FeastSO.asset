@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: FeastSO
   m_EditorClassIdentifier: 
   attackName: Feast
-  description: Kills lly onions to heal and damages an enemy
+  description: Kills ally onions to heal and damages an enemy
   cost: 0
   targetButtons: []

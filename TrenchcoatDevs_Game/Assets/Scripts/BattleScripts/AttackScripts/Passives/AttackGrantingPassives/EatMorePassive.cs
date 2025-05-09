@@ -13,6 +13,7 @@ public class EatMorePassive : APassive
         {
             player.knownAttacks.Add(EatMore);
         }
+        player.knownPassives.Add(this);
     }
     public override void ActivatePassive(CharacterHolder player)
     {

@@ -29,8 +29,8 @@ public class HiddenNeedle : GenericAttack
             user.UseStamina(cost);
             foreach (CharacterHolder target in targets)
             {
-                target.TakeDamage(user.attack);
                 target.GetPoisoned();
+                target.TakeDamage(user.attack);
             }
             BattleManager.instance.FinishTurn();
         }

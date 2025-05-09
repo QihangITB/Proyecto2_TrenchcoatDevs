@@ -29,8 +29,8 @@ public class MolotovCocktail : GenericAttack
             user.UseStamina(cost);
             foreach (CharacterHolder target in targets)
             {
-                target.TakeDamage(user.attack * 2);
                 target.GetBurnt();
+                target.TakeDamage(user.attack * 2);
             }
             BattleManager.instance.FinishTurn();
         }

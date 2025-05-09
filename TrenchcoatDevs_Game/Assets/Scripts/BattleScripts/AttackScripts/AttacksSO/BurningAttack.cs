@@ -22,8 +22,8 @@ public class BurningAttack : GenericAttack
     {
         foreach (CharacterHolder target in targets)
         {
-            target.TakeDamage(user.attack);
             target.GetBurnt();
+            target.TakeDamage(user.attack);
         }
         BattleManager.instance.FinishTurn();
     }
