@@ -12,6 +12,7 @@ public class RehabPassive : APassive
         {
             player.knownAttacks.Add(Rehab);
         }
+        player.knownPassives.Add(this);
     }
     public override void ActivatePassive(CharacterHolder player)
     {

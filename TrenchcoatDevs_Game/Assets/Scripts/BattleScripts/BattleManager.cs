@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -36,6 +37,7 @@ public class BattleManager : MonoBehaviour
     public bool win = false;
     public int poisonDamageDivisor = 5;
     public bool canMove = true;
+    public NodeAccess nodeAccess;
 
     public List<Camera> cameras = new List<Camera>();
 
@@ -46,6 +48,10 @@ public class BattleManager : MonoBehaviour
 
     public void CharacterAllocation(List<APlayer> listOfPlayers, List<AEnemy> listOfenemies, List<CharacterOutOfBattle> listOfOutOfBattle)
     {
+        //desactiva la descripcion de la habilidad
+        basicAttackButton.GetComponent<SelectTypeOfAttack>().description.transform.parent.gameObject.SetActive(false);
+        win = false;
+        fightIsFinished = false;
         for (int i = 0; i < players.Count; i++)
         {
             if (i < listOfPlayers.Count)
@@ -76,12 +82,25 @@ public class BattleManager : MonoBehaviour
         }
         for (int i = 0; i < enemies.Count; i++)
         {
-            if (i < listOfenemies.Count)
+            if (i < listOfenemies.Count && listOfenemies[i]!=null)
             {
                 enemies[i].character = listOfenemies[i];
+                Debug.Log("enemy chosen is " + listOfenemies[i].characterName);
                 Debug.Log("Enemy " + i + " is " + enemies[i].character);
                 enemies[i].SelectCharacter(null);
 
+                //aqui hay que tocar cosas
+
+                for (int j = 0; j < enemies[i].gameObject.GetComponentsInParent<Image>().Count(); j++)
+                {
+                    if (j == 1)
+                    {
+                        enemies[i].gameObject.GetComponentsInParent<Image>()[j].enabled = true;
+                    }
+                }
+                
+                //desactiva el slider 
+                enemies[i].HpBar.GetComponent<Slider>().gameObject.SetActive(true);
             }
             else
             {
@@ -128,7 +147,6 @@ public class BattleManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        PlayerManager.instance.AllocateCharacters();
         playerButtons = new List<GameObject>(GameObject.FindGameObjectsWithTag("PlayerButton"));
         enemyButtons = new List<GameObject>(GameObject.FindGameObjectsWithTag("EnemyButton"));
     }
@@ -259,6 +277,15 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
+            basicAttackButton.GetComponent<Image>().enabled = false;
+            basicAttackButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+            restButton.GetComponent<Image>().enabled = false;
+            restButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+            foreach (GameObject button in abilityButtons)
+            {
+                button.GetComponent<Image>().enabled = false;
+                button.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+            }
             if (win)
             {
                 Debug.Log("You win");
@@ -278,19 +305,12 @@ public class BattleManager : MonoBehaviour
                         }
                     }
                 }
+                nodeAccess.OnExitButtonClick();
             }
             else
             {
                 Debug.Log("You lose");
-            }
-            basicAttackButton.GetComponent<Image>().enabled = false;
-            basicAttackButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
-            restButton.GetComponent<Image>().enabled = false;
-            restButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
-            foreach (GameObject button in abilityButtons)
-            {
-                button.GetComponent<Image>().enabled = false;
-                button.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+                //aqui va la derrota
             }
         }
     }
@@ -456,7 +476,7 @@ public class BattleManager : MonoBehaviour
 
     void AttackAnimation(CharacterHolder user)
     {
-        Debug.Log(user.character.characterName + " animación");
+        Debug.Log(user.character.characterName + " animaciï¿½n");
         GameObject activeAttacker = user.transform.parent.GetComponentInChildren<RawImage>().gameObject.GetComponent<SelectSpriteInBattle>().spriteReference;
         activeAttacker.GetComponent<Animator>().SetTrigger("Attack");
     }
@@ -478,7 +498,7 @@ public class BattleManager : MonoBehaviour
 
     public void OnEnable()
     {
-        //Para tomar a los personajes únicos en escena
+        //Para tomar a los personajes ï¿½nicos en escena
         cameras.Add(GameObject.Find("GrandmaCam").GetComponent<Camera>());
         cameras.Add(GameObject.Find("AddictedCam").GetComponent<Camera>());
         cameras.Add(GameObject.Find("PyroCam").GetComponent<Camera>());

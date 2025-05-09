@@ -12,6 +12,7 @@ public class HiddenNeedlePassive : APassive
         {
             player.knownAttacks.Add(HiddenNeedle);
         }
+        player.knownPassives.Add(this);
     }
     public override void ActivatePassive(CharacterHolder player)
     {

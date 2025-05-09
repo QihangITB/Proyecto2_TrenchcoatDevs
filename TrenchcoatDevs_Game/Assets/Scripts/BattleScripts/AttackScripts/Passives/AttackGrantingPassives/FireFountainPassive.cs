@@ -12,6 +12,7 @@ public class FireFountainPassive : APassive
         {
             player.knownAttacks.Add(FireFountain);
         }
+        player.knownPassives.Add(this);
     }
     public override void ActivatePassive(CharacterHolder player)
     {

@@ -13,6 +13,7 @@ public class PepperSprayPassive : APassive
         {
             player.knownAttacks.Add(PepperSpray);
         }
+        player.knownPassives.Add(this);
     }
     public override void ActivatePassive(CharacterHolder player)
     {

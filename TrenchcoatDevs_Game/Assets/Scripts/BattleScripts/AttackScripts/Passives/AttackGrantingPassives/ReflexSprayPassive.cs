@@ -12,6 +12,7 @@ public class ReflexSprayPassive : APassive
         {
             player.knownAttacks.Add(ReflexSpray);
         }
+        player.knownPassives.Add(this);
     }
     public override void ActivatePassive(CharacterHolder player)
     {
