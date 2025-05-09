@@ -32,7 +32,6 @@ public class DefDownAttack : GenericAttack
                 Debug.Log(target.character.characterName + " can't get its defense lower");
             }
             target.TakeDamage(user.attack);
-
         }
         BattleManager.instance.FinishTurn();
     }

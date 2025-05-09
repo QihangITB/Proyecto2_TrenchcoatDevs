@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
@@ -37,6 +38,13 @@ public class BattleManager : MonoBehaviour
     public int poisonDamageDivisor = 5;
     public bool canMove = true;
     public NodeAccess nodeAccess;
+
+    public List<Camera> cameras = new List<Camera>();
+
+    public List<Camera> onionCams;
+    public List<Camera> brocoliCams;
+    public List<Camera> pgeonCams;
+
 
     public void CharacterAllocation(List<APlayer> listOfPlayers, List<AEnemy> listOfenemies, List<CharacterOutOfBattle> listOfOutOfBattle)
     {
@@ -145,6 +153,17 @@ public class BattleManager : MonoBehaviour
     public void StartRound()
     {
         currentRound++;
+        basicAttackButton.GetComponent<Image>().enabled = false;
+        basicAttackButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        restButton.GetComponent<Image>().enabled = false;
+        restButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        hpBar.SetActive(false);
+        staminaBar.SetActive(false);
+        foreach (GameObject button in abilityButtons)
+        {
+            button.GetComponent<Image>().enabled = false;
+            button.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        }
         if (fightIsFinished)
         {
             StartTurn(null);
@@ -187,6 +206,12 @@ public class BattleManager : MonoBehaviour
     public void StartTurn(CharacterHolder character)
     {
         WaitForTurn(0.5f);
+        StartCoroutine(LittlePause(character));
+    }
+
+    IEnumerator LittlePause(CharacterHolder character)
+    {
+        yield return new WaitForSeconds(1.5f);
         if (!fightIsFinished)
         {
             foreach (CharacterHolder characterInTurn in characters)
@@ -223,14 +248,15 @@ public class BattleManager : MonoBehaviour
                     Debug.Log(character.character);
                     enemyUser = user.character as AEnemy;
                     enemyUser.SelectAttack();
-                    StartCoroutine(WaitForTurn(1.5f));
+                    AttackAnimation(user);
+                    StartCoroutine(WaitForTurn(0));
                 }
                 else
                 {
                     staminaBar.SetActive(true);
                     hpBar.SetActive(true);
-                    hpBar.GetComponentInChildren<TextMeshProUGUI>().text = character.HP.ToString() + "HP / " + character.maxHP.ToString()+"HP";
-                    staminaBar.GetComponentInChildren<TextMeshProUGUI>().text = character.stamina.ToString() + "St / " + character.maxStamina.ToString()+"St";
+                    hpBar.GetComponentInChildren<TextMeshProUGUI>().text = character.HP.ToString() + "HP / " + character.maxHP.ToString() + "HP";
+                    staminaBar.GetComponentInChildren<TextMeshProUGUI>().text = character.stamina.ToString() + "St / " + character.maxStamina.ToString() + "St";
                     hpBar.GetComponentInChildren<Slider>().value = (float)character.HP / (float)character.maxHP;
                     staminaBar.GetComponentInChildren<Slider>().value = (float)character.stamina / (float)character.maxStamina;
                     basicAttackButton.GetComponent<Image>().enabled = true;
@@ -272,6 +298,11 @@ public class BattleManager : MonoBehaviour
                             players[i].HP = players[i].maxHP;
                         }
                         PlayerManager.instance.charactersOutOfBattle[i].characterHP = players[i].HP;
+                        players[i].characterOutOfBattle.fightsToLevelUp--;
+                        if (players[i].characterOutOfBattle.fightsToLevelUp == 0)
+                        {
+                            players[i].characterOutOfBattle.timesToLevelUp++;
+                        }
                     }
                 }
                 nodeAccess.OnExitButtonClick();
@@ -410,13 +441,46 @@ public class BattleManager : MonoBehaviour
     {
  
         DeActivateTargetButtons();
+        AttackAnimation(user);
+        basicAttackButton.GetComponent<Image>().enabled = false;
+        basicAttackButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        restButton.GetComponent<Image>().enabled = false;
+        restButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        hpBar.SetActive(false);
+        staminaBar.SetActive(false);
+        foreach (GameObject button in abilityButtons)
+        {
+            button.GetComponent<Image>().enabled = false;
+            button.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        }
         attack.Effect(targets, user);
+
     }
     public void UseAreaAttack()
     {
         DeActivateTargetButtons();
+        AttackAnimation(user);
+        basicAttackButton.GetComponent<Image>().enabled = false;
+        basicAttackButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        restButton.GetComponent<Image>().enabled = false;
+        restButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        hpBar.SetActive(false);
+        staminaBar.SetActive(false);
+        foreach (GameObject button in abilityButtons)
+        {
+            button.GetComponent<Image>().enabled = false;
+            button.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        }
         areaAttack.Effect(targets, user);
     }
+
+    void AttackAnimation(CharacterHolder user)
+    {
+        Debug.Log(user.character.characterName + " animaci�n");
+        GameObject activeAttacker = user.transform.parent.GetComponentInChildren<RawImage>().gameObject.GetComponent<SelectSpriteInBattle>().spriteReference;
+        activeAttacker.GetComponent<Animator>().SetTrigger("Attack");
+    }
+
     public void DeActivateTargetButtons()
     {
         foreach (GameObject button in playerButtons)
@@ -430,5 +494,33 @@ public class BattleManager : MonoBehaviour
         enemyTeamButton.GetComponent<Image>().enabled = false;
         playerTeamButton.GetComponent<Image>().enabled = false;
         allCharactersButton.GetComponent<Image>().enabled = false;
+    }
+
+    public void OnEnable()
+    {
+        //Para tomar a los personajes �nicos en escena
+        cameras.Add(GameObject.Find("GrandmaCam").GetComponent<Camera>());
+        cameras.Add(GameObject.Find("AddictedCam").GetComponent<Camera>());
+        cameras.Add(GameObject.Find("PyroCam").GetComponent<Camera>());
+        cameras.Add(GameObject.Find("InternCam").GetComponent<Camera>());
+        cameras.Add(GameObject.Find("StreetArtistCam").GetComponent<Camera>());
+        cameras.Add(GameObject.Find("BodybuilderCam").GetComponent<Camera>());
+
+        cameras.Add(GameObject.Find("PrincessCam").GetComponent<Camera>());
+
+        cameras.Add(GameObject.Find("NullCam").GetComponent<Camera>());
+
+        onionCams.Add(GameObject.Find("OnionCam").GetComponent<Camera>());
+        onionCams.Add(GameObject.Find("OnionCam2").GetComponent<Camera>());
+        onionCams.Add(GameObject.Find("OnionCam").GetComponent<Camera>());
+
+        brocoliCams.Add(GameObject.Find("BrocoliCam").GetComponent<Camera>());
+        brocoliCams.Add(GameObject.Find("BrocoliCam2").GetComponent<Camera>());
+        brocoliCams.Add(GameObject.Find("BrocoliCam3").GetComponent<Camera>());
+
+        pgeonCams.Add(GameObject.Find("PigeonCam").GetComponent<Camera>());
+        pgeonCams.Add(GameObject.Find("PigeonCam2").GetComponent<Camera>());
+        pgeonCams.Add(GameObject.Find("PigeonCam3").GetComponent<Camera>());
+
     }
 }

@@ -36,9 +36,12 @@ public class CharacterHolder : MonoBehaviour
     public bool isRested;
     public bool isTaunting;
 
+    GameObject hitSprite, healSprite;
 
     public void SelectCharacter(CharacterOutOfBattle characterOutOfBattle)
     {
+        hitSprite = transform.parent.Find("Hit").gameObject;
+        healSprite = transform.parent.Find("Heal").gameObject;
         //apaga los iconos de estado
         poisonIcon.SetActive(false);
         disgustIcon.SetActive(false);
@@ -71,6 +74,8 @@ public class CharacterHolder : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
+        hitSprite.GetComponent<Image>().enabled = true;
+        StartCoroutine(UnableHit());
         if (isBurnt)
         {
             damage *= 2;
@@ -243,6 +248,8 @@ public class CharacterHolder : MonoBehaviour
     }
     public void Heal(int healing, bool overheal)
     {
+        healSprite.GetComponent<Image>().enabled = true;
+        StartCoroutine(UnableHeal());
         Debug.Log(character + " healed for " + healing);
         HP += healing;
         if (HP > maxHP && !overheal)
@@ -268,5 +275,18 @@ public class CharacterHolder : MonoBehaviour
             stamina = 0;
         }
         UpdateStaminaBar();
+    }
+
+    IEnumerator UnableHit()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        hitSprite.GetComponent<Image>().enabled = false;
+    }
+    IEnumerator UnableHeal()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        healSprite.GetComponent<Image>().enabled = false;
     }
 }

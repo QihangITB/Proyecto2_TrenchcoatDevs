@@ -21,13 +21,21 @@ public class CallForFood : GenericAttack
             {
                 BattleManager.instance.enemySelectors[i].character = enemyToCall;
                 Debug.Log("tengo " + BattleManager.instance.enemySelectors[i].character);
-                for (int j = 0; j < BattleManager.instance.enemySelectors[i].gameObject.GetComponentsInParent<Image>().Count(); j++)
+
+                /*for (int j = 0; j < BattleManager.instance.enemySelectors[i].gameObject.GetComponentsInParent<Image>().Count(); j++)
                 {
                     if (j == 1)
                     {
-                        BattleManager.instance.enemySelectors[i].gameObject.GetComponentsInParent<Image>()[j].enabled = true;
+                        //BattleManager.instance.enemySelectors[i].gameObject.GetComponentsInParent<Image>()[j].enabled = true;
                     }
+                }*/
+                GameObject parent = BattleManager.instance.enemySelectors[i].gameObject.transform.parent.gameObject;
+                if (parent.GetComponentInChildren<RawImage>())
+                {
+                    GameObject sprite = parent.GetComponentInChildren<RawImage>().gameObject;
+                    sprite.GetComponent<SelectSpriteInBattle>().StartCoroutine(sprite.GetComponent<SelectSpriteInBattle>().SelectSprite());
                 }
+
                 BattleManager.instance.enemySelectors[i].HpBar.GetComponent<Slider>().gameObject.SetActive(true);
                 BattleManager.instance.enemySelectors[i].SelectCharacter(null);
                 BattleManager.instance.enemies.Add(BattleManager.instance.enemySelectors[i]);
