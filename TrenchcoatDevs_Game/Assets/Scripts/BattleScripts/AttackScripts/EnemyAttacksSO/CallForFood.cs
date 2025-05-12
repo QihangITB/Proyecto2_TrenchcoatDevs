@@ -41,14 +41,14 @@ public class CallForFood : GenericAttack
                 BattleManager.instance.enemies.Add(BattleManager.instance.enemySelectors[i]);
                 BattleManager.instance.basicAttackButton.GetComponent<SelectTypeOfAttack>().description.transform.parent.gameObject.SetActive(true);
                 BattleManager.instance.basicAttackButton.GetComponent<SelectTypeOfAttack>().description.text = user.character.characterName + " calls for food";
-                if (BattleManager.instance.enemyButtons[1]== BattleManager.instance.enemySelectors[i].gameObject)
+                /*if (BattleManager.instance.enemyButtons[1]== BattleManager.instance.enemySelectors[i].gameObject)
                 {
                     BattleManager.instance.enemyButtons[3] = BattleManager.instance.enemySelectors[i].gameObject;
                 }
                 else
                 {
                     BattleManager.instance.enemyButtons[1] = BattleManager.instance.enemySelectors[i].gameObject;
-                }
+                }*/
             }
         }
     }

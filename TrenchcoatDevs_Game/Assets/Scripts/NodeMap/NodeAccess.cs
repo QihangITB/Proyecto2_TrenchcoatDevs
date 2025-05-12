@@ -15,6 +15,7 @@ public class NodeAccess : MonoBehaviour
     public List<GameObject> NodeCanvas;
     public NodeMapGeneration nodeMapGeneration;
     public EnemySelectionPool enemySelectionPool;
+    public List<Camera> cams;
 
     public static event Action OnReturnToNodeMap;
 
@@ -60,6 +61,9 @@ public class NodeAccess : MonoBehaviour
         if (sceneName == "Battle")
         {
             enemySelectionPool.AllocateEnemies(nodeMapGeneration.GetPlayerLevel());
+            cams[0].gameObject.SetActive(false);
+            cams[1].gameObject.SetActive(true);
+            Debug.Log("a");
         }
         // Elimina el listener para evitar que se acumule
         _accesBtn.onClick.RemoveAllListeners();
@@ -88,6 +92,8 @@ public class NodeAccess : MonoBehaviour
         }
         if (!hasToLevelUp)
         {
+            cams[0].gameObject.SetActive(true);
+            cams[1].gameObject.SetActive(false);
             NodeMap.SetActive(true);
             OnReturnToNodeMap?.Invoke();
         }
