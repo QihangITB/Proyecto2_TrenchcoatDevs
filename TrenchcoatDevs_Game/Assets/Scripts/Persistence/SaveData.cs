@@ -31,7 +31,7 @@ public class SaveData : MonoBehaviour
 
         data.recruitment = new List<string>();
 
-        foreach (APlayer character in RecruitScreen.Instance.allCharacters)
+        foreach (APlayer character in RecruitScreen.Instance.AvailableCharacters)
         {
             data.recruitment.Add(character.characterName);
         }

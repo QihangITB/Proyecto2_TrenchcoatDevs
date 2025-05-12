@@ -20,7 +20,7 @@ MonoBehaviour:
   attacks:
   - {fileID: 11400000, guid: 5c909fdf77013cb4389108e12a687470, type: 2}
   basicAttack: {fileID: 11400000, guid: 370af78e6e233b448a875b62f530f850, type: 2}
-  characterName: Graffiti Artist
+  characterName: Graffiti
   stamina: 10
   maxStamina: 10
   description: Uses his array of spray cans to bother the enemy team

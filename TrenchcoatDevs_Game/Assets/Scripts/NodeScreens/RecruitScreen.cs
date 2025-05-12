@@ -30,6 +30,8 @@ public class RecruitScreen : MonoBehaviour
 
     private APlayer selectedCharacter;
 
+    public List<APlayer> AvailableCharacters { get { return availableCharacters; } }
+
     private void Awake()
     {
         if (Instance == null)
@@ -46,6 +48,8 @@ public class RecruitScreen : MonoBehaviour
             {
                 availableCharacters = allCharacters;
             }
+            availableCharacters = allCharacters;
+
         }
         else
         {
@@ -114,6 +118,7 @@ public class RecruitScreen : MonoBehaviour
         nodeAccess.OnExitButtonClick();
     }
 
+    // LOAD PERSISTENCE DATA
     private void LoadTeamCharactersData(List<CharacterJson> characters)
     {
         List<CharacterOutOfBattle> onTeamCharacters = Resources
@@ -131,8 +136,6 @@ public class RecruitScreen : MonoBehaviour
             onTeamCharacters[i].level = characters[i].level;
 
             // PREFABS VALUES
-            //var result = allCharacters.Find(x => characters[i].character.Contains(x.characterName));
-            //Debug.Log(result);
             onTeamCharacters[i].character = allCharacters.Find(x => characters[i].character.Contains(x.characterName));
             onTeamCharacters[i].basicAttack = allCharacters.Find(x => characters[i].character.Contains(x.characterName)).basicAttack;
             onTeamCharacters[i].knownPassives = new List<APassive>();
@@ -140,7 +143,11 @@ public class RecruitScreen : MonoBehaviour
             {
                 if (allPassives.Find(x => x.name.Contains(characters[i].knownPassives[j])) != null)
                 {
-                    onTeamCharacters[i].knownPassives.Add(allPassives.Find(x => x.name.Contains(characters[i].knownPassives[j])));
+                    onTeamCharacters[i].knownPassives.Add(
+                        allPassives.Find(
+                            x => x.name.Contains(characters[i].knownPassives[j])
+                            )
+                        );
                 }
             }
             onTeamCharacters[i].knownAttacks = new List<AAttack>();
@@ -148,7 +155,11 @@ public class RecruitScreen : MonoBehaviour
             {
                 if (allAttacks.Find(x => x.name.Contains(characters[i].knownAttacks[j])) != null)
                 {
-                    onTeamCharacters[i].knownAttacks.Add(allAttacks.Find(x => x.name.Contains(characters[i].knownAttacks[j])));
+                    onTeamCharacters[i].knownAttacks.Add(
+                        allAttacks.Find(
+                            x => x.name.Contains(characters[i].knownAttacks[j])
+                            )
+                        );
                 }
             }
         }
