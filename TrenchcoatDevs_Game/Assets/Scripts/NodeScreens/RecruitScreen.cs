@@ -9,12 +9,12 @@ public class RecruitScreen : MonoBehaviour
     public static RecruitScreen Instance;
 
     [Header("First character")]
-    public RawImage imageOne;
+    public Image imageOne;
     public TMP_Text nameOne;
     public TMP_Text descriptionOne;
 
     [Header("Second character")]
-    public RawImage imageTwo;
+    public Image imageTwo;
     public TMP_Text nameTwo;
     public TMP_Text descriptionTwo;
 
@@ -55,9 +55,12 @@ public class RecruitScreen : MonoBehaviour
 
         nameOne.text = allCharacters[randomOne].characterName;
         descriptionOne.text = allCharacters[randomOne].description;
+        imageOne.sprite = allCharacters[randomOne].sprite;
 
         nameTwo.text = allCharacters[randomTwo].characterName;
         descriptionTwo.text = allCharacters[randomTwo].description;
+        imageTwo.sprite = allCharacters[randomTwo].sprite;
+
     }
 
     public void SelectCharacter(TMP_Text message)
