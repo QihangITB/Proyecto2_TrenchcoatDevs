@@ -2,7 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class CharacterSyncManager : NetworkBehaviour
 {
@@ -17,6 +20,7 @@ public class CharacterSyncManager : NetworkBehaviour
     private NetworkVariable<APlayerNetStruct> _secondSlotSyncer = new NetworkVariable<APlayerNetStruct>(default, default, NetworkVariableWritePermission.Owner);
     private NetworkVariable<APlayerNetStruct> _thirdSlotSyncer = new NetworkVariable<APlayerNetStruct>(default, default, NetworkVariableWritePermission.Owner);
     private NetworkVariable<APlayerNetStruct>[] _charSyncerIndexer;
+    public UnityEvent<APlayer[]> allSlotsFilled;
     public static CharacterSyncManager OwnerInstance
     {
         get
@@ -51,6 +55,13 @@ public class CharacterSyncManager : NetworkBehaviour
             
         }
     }
+    public int CharSlots
+    {
+        get
+        {
+            return _charSyncerIndexer.Length;
+        }
+    }
     public override void OnNetworkSpawn()
     {
         if (_instances.ContainsKey(OwnerClientId))
@@ -73,25 +84,55 @@ public class CharacterSyncManager : NetworkBehaviour
                 _secondSlotSyncer,
                 _thirdSlotSyncer,
             };
-            
-            foreach(NetworkVariable<APlayerNetStruct> netVar in _charSyncerIndexer)
+            for(int i = 0; i<_charSyncerIndexer.Length; i++)
             {
-                netVar.OnValueChanged += (prev, next) =>
+                _charSyncerIndexer[i].OnValueChanged += (next, prev) =>
                 {
-                    Debug.Log($"Client {OwnerClientId} CharName = ${next.characterName}");
-                    foreach(int index in next.passivesindexes)
-                    {
-                        Debug.Log($"Client {OwnerClientId} passive number = ${index}");
-                    }
-                    foreach(int index in next.attacksIndex)
-                    {
-                        Debug.Log($"Client {OwnerClientId} attack number = ${index}");
-                    }
+                    FillNewNetChar(i);
                 };
             }
         }
     }
-    
+    private void EvaluateIfCompleteList()
+    {
+        foreach(APlayer character in _playerIndexer)
+        {
+            if(character == null)
+            {
+                return;
+            }
+        }
+
+    }
+    private void FillNewNetChar(int slot)
+    {
+        APlayer netChar = ScriptableObject.CreateInstance<APlayer>();
+        SetNetAPlayer(netChar, _charSyncerIndexer[slot].Value);
+        _playerIndexer[slot] = netChar;
+    }
+    private void SetNetAPlayer(APlayer playChar, APlayerNetStruct data)
+    {
+        playChar.characterName = data.characterName.ToString();
+        playChar.health = data.health;
+        playChar.description = data.description;
+        playChar.damage = data.damage;
+        playChar.defense = data.defense;
+        playChar.maxHealth = data.maxHealth;
+        playChar.maxStamina = data.maxStamina;
+        playChar.stamina = data.stamina;
+        playChar.speed = data.speed;
+        playChar.basicAttack = (GenericAttack)_assetsIndexer.GetAttack(data.basicAttackIndex);
+        playChar.sprite = _assetsIndexer.GetSprite(data.spriteIndex);
+        foreach(int index in data.attacksIndex)
+        {
+            playChar.attacks.Add(_assetsIndexer.GetAttack(index));
+        }
+        foreach(int index in data.passivesindexes)
+        {
+            playChar.passives.Add(_assetsIndexer.GetPassive(index));
+        }
+        
+    }
     public void SetCharSlot(int slot, APlayer character)
     {
         if (IsOwner)
@@ -109,13 +150,5 @@ public class CharacterSyncManager : NetworkBehaviour
             SetCharSlot(slot, character);
         }
         
-    }
-    public void SetOnChangeEvent(int slotEvent,NetworkVariable<APlayerNetStruct>.OnValueChangedDelegate onChange)
-    {
-        _charSyncerIndexer[slotEvent].OnValueChanged += onChange;
-    }
-    public void UnsetOnChangeEvent(int slotEvent, NetworkVariable<APlayerNetStruct>.OnValueChangedDelegate onChange)
-    {
-        _charSyncerIndexer[slotEvent].OnValueChanged -= onChange;
     }
 }

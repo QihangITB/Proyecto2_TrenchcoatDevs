@@ -13,5 +13,5 @@ public abstract class ACharacter : ScriptableObject
     public List<AAttack> attacks;
     public GenericAttack basicAttack;
     public string characterName;
-    public Image sprite;
+    public Sprite sprite;
 }

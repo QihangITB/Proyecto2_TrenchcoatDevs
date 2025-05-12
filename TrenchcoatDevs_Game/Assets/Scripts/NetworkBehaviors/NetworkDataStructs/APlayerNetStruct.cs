@@ -33,7 +33,7 @@ public struct APlayerNetStruct : INetworkSerializable
         }
         else
         {
-            spriteIndex = assetIndexer.GetSpriteIndex(playerClass.sprite.sprite.texture);
+            spriteIndex = assetIndexer.GetSpriteIndex(playerClass.sprite);
         }
         
         stamina = playerClass.stamina;
