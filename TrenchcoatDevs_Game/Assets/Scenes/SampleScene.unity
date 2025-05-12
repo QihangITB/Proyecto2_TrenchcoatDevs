@@ -16571,6 +16571,7 @@ MonoBehaviour:
   win: 0
   poisonDamageDivisor: 10
   canMove: 1
+  nodeAccess: {fileID: 0}
   cameras: []
   onionCams: []
   brocoliCams: []
@@ -18327,7 +18328,7 @@ Transform:
   m_GameObject: {fileID: 2012200017}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 156.6228, y: 137.82089, z: -3.6531556}
+  m_LocalPosition: {x: 563, y: 517, z: -3.6531556}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
