@@ -9,6 +9,10 @@ public class HealScreen : MonoBehaviour
     public TMP_Text successMsg;
     public float waitTime = 1.5f;
 
+    private void OnEnable()
+    {
+        successMsg.gameObject.SetActive(false);
+    }
     public void HealAllCharacters()
     {
         foreach (CharacterOutOfBattle character in characters)

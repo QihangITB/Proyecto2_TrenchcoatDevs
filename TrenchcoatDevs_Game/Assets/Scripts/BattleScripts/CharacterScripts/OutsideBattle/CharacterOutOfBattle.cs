@@ -19,7 +19,7 @@ public class CharacterOutOfBattle : MonoBehaviour
     public void UpdateCharacter()
     {
         characterPoisonModifier = 1;
-        //añade todas las passivas y ataques que el personaje conoce a la lista de conocidos si no lo tiene
+        //aï¿½ade todas las passivas y ataques que el personaje conoce a la lista de conocidos si no lo tiene
         foreach (APassive passive in character.passives)
         {
             if (!knownPassives.Contains(passive))
@@ -38,9 +38,14 @@ public class CharacterOutOfBattle : MonoBehaviour
 
     public void LevelUp()
     {
-        level++;
-        characterHP += 2;
-        fightsToLevelUp = 2;
+        if (timesToLevelUp > 0)
+        {
+            timesToLevelUp--;
+            level++;
+            characterHP += 2;
+            fightsToLevelUp = 2;
+        }
+
     }
 
     public CharacterJson ConvertToJsonClass()

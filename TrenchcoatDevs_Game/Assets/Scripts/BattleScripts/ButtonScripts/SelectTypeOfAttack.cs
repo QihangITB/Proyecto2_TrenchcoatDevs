@@ -31,7 +31,7 @@ public class SelectTypeOfAttack : MonoBehaviour, IPointerEnterHandler, IPointerE
         description.transform.parent.gameObject.SetActive(true);
         if (isAreaAttack)
         {
-            description.text = areaAttack.attack.attackName + "  " + areaAttack.attack.cost + "\n"+ areaAttack.attack.description;
+            description.text = areaAttack.attack.attackName + "  " + areaAttack.attack.cost + "\n"+ areaAttack.attack.description; 
         }
         else
         {

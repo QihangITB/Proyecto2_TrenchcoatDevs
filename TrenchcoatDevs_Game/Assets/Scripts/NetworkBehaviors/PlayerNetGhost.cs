@@ -23,6 +23,11 @@ public class PlayerNetGhost : NetworkBehaviour
         if (IsOwner)
         {
             GetComponent<MeshRenderer>().enabled = false;
+            MeshRenderer[] renders = GetComponentsInChildren<MeshRenderer>();
+            foreach(MeshRenderer render in renders)
+            {
+                render.enabled = false;
+            }
             _constraint = GetComponent<PositionConstraint>();
             AddPositionConstraint();
             _constraint.constraintActive = true;
