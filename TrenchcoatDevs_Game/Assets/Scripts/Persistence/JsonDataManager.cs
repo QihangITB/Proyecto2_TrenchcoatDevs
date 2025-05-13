@@ -17,7 +17,7 @@ public class JsonDataManager : MonoBehaviour
     {
         Debug.Log(json);
         string path = GetFilePath(fileName);
-        File.AppendAllText(path, json);
+        File.WriteAllText(path, json);
         Debug.Log($"Datos guardados en: {path}");
     }
 

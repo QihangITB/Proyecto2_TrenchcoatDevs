@@ -32,13 +32,13 @@ public class RecruitScreen : MonoBehaviour
 
     public List<APlayer> AvailableCharacters { get { return availableCharacters; } }
 
-    private void Awake()
+    private void Start()
     {
         if (Instance == null)
         {
             Instance = this;
 
-            if (JsonDataManager.FileExists(SaveData.teamFileName))
+            if (LoadData.hasToLoad)
             {
                 CharacterSaveData data = JsonDataManager.LoadFromJson<CharacterSaveData>(SaveData.teamFileName);
                 LoadTeamCharactersData(data.characters);
@@ -46,15 +46,16 @@ public class RecruitScreen : MonoBehaviour
             }
             else
             {
+                AssignFirstCharacter(SelectFirstChar.startCharacter);
                 availableCharacters = allCharacters;
+                availableCharacters.Remove(SelectFirstChar.startCharacter);
             }
-            availableCharacters = allCharacters;
-
         }
         else
         {
             Destroy(gameObject);
         }
+        gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -74,7 +75,7 @@ public class RecruitScreen : MonoBehaviour
 
         nameOne.text = availableCharacters[randomOne].characterName;
         descriptionOne.text = availableCharacters[randomOne].description;
-        imageOne.sprite = availableCharacters[randomTwo].sprite;
+        imageOne.sprite = availableCharacters[randomOne].sprite;
 
         nameTwo.text = availableCharacters[randomTwo].characterName;
         descriptionTwo.text = availableCharacters[randomTwo].description;
@@ -118,6 +119,42 @@ public class RecruitScreen : MonoBehaviour
 
         NodeAccess nodeAccess = FindObjectOfType<NodeAccess>();
         nodeAccess.OnExitButtonClick();
+    }
+
+    private void AssignFirstCharacter(APlayer data)
+    {
+        List<CharacterOutOfBattle> onTeamCharacters = Resources
+        .FindObjectsOfTypeAll<CharacterOutOfBattle>()
+        .Where(c => c.gameObject.scene.IsValid()) // Solo en escena (no assets)
+        .ToList();
+
+        for (int i = 0; i < onTeamCharacters.Count; i++)
+        {
+            if (i==0)
+            {
+                onTeamCharacters[i].character = data;
+                onTeamCharacters[i].characterHP = data.maxHealth;
+                onTeamCharacters[i].knownPassives = new List<APassive>(data.passives);
+                onTeamCharacters[i].knownAttacks = new List<AAttack>(data.attacks);
+                onTeamCharacters[i].basicAttack = data.basicAttack;
+                onTeamCharacters[i].fightsToLevelUp = 2;
+                onTeamCharacters[i].timesToLevelUp = 0;
+                onTeamCharacters[i].level = 1;
+                onTeamCharacters[i].characterPoisonModifier = 1;
+            }
+            else
+            {
+                onTeamCharacters[i].character = null;
+                onTeamCharacters[i].characterHP = 0;
+                onTeamCharacters[i].knownPassives = new List<APassive>();
+                onTeamCharacters[i].knownAttacks = new List<AAttack>();
+                onTeamCharacters[i].basicAttack = null;
+                onTeamCharacters[i].fightsToLevelUp = 2;
+                onTeamCharacters[i].timesToLevelUp = 0;
+                onTeamCharacters[i].level = 1;
+                onTeamCharacters[i].characterPoisonModifier = 1;
+            }
+        }
     }
 
     // LOAD PERSISTENCE DATA

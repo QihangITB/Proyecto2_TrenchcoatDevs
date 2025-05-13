@@ -71,7 +71,7 @@ public class NodeMapGeneration : MonoBehaviour
         };
         _player = GameObject.FindWithTag(PlayerTag);
 
-        if(JsonDataManager.FileExists(SaveData.nodeMapFileName))
+        if(LoadData.hasToLoad)
         {
             // Load node map data from JSON
             NodeMapSaveData data = JsonDataManager.LoadFromJson<NodeMapSaveData>(SaveData.nodeMapFileName);
