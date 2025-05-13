@@ -75,6 +75,7 @@ public class CharacterHolder : MonoBehaviour
     public void TakeDamage(int damage)
     {
         hitSprite.GetComponent<Image>().enabled = true;
+        hitSprite.GetComponent<AudioSource>().Play();
         StartCoroutine(UnableHit());
         if (isBurnt)
         {
@@ -249,6 +250,7 @@ public class CharacterHolder : MonoBehaviour
     public void Heal(int healing, bool overheal)
     {
         healSprite.GetComponent<Image>().enabled = true;
+        healSprite.GetComponent<AudioSource>().Play();
         StartCoroutine(UnableHeal());
         Debug.Log(character + " healed for " + healing);
         HP += healing;

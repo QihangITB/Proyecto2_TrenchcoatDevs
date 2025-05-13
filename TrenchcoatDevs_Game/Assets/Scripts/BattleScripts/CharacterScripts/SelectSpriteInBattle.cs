@@ -25,7 +25,7 @@ public class SelectSpriteInBattle : MonoBehaviour
         GetComponent<RawImage>().enabled = true;
         Camera thisCam = null;
 
-        if (character.character != null)
+        if (character.character != null || character.character.GetType() != typeof(GenericPlayer))
         {
             switch (character.character)
             {
