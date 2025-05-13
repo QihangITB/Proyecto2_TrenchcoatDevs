@@ -28,11 +28,11 @@ public class RecruitScreen : MonoBehaviour
     public List<APlayer> allCharacters;
     private List<APlayer> availableCharacters;
 
-    private APlayer selectedCharacter;
+    public APlayer selectedCharacter;
 
     public List<APlayer> AvailableCharacters { get { return availableCharacters; } }
 
-    private void Start()
+    private void Awake()
     {
         if (Instance == null)
         {

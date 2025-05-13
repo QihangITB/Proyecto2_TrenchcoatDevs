@@ -45,6 +45,7 @@ public class BattleManager : MonoBehaviour
     public List<Camera> brocoliCams;
     public List<Camera> pgeonCams;
 
+    public GameObject player;
 
     public void CharacterAllocation(List<APlayer> listOfPlayers, List<AEnemy> listOfenemies, List<CharacterOutOfBattle> listOfOutOfBattle)
     {
@@ -70,14 +71,14 @@ public class BattleManager : MonoBehaviour
             else
             {
                 //desactiva el componente imagen del objeto padre
-                foreach (Image image in players[i].gameObject.GetComponentsInParent<Image>())
+                /*foreach (Image image in players[i].gameObject.GetComponentsInParent<Image>())
                 {
                     image.enabled = false;
-                }
+                }*/
                 //desactiva el slider 
                 players[i].HpBar.GetComponent<Slider>().gameObject.SetActive(false);
                 players[i].StaminaBar.GetComponent<Slider>().gameObject.SetActive(false);
-                players[i] = null;
+                players[i].character = null;
             }
         }
         for (int i = 0; i < enemies.Count; i++)
@@ -135,6 +136,7 @@ public class BattleManager : MonoBehaviour
                 }
             }
         }
+        player.GetComponent<AudioSource>().Stop();
         GetComponent<AudioSource>().Play();
         StartRound();
     }
@@ -170,6 +172,7 @@ public class BattleManager : MonoBehaviour
         if (fightIsFinished)
         {
             GetComponent<AudioSource>().Stop();
+            player.GetComponent<AudioSource>().Play();
             StartTurn(null);
         }
         else

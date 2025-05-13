@@ -14,7 +14,7 @@ public class BasicAttack : GenericAttack
     {
         int randomIndex = Random.Range(0, BattleManager.instance.players.Count);
         iterationLimit = 500; //si no se pone unity lo cuenta como bucle infinito
-        while (BattleManager.instance.players[randomIndex] == null || targets[randomIndex].character.health <= 0 && iterationLimit > 0)
+        while (BattleManager.instance.players[randomIndex].character == null || targets[randomIndex].character.health <= 0 && iterationLimit > 0)
         {
             targets.RemoveAt(randomIndex);
             randomIndex = Random.Range(0, targets.Count);
@@ -23,9 +23,13 @@ public class BasicAttack : GenericAttack
         BattleManager.instance.targets.Add(targets[randomIndex]);
         foreach (CharacterHolder target in targets)
         {
-            if (target.isTaunting)
+            if (target != null)
             {
-                BattleManager.instance.targets[0]=target;
+
+                if (target.isTaunting)
+                {
+                    BattleManager.instance.targets[0] = target;
+                }
             }
         }
 

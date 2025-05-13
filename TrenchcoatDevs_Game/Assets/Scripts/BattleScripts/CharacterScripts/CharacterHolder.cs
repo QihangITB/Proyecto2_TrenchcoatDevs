@@ -106,10 +106,8 @@ public class CharacterHolder : MonoBehaviour
             BattleManager.instance.basicAttackButton.GetComponent<SelectTypeOfAttack>().description.text = character.characterName + " died";
             BattleManager.instance.CharOrderInTurn.Remove(this);
             BattleManager.instance.characters.Remove(this);
-            character = null;
             if (BattleManager.instance.enemies.Contains(this))
             {
-                character = null;
                 //busca entre todas las pasivas de las lista de players si alguna tiiene dontwaste food
                 foreach (CharacterHolder player in BattleManager.instance.players)
                 {
@@ -119,7 +117,11 @@ public class CharacterHolder : MonoBehaviour
                         {
                             foreach (CharacterHolder healedPlayer in BattleManager.instance.players)
                             {
-                                healedPlayer.Heal(healedPlayer.maxHP/5, false);
+                                if (healedPlayer.character != null)
+                                {
+                                    healedPlayer.Heal(healedPlayer.maxHP / 5, false);
+
+                                }
                             }
                         }
                     }
@@ -143,6 +145,8 @@ public class CharacterHolder : MonoBehaviour
             {
                 StaminaBar.SetActive(false);
             }
+            character = null;
+
             BattleManager.instance.CheckWin();
         }
         UpdateHPBar();
