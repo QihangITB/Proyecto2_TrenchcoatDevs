@@ -25,7 +25,7 @@ public class SelectSpriteInBattle : MonoBehaviour
         GetComponent<RawImage>().enabled = true;
         Camera thisCam = null;
 
-        if (character.character != null || character.character.GetType() != typeof(GenericPlayer))
+        if (character.character != null) 
         {
             switch (character.character)
             {
@@ -84,6 +84,9 @@ public class SelectSpriteInBattle : MonoBehaviour
                     spriteReference = thisCam.GetComponentInChildren<Animator>().gameObject;
                     BattleManager.instance.pgeonCams.Remove(thisCam);
                     BattleManager.instance.pgeonCams.Add(thisCam);
+                    break;
+                default:
+                    GetComponent<RawImage>().texture = BattleManager.instance.cameras[BattleManager.instance.cameras.Count - 1].targetTexture;
                     break;
             }
             if (character.character.GetType().Name == "PrincessEnemy")

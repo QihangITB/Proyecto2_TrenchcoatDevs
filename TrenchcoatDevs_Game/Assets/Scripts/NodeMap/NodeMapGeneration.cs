@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.HID;
 
+[System.Serializable]
 public class NodeMapGeneration : MonoBehaviour
 {
     public const string PlayerTag = "Player";
@@ -61,23 +62,36 @@ public class NodeMapGeneration : MonoBehaviour
             FifthLevel,
             new List<GameObject> { BossLevel }
         };
-        _actionLevels = new List<List<GameObject>> { 
-            FirstLevel, 
-            SecondLevel, 
-            ThirdLevel, 
-            FourthLevel, 
-            FifthLevel 
+        _actionLevels = new List<List<GameObject>> {
+            FirstLevel,
+            SecondLevel,
+            ThirdLevel,
+            FourthLevel,
+            FifthLevel
         };
         _player = GameObject.FindWithTag(PlayerTag);
 
-        // Static nodes
-        GenerateStaticNodes();
+        if(LoadData.hasToLoad)
+        {
+            // Load node map data from JSON
+            NodeMapSaveData data = JsonDataManager.LoadFromJson<NodeMapSaveData>(SaveData.nodeMapFileName);
+            LoadNodeMapData(data);
 
-        // Random nodes
-        GenerateSpecialNodes();
+            Debug.Log("Node map loaded from JSON.");
+        }
+        else
+        {
+            // Static nodes
+            GenerateStaticNodes();
 
-        // Fill empty nodes
-        FillEmptyNodes(BattleP);
+            // Random nodes
+            GenerateSpecialNodes();
+
+            // Fill empty nodes
+            FillEmptyNodes(BattleP);
+
+            Debug.Log("Node map generated randomly.");
+        }
 
         // NodePaths
         GeneratePath(Path);
@@ -314,5 +328,88 @@ public class NodeMapGeneration : MonoBehaviour
         {
             sc.enabled = false;
         }
+    }
+
+    // GENERATE MAP WITH JSON
+    private void LoadNodeMapData(NodeMapSaveData data)
+    {
+        SetNode(TutorialNode, GetNodePrefabByName(data.tutorial));
+        SetNode(StartNode, GetNodePrefabByName(data.start));
+
+        var levelData = new[] { data.level1, data.level2, data.level3, data.level4, data.level5 };
+
+        for (int i = 0; i < _actionLevels.Count; i++)
+        {
+            var nodeArray = _actionLevels[i];
+            var level = levelData[i];
+            for (int j = 0; j < nodeArray.Count; j++)
+            {
+                string nodeName = (string)level.GetType().GetField($"node{j + 1}").GetValue(level);
+                SetNode(nodeArray[j], GetNodePrefabByName(nodeName));
+            }
+        }
+
+        SetNode(BossLevel, GetNodePrefabByName(data.boss));
+    }
+
+    private GameObject GetNodePrefabByName(string name)
+    {
+        switch(name)
+        {
+            case "BattleNode":
+                return BattleP;
+            case "HealthNode":
+                return HealthP;
+            case "CharacterNode":
+                return CharacterP;
+            case "ShopNode":
+                return ShopP;
+            case "TreasureNode":
+                return TreasureP;
+            default:
+                Debug.LogError($"Node prefab with name {name} not found.");
+                return null;
+        }
+    }
+
+    public override string ToString()
+    {
+        NodeMapSaveData map = new NodeMapSaveData();
+
+        map.tutorial = TutorialNode.transform.GetChild(0).name.Replace("(Clone)", "");
+        map.start = StartNode.transform.GetChild(0).name.Replace("(Clone)", "");
+
+        map.level1 = new Level();
+        map.level1.node1 = FirstLevel[0].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level1.node2 = FirstLevel[1].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level1.node3 = FirstLevel[2].transform.GetChild(0).name.Replace("(Clone)", "");
+
+        map.level2 = new Level();
+        map.level2.node1 = SecondLevel[0].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level2.node2 = SecondLevel[1].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level2.node3 = SecondLevel[2].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level2.node4 = SecondLevel[3].transform.GetChild(0).name.Replace("(Clone)", "");
+
+        map.level3 = new Level();
+        map.level3.node1 = ThirdLevel[0].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level3.node2 = ThirdLevel[1].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level3.node3 = ThirdLevel[2].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level3.node4 = ThirdLevel[3].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level3.node5 = ThirdLevel[4].transform.GetChild(0).name.Replace("(Clone)", "");
+
+        map.level4 = new Level();
+        map.level4.node1 = FourthLevel[0].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level4.node2 = FourthLevel[1].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level4.node3 = FourthLevel[2].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level4.node4 = FourthLevel[3].transform.GetChild(0).name.Replace("(Clone)", "");
+
+        map.level5 = new Level();
+        map.level5.node1 = FifthLevel[0].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level5.node2 = FifthLevel[1].transform.GetChild(0).name.Replace("(Clone)", "");
+        map.level5.node3 = FifthLevel[2].transform.GetChild(0).name.Replace("(Clone)", "");
+
+        map.boss = BossLevel.transform.GetChild(0).name.Replace("(Clone)", "");
+
+        return JsonUtility.ToJson(map, true);
     }
 }
