@@ -135,6 +135,7 @@ public class BattleManager : MonoBehaviour
                 }
             }
         }
+        GetComponent<AudioSource>().Play();
         StartRound();
     }
 
@@ -168,6 +169,7 @@ public class BattleManager : MonoBehaviour
         }
         if (fightIsFinished)
         {
+            GetComponent<AudioSource>().Stop();
             StartTurn(null);
         }
         else
