@@ -111,20 +111,24 @@ public class CharacterHolder : MonoBehaviour
                 //busca entre todas las pasivas de las lista de players si alguna tiiene dontwaste food
                 foreach (CharacterHolder player in BattleManager.instance.players)
                 {
-                    foreach (APassive passive in player.characterOutOfBattle.knownPassives)
+                    if (player.character != null)
                     {
-                        if (passive is DontWasteFood)
+                        foreach (APassive passive in player.characterOutOfBattle.knownPassives)
                         {
-                            foreach (CharacterHolder healedPlayer in BattleManager.instance.players)
+                            if (passive is DontWasteFood)
                             {
-                                if (healedPlayer.character != null)
+                                foreach (CharacterHolder healedPlayer in BattleManager.instance.players)
                                 {
-                                    healedPlayer.Heal(healedPlayer.maxHP / 5, false);
+                                    if (healedPlayer.character != null)
+                                    {
+                                        healedPlayer.Heal(healedPlayer.maxHP / 5, false);
 
+                                    }
                                 }
                             }
                         }
                     }
+                    
                 }
             }
             for (int i = 0; i < BattleManager.instance.enemyButtons.Count; i++)

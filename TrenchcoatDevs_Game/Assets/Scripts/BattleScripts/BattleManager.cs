@@ -59,6 +59,8 @@ public class BattleManager : MonoBehaviour
             {
                 players[i].character = listOfPlayers[i];
                 Debug.Log("Player " + i + " is " + players[i].character);
+                players[i].HpBar.GetComponent<Slider>().gameObject.SetActive(true);
+                players[i].StaminaBar.GetComponent<Slider>().gameObject.SetActive(true);
                 if (listOfOutOfBattle[i]!=null)
                 {
                     players[i].SelectCharacter(listOfOutOfBattle[i]);
@@ -298,7 +300,7 @@ public class BattleManager : MonoBehaviour
                 Debug.Log("You win");
                 for (int i = 0; i < players.Count; i++)
                 {
-                    if (players[i] != null)
+                    if (players[i].character != null)
                     {
                         if (players[i].HP > players[i].maxHP)
                         {
