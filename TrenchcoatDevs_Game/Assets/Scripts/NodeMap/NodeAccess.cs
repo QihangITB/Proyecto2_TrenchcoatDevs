@@ -13,6 +13,9 @@ public class NodeAccess : MonoBehaviour
     public GameObject NodeMap;
     public List<GameObject> NodeTypes;
     public List<GameObject> NodeCanvas;
+    public NodeMapGeneration nodeMapGeneration;
+    public EnemySelectionPool enemySelectionPool;
+    public List<Camera> cams;
 
     public static event Action OnReturnToNodeMap;
 
@@ -55,19 +58,44 @@ public class NodeAccess : MonoBehaviour
 
         GameObject nodeCanva = NodeCanvas.Find(x => x.name == sceneName);
         nodeCanva.SetActive(true);
-
+        if (sceneName == "Battle")
+        {
+            enemySelectionPool.AllocateEnemies(nodeMapGeneration.GetPlayerLevel());
+            cams[0].gameObject.SetActive(false);
+            cams[1].gameObject.SetActive(true);
+            Debug.Log("a");
+        }
         // Elimina el listener para evitar que se acumule
         _accesBtn.onClick.RemoveAllListeners();
     }
 
     public void OnExitButtonClick()
     {
-        NodeMap.SetActive(true);
+        bool hasToLevelUp = false;
         foreach (GameObject nodeCanva in NodeCanvas)
         {
             nodeCanva.SetActive(false);
         }
-
-        OnReturnToNodeMap?.Invoke();
+        foreach (CharacterHolder character in BattleManager.instance.characters)
+        {
+            if (character.characterOutOfBattle != null && character.characterOutOfBattle.timesToLevelUp > 0)
+            {
+                hasToLevelUp = true;
+                character.characterOutOfBattle.LevelUp();
+                //Busca en nodeCanva el canvas de subir de nivel 
+                GameObject nodeCanva = NodeCanvas.Find(x => x.name == "LevelUp");
+                nodeCanva.SetActive(true);
+                SkillSelection.Instance.characterOutOfBattle = character.characterOutOfBattle;
+                SkillSelection.Instance.showAbilities();
+                break;
+            }
+        }
+        if (!hasToLevelUp)
+        {
+            cams[0].gameObject.SetActive(true);
+            cams[1].gameObject.SetActive(false);
+            NodeMap.SetActive(true);
+            OnReturnToNodeMap?.Invoke();
+        }
     }
 }

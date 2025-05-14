@@ -8,8 +8,7 @@ public class MolotovCocktail : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
-        targetButtons = BattleManager.instance.enemyButtons;
-        foreach (GameObject button in targetButtons)
+        foreach (GameObject button in BattleManager.instance.enemyButtons)
         {
             if (button.GetComponent<CharacterHolder>().character != null)
             {
@@ -30,8 +29,8 @@ public class MolotovCocktail : GenericAttack
             user.UseStamina(cost);
             foreach (CharacterHolder target in targets)
             {
-                target.TakeDamage(user.attack * 2);
                 target.GetBurnt();
+                target.TakeDamage(user.attack * 2);
             }
             BattleManager.instance.FinishTurn();
         }

@@ -21,6 +21,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 08bd89388246afb43922e6700521162f, type: 2}
   basicAttack: {fileID: 11400000, guid: f9290bfaa2e3dc94f8d5a7462036db92, type: 2}
   characterName: Piromaniac
+  sprite: {fileID: 21300000, guid: 454b3da31eb06af4b927e23ccab9177a, type: 3}
   stamina: 5
   maxStamina: 5
   description: Uses his array of firecrackers to burn and blow up the enemies

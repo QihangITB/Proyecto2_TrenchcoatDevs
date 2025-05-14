@@ -8,8 +8,7 @@ public class DefDownAttack : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
-        targetButtons = BattleManager.instance.enemyButtons;
-        foreach (GameObject button in targetButtons)
+        foreach (GameObject button in BattleManager.instance.enemyButtons)
         {
             if (button.GetComponent<CharacterHolder>().character != null)
             {
@@ -22,7 +21,6 @@ public class DefDownAttack : GenericAttack
     {
         foreach (CharacterHolder target in targets)
         {
-            target.TakeDamage(user.attack);
             if (target.defense - 1 >= 0)
             {
                 target.defense -= 1;
@@ -33,6 +31,7 @@ public class DefDownAttack : GenericAttack
                 target.defense = 0;
                 Debug.Log(target.character.characterName + " can't get its defense lower");
             }
+            target.TakeDamage(user.attack);
         }
         BattleManager.instance.FinishTurn();
     }

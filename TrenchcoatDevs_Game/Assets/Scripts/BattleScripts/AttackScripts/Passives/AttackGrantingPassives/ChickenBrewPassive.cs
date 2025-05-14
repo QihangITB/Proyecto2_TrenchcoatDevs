@@ -12,6 +12,7 @@ public class ChickenBrewPassive : APassive
         {
             player.knownAttacks.Add(ChickenBrew);
         }
+        player.knownPassives.Add(this);
     }
     public override void ActivatePassive(CharacterHolder player)
     {

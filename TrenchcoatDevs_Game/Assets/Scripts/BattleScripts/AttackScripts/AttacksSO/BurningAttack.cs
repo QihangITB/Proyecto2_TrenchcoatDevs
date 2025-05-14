@@ -9,8 +9,7 @@ public class BurningAttack : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
-        targetButtons = BattleManager.instance.enemyButtons;
-        foreach (GameObject button in targetButtons)
+        foreach (GameObject button in BattleManager.instance.enemyButtons)
         {
             if (button.GetComponent<CharacterHolder>().character != null)
             {
@@ -23,8 +22,8 @@ public class BurningAttack : GenericAttack
     {
         foreach (CharacterHolder target in targets)
         {
-            target.TakeDamage(user.attack);
             target.GetBurnt();
+            target.TakeDamage(user.attack);
         }
         BattleManager.instance.FinishTurn();
     }

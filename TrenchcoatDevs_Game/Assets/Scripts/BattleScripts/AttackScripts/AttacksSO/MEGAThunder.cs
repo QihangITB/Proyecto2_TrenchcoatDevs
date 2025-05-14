@@ -9,8 +9,7 @@ public class MEGAThunder : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
-        targetButtons = BattleManager.instance.enemyButtons;
-        foreach (GameObject button in targetButtons)
+        foreach (GameObject button in BattleManager.instance.enemyButtons)
         {
             if (button.GetComponent<CharacterHolder>().character != null)
             {

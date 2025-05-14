@@ -15,4 +15,10 @@ MonoBehaviour:
   attackName: Toxic Spray
   description: Poisons the target
   cost: 2
-  targetButtons: []
+  targetButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
