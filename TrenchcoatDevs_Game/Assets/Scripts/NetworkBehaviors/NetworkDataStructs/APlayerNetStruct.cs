@@ -5,6 +5,10 @@ using Unity.Netcode;
 
 public struct APlayerNetStruct : INetworkSerializable
 {
+    public int level;
+    public bool initialized;
+    public bool isNull;
+    public FixedString64Bytes typeName;
     public int health;
     public int maxHealth;
     public int damage;
@@ -19,40 +23,71 @@ public struct APlayerNetStruct : INetworkSerializable
     public int[] passivesindexes;
     public int[] attacksIndex;
     
-    public APlayerNetStruct(APlayer playerClass, FightAssetsIndexer assetIndexer)
+    public APlayerNetStruct(CharacterOutOfBattle playerClass, FightAssetsIndexer assetIndexer)
     {
-        health = playerClass.health;
-        maxHealth = playerClass.maxHealth;
-        damage = playerClass.damage;
-        speed = playerClass.speed;
-        defense = playerClass.defense;
-        characterName = playerClass.characterName;
-        if(playerClass.sprite == null)
+        initialized = true;
+        isNull = playerClass == null;
+        if (!isNull)
         {
-            spriteIndex = 0;
-        }
-        else
-        {
-            spriteIndex = assetIndexer.GetSpriteIndex(playerClass.sprite);
+            level = playerClass.level;
+            typeName = playerClass.character.GetType().Name;
+            health = playerClass.character.health;
+            maxHealth = playerClass.character.maxHealth;
+            damage = playerClass.character.damage;
+            speed = playerClass.character.speed;
+            defense = playerClass.character.defense;
+            characterName = playerClass.character.characterName;
+            if (playerClass.character.sprite == null)
+            {
+                spriteIndex = 0;
+            }
+            else
+            {
+                spriteIndex = assetIndexer.GetSpriteIndex(playerClass.character.sprite);
+            }
+
+            stamina = playerClass.character.stamina;
+            maxStamina = playerClass.character.maxStamina;
+            description = playerClass.character.description;
+            passivesindexes = new int[playerClass.character.passives.Count];
+            basicAttackIndex = assetIndexer.GetAttackIndex(playerClass.basicAttack);
+            for (int i = 0; i < passivesindexes.Length; i++)
+            {
+                passivesindexes[i] = assetIndexer.GetPassiveIndex(playerClass.character.passives[i]);
+            }
+            attacksIndex = new int[playerClass.character.attacks.Count];
+            for (int i = 0; i < attacksIndex.Length; i++)
+            {
+                attacksIndex[i] = assetIndexer.GetAttackIndex(playerClass.character.attacks[i]);
+            }
         }
         
-        stamina = playerClass.stamina;
-        maxStamina = playerClass.maxStamina;
-        description = playerClass.description;
-        passivesindexes = new int[playerClass.passives.Count];
-        basicAttackIndex = assetIndexer.GetAttackIndex(playerClass.basicAttack);
-        for(int i = 0; i<passivesindexes.Length; i++)
+        else
         {
-            passivesindexes[i] = assetIndexer.GetPassiveIndex(playerClass.passives[i]);
+            level = default;
+            typeName = default;
+            health = default;
+            maxHealth = default;
+            damage = default;
+            speed = default;
+            defense = default;
+            characterName = default;
+            spriteIndex = default;
+            stamina = default;
+            maxStamina = default;
+            description = default;
+            passivesindexes = new int[0];
+            basicAttackIndex = default;
+            attacksIndex = new int[0];
         }
-        attacksIndex = new int[playerClass.attacks.Count];
-        for(int i = 0; i<attacksIndex.Length; i++)
-        {
-            attacksIndex[i] = assetIndexer.GetAttackIndex(playerClass.attacks[i]);
-        }
+        
     }
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
     {
+        serializer.SerializeValue(ref level);
+        serializer.SerializeValue(ref initialized);
+        serializer.SerializeValue(ref isNull);
+        serializer.SerializeValue(ref typeName);
         serializer.SerializeValue(ref health);
         serializer.SerializeValue(ref maxHealth);
         serializer.SerializeValue(ref damage);

@@ -12285,6 +12285,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1803028927}
+  - component: {fileID: 1803028929}
   - component: {fileID: 1803028928}
   m_Layer: 0
   m_Name: BattleManager
@@ -12315,9 +12316,59 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1803028926}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 364b626b851229e41bd16bbd79a1b188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentRound: 0
+  enemies:
+  - {fileID: 1585587362}
+  - {fileID: 700954263}
+  - {fileID: 880569231}
+  players:
+  - {fileID: 2024307061}
+  - {fileID: 1817131355}
+  - {fileID: 993541536}
+  characters: []
+  CharOrderInTurn: []
+  enemySelectors: []
+  playerButtons: []
+  enemyButtons: []
+  enemyTeamButton: {fileID: 714973024}
+  playerTeamButton: {fileID: 1097409775}
+  allCharactersButton: {fileID: 351320943}
+  basicAttackButton: {fileID: 390704707}
+  restButton: {fileID: 754307564}
+  abilityButtons:
+  - {fileID: 1962945377}
+  - {fileID: 340516363}
+  - {fileID: 1473895090}
+  - {fileID: 561229102}
+  - {fileID: 1310338593}
+  - {fileID: 519093628}
+  hpBar: {fileID: 679485819}
+  staminaBar: {fileID: 246569915}
+  attack: {fileID: 0}
+  areaAttack: {fileID: 0}
+  enemyAttack: {fileID: 0}
+  user: {fileID: 2024307061}
+  enemyUser: {fileID: 0}
+  targets: []
+  fightIsFinished: 0
+  win: 0
+  poisonDamageDivisor: 10
+  canMove: 1
+--- !u!114 &1803028929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803028926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6061b4380c33ef43aefd7e583e581e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentRound: 0

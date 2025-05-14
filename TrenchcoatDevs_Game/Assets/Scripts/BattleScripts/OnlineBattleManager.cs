@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,7 +37,7 @@ public class OnlineBattleManager : MonoBehaviour
     public int poisonDamageDivisor = 5;
     public bool canMove = true;
 
-    public void CharacterAllocation(List<APlayer> listOfPlayers, List<APlayer> listOfenemies, List<CharacterOutOfBattle> listOfOutOfBattle)
+    private void SetLocalPlayer(List<APlayer> listOfPlayers, List<CharacterOutOfBattle> listOfOutOfBattle)
     {
         for (int i = 0; i < players.Count; i++)
         {
@@ -44,7 +45,7 @@ public class OnlineBattleManager : MonoBehaviour
             {
                 players[i].character = listOfPlayers[i];
                 Debug.Log("Player " + i + " is " + players[i].character);
-                if (listOfOutOfBattle[i]!=null)
+                if (listOfOutOfBattle[i] != null)
                 {
                     players[i].SelectCharacter(listOfOutOfBattle[i]);
                 }
@@ -66,26 +67,49 @@ public class OnlineBattleManager : MonoBehaviour
                 players[i] = null;
             }
         }
-        for (int i = 0; i < enemies.Count; i++)
+    }
+    private void SetEnemies(List<APlayer> listOfPlayers, List<CharacterOutOfBattle> listOfOutOfBattle)
+    {
+        for (int i = 0; i < players.Count; i++)
         {
-            if (i < listOfenemies.Count)
+            if (i < listOfPlayers.Count)
             {
-                enemies[i].character = listOfenemies[i];
-                Debug.Log("Enemy " + i + " is " + enemies[i].character);
-                enemies[i].SelectCharacter(null);
+                enemies[i].character = listOfPlayers[i];
+                Debug.Log("Player " + i + " is " + players[i].character);
+                if (listOfOutOfBattle[i] != null)
+                {
+                    enemies[i].SelectCharacter(listOfOutOfBattle[i]);
+                }
+                else
+                {
+                    enemies[i].SelectCharacter(null);
+                }
             }
             else
             {
                 //desactiva el componente imagen del objeto padre
-                foreach (Image image in enemies[i].gameObject.GetComponentsInParent<Image>())
+                foreach (Image image in players[i].gameObject.GetComponentsInParent<Image>())
                 {
                     image.enabled = false;
                 }
                 //desactiva el slider 
                 enemies[i].HpBar.GetComponent<Slider>().gameObject.SetActive(false);
-                enemySelectors.Add(enemies[i]);
-                enemies[i]=null;
+                enemies[i].StaminaBar.GetComponent<Slider>().gameObject.SetActive(false);
+                enemies[i] = null;
             }
+        }
+    }
+    public void CharacterAllocation(List<APlayer> listOfPlayers, List<APlayer> listOfenemies, List<CharacterOutOfBattle> listOfOutOfBattle,List<CharacterOutOfBattle> enemieOutOfBattle)
+    {
+        if (NetworkManager.Singleton.IsHost) 
+        {
+            SetLocalPlayer(listOfPlayers, listOfOutOfBattle);
+            SetEnemies(listOfenemies, enemieOutOfBattle);
+        }
+        else
+        {
+            SetEnemies(listOfenemies,enemieOutOfBattle);
+            SetLocalPlayer(listOfPlayers, listOfOutOfBattle);
         }
         //por cada pasiva de los personajes de la lista de jugadores, esta se activa
         foreach (CharacterHolder character in players)
@@ -95,6 +119,7 @@ public class OnlineBattleManager : MonoBehaviour
                 //busca las pasivas del personaj de list out of battle que tenga el mismo character
                 foreach (CharacterOutOfBattle characterOutOfBattle in listOfOutOfBattle)
                 {
+                    //David said it was to solve a problem he does not remember.
                     if (character.character == characterOutOfBattle.character)
                     {
                         foreach (APassive passive in characterOutOfBattle.knownPassives)
@@ -105,20 +130,21 @@ public class OnlineBattleManager : MonoBehaviour
                 }
             }
         }
-        StartRound();
-    }
-    private void OnDataRecived(APlayerNetStruct prev, APlayerNetStruct next)
-    {
-
-    }
-    IEnumerator WaitForClientInstance()
-    {
-        yield return new WaitUntil(()=>CharacterSyncManager.OtherUserInstance!=null);
-        CharacterSyncManager charSyncer = CharacterSyncManager.OtherUserInstance;
-        for(int i = 0; i < charSyncer.CharSlots; i++)
+        foreach(CharacterHolder character in enemies)
         {
-            
+            if (character != null)
+            {
+                //busca las pasivas del personaj de list out of battle que tenga el mismo character
+                foreach (CharacterOutOfBattle characterOutOfBattle in listOfOutOfBattle)
+                {
+                    foreach (APassive passive in characterOutOfBattle.knownPassives)
+                    {
+                        passive.ActivatePassive(character);
+                    }
+                }
+            }
         }
+        StartRound();
     }
     private void Start()
     {
@@ -131,7 +157,7 @@ public class OnlineBattleManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        PlayerManager.instance.AllocateCharacters();
+        
         playerButtons = new List<GameObject>(GameObject.FindGameObjectsWithTag("PlayerButton"));
         enemyButtons = new List<GameObject>(GameObject.FindGameObjectsWithTag("EnemyButton"));
     }
@@ -213,10 +239,7 @@ public class OnlineBattleManager : MonoBehaviour
                 }
                 if (enemies.Contains(character))
                 {
-                    Debug.Log(character.character);
-                    enemyUser = user.character as AEnemy;
-                    enemyUser.SelectAttack();
-                    StartCoroutine(WaitForTurn(1.5f));
+
                 }
                 else
                 {

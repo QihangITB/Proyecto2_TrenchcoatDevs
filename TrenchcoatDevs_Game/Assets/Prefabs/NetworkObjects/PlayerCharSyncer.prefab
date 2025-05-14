@@ -69,6 +69,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _assetsIndexer: {fileID: 11400000, guid: a3e43c5685b38a24b8e56378bb682a80, type: 2}
+  _emptyOutOfBattle: {fileID: 4680776099099016493, guid: bd6f0b22581784d4db561293dc9c07c3, type: 3}
+  allSlotsFilled:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!23 &229413864767990386
 MeshRenderer:
   m_ObjectHideFlags: 0
