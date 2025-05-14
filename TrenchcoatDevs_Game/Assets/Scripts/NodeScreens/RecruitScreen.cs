@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class RecruitScreen : MonoBehaviour
 {
@@ -60,7 +61,10 @@ public class RecruitScreen : MonoBehaviour
 
     private void OnEnable()
     {
-        ShowRandomCharacter();
+        if (availableCharacters != null)
+        {
+            ShowRandomCharacter();
+        }
     }
 
     private void ShowRandomCharacter()
@@ -167,38 +171,53 @@ public class RecruitScreen : MonoBehaviour
 
         for (int i = 0; i < onTeamCharacters.Count; i++)
         {
-            // INT VALUES
-            onTeamCharacters[i].characterHP = characters[i].characterHP;
-            onTeamCharacters[i].characterPoisonModifier = characters[i].characterPoisonModifier;
-            onTeamCharacters[i].fightsToLevelUp = characters[i].fightsToLevelUp;
-            onTeamCharacters[i].timesToLevelUp = characters[i].timesToLevelUp;
-            onTeamCharacters[i].level = characters[i].level;
-
-            // PREFABS VALUES
-            onTeamCharacters[i].character = allCharacters.Find(x => characters[i].character.Contains(x.characterName));
-            onTeamCharacters[i].basicAttack = allCharacters.Find(x => characters[i].character.Contains(x.characterName)).basicAttack;
-            onTeamCharacters[i].knownPassives = new List<APassive>();
-            for (int j = 0; j < characters[i].knownPassives.Count; j++)
+            if (string.IsNullOrEmpty(characters[i].character))
             {
-                if (allPassives.Find(x => x.name.Contains(characters[i].knownPassives[j])) != null)
-                {
-                    onTeamCharacters[i].knownPassives.Add(
-                        allPassives.Find(
-                            x => x.name.Contains(characters[i].knownPassives[j])
-                            )
-                        );
-                }
+                onTeamCharacters[i].character = null;
+                onTeamCharacters[i].characterHP = 0;
+                onTeamCharacters[i].knownPassives = new List<APassive>();
+                onTeamCharacters[i].knownAttacks = new List<AAttack>();
+                onTeamCharacters[i].basicAttack = null;
+                onTeamCharacters[i].fightsToLevelUp = 2;
+                onTeamCharacters[i].timesToLevelUp = 0;
+                onTeamCharacters[i].level = 1;
+                onTeamCharacters[i].characterPoisonModifier = 1;
             }
-            onTeamCharacters[i].knownAttacks = new List<AAttack>();
-            for (int j = 0; j < characters[i].knownAttacks.Count; j++)
+            else
             {
-                if (allAttacks.Find(x => x.name.Contains(characters[i].knownAttacks[j])) != null)
+                // INT VALUES
+                onTeamCharacters[i].characterHP = characters[i].characterHP;
+                onTeamCharacters[i].characterPoisonModifier = characters[i].characterPoisonModifier;
+                onTeamCharacters[i].fightsToLevelUp = characters[i].fightsToLevelUp;
+                onTeamCharacters[i].timesToLevelUp = characters[i].timesToLevelUp;
+                onTeamCharacters[i].level = characters[i].level;
+
+                // PREFABS VALUES
+                onTeamCharacters[i].character = allCharacters.Find(x => characters[i].character.Contains(x.characterName));
+                onTeamCharacters[i].basicAttack = allCharacters.Find(x => characters[i].character.Contains(x.characterName)).basicAttack;
+                onTeamCharacters[i].knownPassives = new List<APassive>();
+                for (int j = 0; j < characters[i].knownPassives.Count; j++)
                 {
-                    onTeamCharacters[i].knownAttacks.Add(
-                        allAttacks.Find(
-                            x => x.name.Contains(characters[i].knownAttacks[j])
-                            )
-                        );
+                    if (allPassives.Find(x => x.name.Contains(characters[i].knownPassives[j])) != null)
+                    {
+                        onTeamCharacters[i].knownPassives.Add(
+                            allPassives.Find(
+                                x => x.name.Contains(characters[i].knownPassives[j])
+                                )
+                            );
+                    }
+                }
+                onTeamCharacters[i].knownAttacks = new List<AAttack>();
+                for (int j = 0; j < characters[i].knownAttacks.Count; j++)
+                {
+                    if (allAttacks.Find(x => x.name.Contains(characters[i].knownAttacks[j])) != null)
+                    {
+                        onTeamCharacters[i].knownAttacks.Add(
+                            allAttacks.Find(
+                                x => x.name.Contains(characters[i].knownAttacks[j])
+                                )
+                            );
+                    }
                 }
             }
         }

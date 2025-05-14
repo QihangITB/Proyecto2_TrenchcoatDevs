@@ -1,7 +1,6 @@
+using System.Collections.Generic;
 
 // NODE MAP
-
-using System.Collections.Generic;
 
 [System.Serializable]
 public class NodeMapSaveData
@@ -14,6 +13,7 @@ public class NodeMapSaveData
     public Level level4;
     public Level level5;
     public string boss;
+    public PlayerPosition playerPosition;
 }
 
 [System.Serializable]
@@ -24,6 +24,14 @@ public class  Level
     public string node3;
     public string node4;
     public string node5;
+}
+
+[System.Serializable]
+public class PlayerPosition
+{
+    public float x;
+    public float y;
+    public float z;
 }
 
 // CHARACTERS
