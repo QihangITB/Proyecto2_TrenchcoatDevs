@@ -77,6 +77,15 @@ public class NodeMapGeneration : MonoBehaviour
             NodeMapSaveData data = JsonDataManager.LoadFromJson<NodeMapSaveData>(SaveData.nodeMapFileName);
             LoadNodeMapData(data);
 
+            // NodePaths
+            GeneratePath(Path);
+
+            // Hide nodes
+            HideNodes();
+
+            ShowNodesBelowPlayerLevel();
+            ShowNextNodes();
+
             Debug.Log("Node map loaded from JSON.");
         }
         else
@@ -90,14 +99,14 @@ public class NodeMapGeneration : MonoBehaviour
             // Fill empty nodes
             FillEmptyNodes(BattleP);
 
+            // NodePaths
+            GeneratePath(Path);
+
+            // Hide nodes
+            HideNodes();
+
             Debug.Log("Node map generated randomly.");
         }
-
-        // NodePaths
-        GeneratePath(Path);
-
-        // Hide nodes
-        HideNodes();
 
         NodeInteraction.OnPlayerArrivesToNode += ShowNodesBelowPlayerLevel;
         NodeAccess.OnReturnToNodeMap += ShowNextNodes;
@@ -266,6 +275,7 @@ public class NodeMapGeneration : MonoBehaviour
     private void ShowNodesBelowPlayerLevel()
     {
         int playerLevel = GetPlayerLevel();
+        Debug.Log($"Player level: {playerLevel}");
 
         if (playerLevel >= 0)
         {
@@ -350,6 +360,14 @@ public class NodeMapGeneration : MonoBehaviour
         }
 
         SetNode(BossLevel, GetNodePrefabByName(data.boss));
+
+        // Load player position
+        LoadPlayerPositionData(data.playerPosition);
+    }
+
+    private void LoadPlayerPositionData(PlayerPosition data)
+    {
+        _player.transform.position = new Vector3(data.x, data.y, data.z);
     }
 
     private GameObject GetNodePrefabByName(string name)
@@ -409,6 +427,13 @@ public class NodeMapGeneration : MonoBehaviour
         map.level5.node3 = FifthLevel[2].transform.GetChild(0).name.Replace("(Clone)", "");
 
         map.boss = BossLevel.transform.GetChild(0).name.Replace("(Clone)", "");
+
+        map.playerPosition = new PlayerPosition
+        {
+            x = _player.transform.position.x,
+            y = _player.transform.position.y,
+            z = _player.transform.position.z
+        };
 
         return JsonUtility.ToJson(map, true);
     }
