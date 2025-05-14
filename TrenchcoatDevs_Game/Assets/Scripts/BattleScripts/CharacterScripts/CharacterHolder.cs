@@ -40,27 +40,41 @@ public class CharacterHolder : MonoBehaviour
 
     public void SelectCharacter(CharacterOutOfBattle characterOutOfBattle)
     {
-        hitSprite = transform.parent.Find("Hit").gameObject;
-        healSprite = transform.parent.Find("Heal").gameObject;
-        //apaga los iconos de estado
-        poisonIcon.SetActive(false);
-        disgustIcon.SetActive(false);
-        burnIcon.SetActive(false);
-        regenerateIcon.SetActive(false);
-        restIcon.SetActive(false);
-        tauntIcon.SetActive(false);
+        
         if (character != null)
         {
             if (characterOutOfBattle != null)
             {
                 this.characterOutOfBattle = characterOutOfBattle;
                 HP = characterOutOfBattle.characterHP;
+                stamina = maxStamina;
+                UpdateStaminaBar();
+                //characterOutOfBattle.UpdateCharacter();
             }
             else
             {
                 this.characterOutOfBattle = null;
                 HP = character.health;
             }
+            
+        }
+        if (character is AEnemy || characterOutOfBattle != null) 
+        {
+            hitSprite = transform.parent.Find("Hit").gameObject;
+            healSprite = transform.parent.Find("Heal").gameObject;
+            //apaga los iconos de estado
+            poisonIcon.SetActive(false);
+            disgustIcon.SetActive(false);
+            burnIcon.SetActive(false);
+            regenerateIcon.SetActive(false);
+            restIcon.SetActive(false);
+            tauntIcon.SetActive(false);
+            isPoisoned = false;
+            isRegenerating = false;
+            isRested = false;
+            isTaunting = false;
+            isDisgusted = false;
+            isBurnt = false;
             maxHP = character.maxHealth;
             attack = character.damage;
             speed = character.speed;
@@ -102,6 +116,7 @@ public class CharacterHolder : MonoBehaviour
             regenerateIcon.SetActive(false);
             restIcon.SetActive(false);
             tauntIcon.SetActive(false);
+            characterTurnIndicator.SetActive(false);
             Debug.Log(gameObject+" Is dead");
             BattleManager.instance.basicAttackButton.GetComponent<SelectTypeOfAttack>().description.text = character.characterName + " died";
             BattleManager.instance.CharOrderInTurn.Remove(this);
@@ -130,6 +145,15 @@ public class CharacterHolder : MonoBehaviour
                     }
                     
                 }
+            }
+            else
+            {
+                if (characterOutOfBattle != null)
+                {
+
+                    characterOutOfBattle.character = null;
+                }
+                //PlayerManager.instance.players.Remove(this.character as APlayer);
             }
             for (int i = 0; i < BattleManager.instance.enemyButtons.Count; i++)
             {
@@ -168,14 +192,18 @@ public class CharacterHolder : MonoBehaviour
                 //busca entre todas las pasivas de las lista de players si alguna tiene PoisonRush
                 foreach (CharacterHolder player in BattleManager.instance.players)
                 {
-                    foreach (APassive passive in player.characterOutOfBattle.knownPassives)
+                    if (player.characterOutOfBattle != null)
                     {
-                        if (passive is PoisonRush)
+                        foreach (APassive passive in player.characterOutOfBattle.knownPassives)
                         {
-                            attack += 3;
-                            speed += 3;
+                            if (passive is PoisonRush)
+                            {
+                                attack += 3;
+                                speed += 3;
+                            }
                         }
                     }
+                    
                 }
                 poisonIcon.SetActive(true);
                 isPoisoned = true;

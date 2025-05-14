@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62209cf7e6b11ca4bb916bf0ba6e266f, type: 3}
   m_Name: BroColiEnemySO
   m_EditorClassIdentifier: 
-  health: 4
-  maxHealth: 4
+  health: 5
+  maxHealth: 5
   damage: 2
   speed: 1
-  defense: 0
+  defense: 1
   attacks:
   - {fileID: 11400000, guid: 218c911076f934148b39dc0488d62369, type: 2}
   basicAttack: {fileID: 11400000, guid: 218c911076f934148b39dc0488d62369, type: 2}
   characterName: BroColi
+  sprite: {fileID: 0}

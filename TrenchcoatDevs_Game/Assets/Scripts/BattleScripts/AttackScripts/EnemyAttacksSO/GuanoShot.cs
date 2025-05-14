@@ -36,8 +36,8 @@ public class GuanoShot : GenericAttack
         }
         else
         {
-            BattleManager.instance.targets[0].TakeDamage(user.attack/2);
             BattleManager.instance.targets[0].GetDisgusted();
+            BattleManager.instance.targets[0].TakeDamage(user.attack/2);
         }
     }
 }

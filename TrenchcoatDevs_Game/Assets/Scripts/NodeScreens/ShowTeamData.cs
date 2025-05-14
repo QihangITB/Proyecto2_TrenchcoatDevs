@@ -17,5 +17,10 @@ public class ShowTeamData : MonoBehaviour
             name.text = data.character.characterName;
             image.sprite = data.character.sprite;
         }
+        else
+        {
+            name.text = "Empty";
+            image.sprite= null;
+        }
     }
 }

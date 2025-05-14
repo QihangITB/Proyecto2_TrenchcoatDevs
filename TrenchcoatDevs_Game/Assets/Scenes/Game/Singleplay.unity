@@ -3147,8 +3147,8 @@ MonoBehaviour:
   - {fileID: 963746272}
   - {fileID: 664161671}
   players:
-  - {fileID: 1348716028}
   - {fileID: 187039351}
+  - {fileID: 1348716028}
   - {fileID: 918194094}
   characters: []
   CharOrderInTurn: []

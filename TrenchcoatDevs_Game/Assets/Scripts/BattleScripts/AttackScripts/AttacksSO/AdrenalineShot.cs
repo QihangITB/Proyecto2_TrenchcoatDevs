@@ -29,11 +29,13 @@ public class AdrenalineShot : GenericAttack
             user.UseStamina(cost);
             foreach (CharacterHolder target in targets)
             {
-                target.TakeDamage(target.HP/2);
                 target.attack += 2;
                 target.speed += 3;
                 target.defense += 1;
                 target.stamina = target.maxStamina;
+                target.UpdateStaminaBar();
+                target.TakeDamage(target.HP / 2);
+
             }
             BattleManager.instance.FinishTurn();
         }

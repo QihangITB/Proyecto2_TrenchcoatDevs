@@ -61,14 +61,37 @@ public class BattleManager : MonoBehaviour
                 Debug.Log("Player " + i + " is " + players[i].character);
                 players[i].HpBar.GetComponent<Slider>().gameObject.SetActive(true);
                 players[i].StaminaBar.GetComponent<Slider>().gameObject.SetActive(true);
-                if (listOfOutOfBattle[i]!=null)
+                /*for (int j = 0; i < listOfOutOfBattle.Count; j++)
                 {
-                    players[i].SelectCharacter(listOfOutOfBattle[i]);
-                }
-                else
+                    if (players[i].characterOutOfBattle != null && players[0].characterOutOfBattle!= listOfOutOfBattle[j] && players[1].characterOutOfBattle != listOfOutOfBattle[j])
+                    {
+                        players[i].SelectCharacter(listOfOutOfBattle[j]);
+                        j = 3;
+                    }
+                    else
+                    {
+                        players[i].SelectCharacter(null);
+                    }
+                }*/
+                for (int j = 2; j>= 0; j--)
                 {
-                    players[i].SelectCharacter(null);
+                    Debug.Log(j);
+                    if (listOfOutOfBattle[j] != null)
+                    {
+                        if (listOfOutOfBattle[j].character != null)
+                        {
+                            if (players[0].characterOutOfBattle != listOfOutOfBattle[j] && players[1].characterOutOfBattle != listOfOutOfBattle[j])
+                            {
+                                players[i].SelectCharacter(listOfOutOfBattle[j]);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        players[i].SelectCharacter(null);
+                    }
                 }
+                
             }
             else
             {
@@ -81,6 +104,11 @@ public class BattleManager : MonoBehaviour
                 players[i].HpBar.GetComponent<Slider>().gameObject.SetActive(false);
                 players[i].StaminaBar.GetComponent<Slider>().gameObject.SetActive(false);
                 players[i].character = null;
+                if (players[i].characterOutOfBattle != null)
+                {
+                    players[i].characterOutOfBattle.character = null;
+
+                }
             }
         }
         for (int i = 0; i < enemies.Count; i++)
@@ -203,7 +231,7 @@ public class BattleManager : MonoBehaviour
             }
             foreach (CharacterHolder character in characters)
             {
-                if (character != null)
+                if (character.character != null)
                 {
                     CharOrderInTurn.Add(character);
                 }
@@ -314,12 +342,23 @@ public class BattleManager : MonoBehaviour
                         }
                     }
                 }
+                foreach (CharacterHolder characterHolder in players)
+                {
+                    characterHolder.burnIcon.SetActive(false);
+                    characterHolder.disgustIcon.SetActive(false);
+                    characterHolder.poisonIcon.SetActive(false);
+                    characterHolder.tauntIcon.SetActive(false);
+                    characterHolder.regenerateIcon.SetActive(false);
+                    characterHolder.restIcon.SetActive(false);
+                    characterHolder.characterTurnIndicator.SetActive(false);
+                    characterHolder.characterOutOfBattle = null;
+                    characterHolder.character = null;
+                }
                 nodeAccess.OnExitButtonClick();
             }
             else
             {
                 Debug.Log("You lose");
-                //aqui va la derrota
             }
         }
     }
@@ -329,7 +368,7 @@ public class BattleManager : MonoBehaviour
         int enemyHPCount = 0;
         foreach (CharacterHolder character in players)
         {
-            if (character != null)
+            if (character.character != null)
             {
                 if (character.HP > 0)
                 {
@@ -339,7 +378,7 @@ public class BattleManager : MonoBehaviour
         }
         foreach (CharacterHolder character in enemies)
         {
-            if (character != null)
+            if (character.character != null)
             {
                 if (character.HP > 0)
                 {
