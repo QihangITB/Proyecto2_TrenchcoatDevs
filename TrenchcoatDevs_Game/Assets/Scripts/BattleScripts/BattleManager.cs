@@ -319,6 +319,7 @@ public class BattleManager : MonoBehaviour
             else
             {
                 Debug.Log("You lose");
+                PlayerPrefs.SetInt("gameresult", 0);
                 //aqui va la derrota
             }
         }
