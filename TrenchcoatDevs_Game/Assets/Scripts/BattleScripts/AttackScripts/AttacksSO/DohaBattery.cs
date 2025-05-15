@@ -11,7 +11,7 @@ public class DohaBattery : GenericAreaAttack
         if (user.stamina < cost)
         {
             Debug.Log("Not enough stamina");
-            BattleManager.instance.FinishTurn();
+            PerformFinishTurn();
             return;
         }
         else
@@ -25,12 +25,21 @@ public class DohaBattery : GenericAreaAttack
                 }
             }
             user.TakeDamage(user.maxHP / 40);
-            BattleManager.instance.FinishTurn();
+            PerformFinishTurn();
         }
     }
     public override void ActivateTargetButtons()
     {
-        targetButtons[0] = BattleManager.instance.enemyTeamButton;
-        targetButtons[0].GetComponent<Image>().enabled = true;
+        if (IsOnlineBattle())
+        {
+            targetButtons[0] = OnlineBattleManager.instance.enemyTeamButton;
+            targetButtons[0].GetComponent<Image>().enabled = true;
+        }
+        else
+        {
+            targetButtons[0] = BattleManager.instance.enemyTeamButton;
+            targetButtons[0].GetComponent<Image>().enabled = true;
+        }
+        
     }
 }

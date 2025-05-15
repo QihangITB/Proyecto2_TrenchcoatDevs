@@ -8,11 +8,24 @@ public class BasicAttackScript : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
-        foreach (GameObject button in BattleManager.instance.enemyButtons)
+        if (IsOnlineBattle())
         {
-            if (button.GetComponent<CharacterHolder>().character != null)
+            foreach (GameObject button in OnlineBattleManager.instance.enemyButtons)
             {
-                button.GetComponent<Image>().enabled = true;
+                if (button.GetComponent<CharacterHolder>().character != null)
+                {
+                    button.GetComponent<Image>().enabled = true;
+                }
+            }
+        }
+        else
+        {
+            foreach (GameObject button in BattleManager.instance.enemyButtons)
+            {
+                if (button.GetComponent<CharacterHolder>().character != null)
+                {
+                    button.GetComponent<Image>().enabled = true;
+                }
             }
         }
     }
@@ -23,6 +36,6 @@ public class BasicAttackScript : GenericAttack
         {
             target.TakeDamage(user.attack);
         }
-        BattleManager.instance.FinishTurn();
+        PerformFinishTurn();
     }
 }

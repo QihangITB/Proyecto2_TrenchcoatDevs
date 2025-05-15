@@ -8,13 +8,27 @@ public class CoffeTime : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
-        foreach (GameObject button in BattleManager.instance.playerButtons)
+        if (IsOnlineBattle())
         {
-            if (button.GetComponent<CharacterHolder>().character != null)
+            foreach (GameObject button in OnlineBattleManager.instance.playerButtons)
             {
-                button.GetComponent<Image>().enabled = true;
+                if (button.GetComponent<CharacterHolder>().character != null)
+                {
+                    button.GetComponent<Image>().enabled = true;
+                }
             }
         }
+        else
+        {
+            foreach (GameObject button in BattleManager.instance.playerButtons)
+            {
+                if (button.GetComponent<CharacterHolder>().character != null)
+                {
+                    button.GetComponent<Image>().enabled = true;
+                }
+            }
+        }
+        
     }
 
     public override void Effect(List<CharacterHolder> targets, CharacterHolder user)
@@ -22,7 +36,7 @@ public class CoffeTime : GenericAttack
         if (user.stamina < cost)
         {
             Debug.Log("Not enough stamina");
-            BattleManager.instance.FinishTurn();
+            PerformFinishTurn();
             return;
         }
         else
@@ -34,7 +48,7 @@ public class CoffeTime : GenericAttack
                 Debug.Log(target + " speed increased");
                 target.GetRested();
             }
-            BattleManager.instance.FinishTurn();
+            PerformFinishTurn();
         }
 
     }

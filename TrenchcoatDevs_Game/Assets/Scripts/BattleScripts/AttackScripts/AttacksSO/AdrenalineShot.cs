@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,13 +9,27 @@ public class AdrenalineShot : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
-        foreach (GameObject button in BattleManager.instance.playerButtons)
+        if (IsOnlineBattle())
         {
-            if (button.GetComponent<CharacterHolder>().character != null)
+            foreach (GameObject button in OnlineBattleManager.instance.playerButtons)
             {
-                button.GetComponent<Image>().enabled = true;
+                if (button.GetComponent<CharacterHolder>().character != null)
+                {
+                    button.GetComponent<Image>().enabled = true;
+                }
             }
         }
+        else
+        {
+            foreach (GameObject button in BattleManager.instance.playerButtons)
+            {
+                if (button.GetComponent<CharacterHolder>().character != null)
+                {
+                    button.GetComponent<Image>().enabled = true;
+                }
+            }
+        }
+        
     }
 
     public override void Effect(List<CharacterHolder> targets, CharacterHolder user)
@@ -22,7 +37,7 @@ public class AdrenalineShot : GenericAttack
         if (user.stamina < cost)
         {
             Debug.Log("Not enough stamina");
-            BattleManager.instance.FinishTurn();
+            PerformFinishTurn();
             return;
         }
         else
@@ -38,7 +53,7 @@ public class AdrenalineShot : GenericAttack
                 target.TakeDamage(target.HP / 2);
 
             }
-            BattleManager.instance.FinishTurn();
+            PerformFinishTurn();
         }
 
     }

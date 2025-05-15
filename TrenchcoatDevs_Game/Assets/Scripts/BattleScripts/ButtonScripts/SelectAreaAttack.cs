@@ -8,8 +8,18 @@ public class SelectAreaAttack : MonoBehaviour
 
     public void SelectGenericAreaAttack()
     {
-        BattleManager.instance.DeActivateTargetButtons();
-        BattleManager.instance.areaAttack = attack;
-        BattleManager.instance.areaAttack.ActivateTargetButtons();
+        if(OnlineBattleManager.instance != null)
+        {
+            OnlineBattleManager.instance.DeActivateTargetButtons();
+            OnlineBattleManager.instance.areaAttack = attack;
+            OnlineBattleManager.instance.areaAttack.ActivateTargetButtons();
+        }
+        else
+        {
+            BattleManager.instance.DeActivateTargetButtons();
+            BattleManager.instance.areaAttack = attack;
+            BattleManager.instance.areaAttack.ActivateTargetButtons();
+        }
+        
     }
 }

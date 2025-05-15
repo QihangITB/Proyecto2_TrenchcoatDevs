@@ -367,6 +367,7 @@ public class OnlineBattleManager : MonoBehaviour
         CharOrderInTurn.RemoveAt(0);
         if (CharOrderInTurn.Count > 0)
         {
+            BattleManagerActionSyncer.Instance.StartRoundOf(CharOrderInTurn[0]);
             StartTurn(CharOrderInTurn[0]);
         }
         else
@@ -435,11 +436,18 @@ public class OnlineBattleManager : MonoBehaviour
 
     public void UseAttack()
     {
- 
+        BattleManagerActionSyncer.Instance.UseSingleAttack(attack,targets,user);
+    }
+    private void PerformAttack()
+    {
         DeActivateTargetButtons();
         attack.Effect(targets, user);
     }
     public void UseAreaAttack()
+    {
+        BattleManagerActionSyncer.Instance.UseAreaAttack(attack,targets,user);
+    }
+    private void PerformAreaAttack()
     {
         DeActivateTargetButtons();
         areaAttack.Effect(targets, user);

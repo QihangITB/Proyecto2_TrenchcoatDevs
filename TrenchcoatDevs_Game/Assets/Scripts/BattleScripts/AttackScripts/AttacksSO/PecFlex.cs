@@ -8,16 +8,33 @@ public class PecFlex : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
-        targetButtons.Clear();
-        //pon el boton de user de battlemanager como boton en buttontargetlist
-        targetButtons = new List<GameObject>
+        if (IsOnlineBattle())
         {
-            BattleManager.instance.user.gameObject
-        };
-        foreach (GameObject button in targetButtons)
-        {
-            button.GetComponent<Image>().enabled = true;
+            targetButtons.Clear();
+            //pon el boton de user de battlemanager como boton en buttontargetlist
+            targetButtons = new List<GameObject>
+            {
+                OnlineBattleManager.instance.user.gameObject
+            };
+            foreach (GameObject button in targetButtons)
+            {
+                button.GetComponent<Image>().enabled = true;
+            }
         }
+        else
+        {
+            targetButtons.Clear();
+            //pon el boton de user de battlemanager como boton en buttontargetlist
+            targetButtons = new List<GameObject>
+            {
+                BattleManager.instance.user.gameObject
+            };
+            foreach (GameObject button in targetButtons)
+            {
+                button.GetComponent<Image>().enabled = true;
+            }
+        }
+        
     }
 
     public override void Effect(List<CharacterHolder> target, CharacterHolder user)
@@ -25,7 +42,7 @@ public class PecFlex : GenericAttack
         if (user.stamina < cost)
         {
             Debug.Log("Not enough stamina");
-            BattleManager.instance.FinishTurn();
+            PerformFinishTurn();
         }
         else
         {
@@ -39,7 +56,7 @@ public class PecFlex : GenericAttack
                 user.defense += 2;
             }
             user.Taunt();
-            BattleManager.instance.FinishTurn();
+            PerformFinishTurn();
         }
 
     }

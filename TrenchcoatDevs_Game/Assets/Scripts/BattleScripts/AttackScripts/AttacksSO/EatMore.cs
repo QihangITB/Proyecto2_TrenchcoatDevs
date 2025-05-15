@@ -11,7 +11,7 @@ public class EatMore : GenericAreaAttack
         if (user.stamina < cost)
         {
             Debug.Log("Not enough stamina");
-            BattleManager.instance.FinishTurn();
+            PerformFinishTurn();
             return;
         }
         else
@@ -24,12 +24,22 @@ public class EatMore : GenericAreaAttack
                     target.Heal((target.maxHP / 3)*user.healingModifier, true);
                 }
             }
-            BattleManager.instance.FinishTurn();
+            PerformFinishTurn();
         }
     }
     public override void ActivateTargetButtons()
     {
-        targetButtons[0] = BattleManager.instance.playerTeamButton;
-        targetButtons[0].GetComponent<Image>().enabled = true;
+        if (IsOnlineBattle()) 
+        {
+            targetButtons[0] = OnlineBattleManager.instance.playerTeamButton;
+            targetButtons[0].GetComponent<Image>().enabled = true;
+        }
+        else
+        {
+            targetButtons[0] = BattleManager.instance.playerTeamButton;
+            targetButtons[0].GetComponent<Image>().enabled = true;
+        }
+        
+        
     }
 }
