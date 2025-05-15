@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.Netcode;
 using Unity.VisualScripting;
@@ -101,16 +102,24 @@ public class OnlineBattleManager : MonoBehaviour
     }
     public void CharacterAllocation(List<APlayer> listOfPlayers, List<APlayer> listOfenemies, List<CharacterOutOfBattle> listOfOutOfBattle,List<CharacterOutOfBattle> enemieOutOfBattle)
     {
+        List<CharacterHolder> characterHolders;
         if (NetworkManager.Singleton.IsHost) 
         {
             SetLocalPlayer(listOfPlayers, listOfOutOfBattle);
             SetEnemies(listOfenemies, enemieOutOfBattle);
+            characterHolders = new List<CharacterHolder>();
+            characterHolders.AddRange(players);
+            characterHolders.AddRange(enemies);
         }
         else
         {
             SetEnemies(listOfenemies,enemieOutOfBattle);
             SetLocalPlayer(listOfPlayers, listOfOutOfBattle);
+            characterHolders = new List<CharacterHolder>();
+            characterHolders.AddRange(enemies);
+            characterHolders.AddRange(players);
         }
+        BattleManagerActionSyncer.Instance.CharacterHolders = characterHolders;
         //por cada pasiva de los personajes de la lista de jugadores, esta se activa
         foreach (CharacterHolder character in players)
         {
@@ -415,9 +424,13 @@ public class OnlineBattleManager : MonoBehaviour
     //ordena characters por speed
     public void OrderCharacters()
     {
-        CharOrderInTurn.Sort((x, y) => y.speed.CompareTo(x.speed));
-        Debug.Log(CharOrderInTurn[0].character.name + " is first in turn");
-        StartTurn(CharOrderInTurn[0]);
+        if (NetworkManager.Singleton.IsHost)
+        {
+            CharOrderInTurn.Sort((x, y) => y.speed.CompareTo(x.speed));
+            Debug.Log(CharOrderInTurn[0].character.name + " is first in turn");
+            BattleManagerActionSyncer.Instance.StartRoundOf(CharOrderInTurn[0]);
+        }
+       
     }
 
     public void UseAttack()
