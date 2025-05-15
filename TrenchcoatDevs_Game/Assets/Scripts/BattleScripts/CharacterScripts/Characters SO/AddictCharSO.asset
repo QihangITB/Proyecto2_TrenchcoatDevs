@@ -15,7 +15,7 @@ MonoBehaviour:
   health: 7
   maxHealth: 7
   damage: 2
-  speed: 1
+  speed: 2
   defense: 0
   attacks:
   - {fileID: 11400000, guid: 86cce72c2a07a30499d8b69794a68ae7, type: 2}

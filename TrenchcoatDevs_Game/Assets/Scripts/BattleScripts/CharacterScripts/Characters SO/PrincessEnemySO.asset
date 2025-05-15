@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 185368a2b30e17544ac4f0f740f621ac, type: 3}
   m_Name: PrincessEnemySO
   m_EditorClassIdentifier: 
-  health: 50
-  maxHealth: 50
+  health: 40
+  maxHealth: 40
   damage: 6
-  speed: 2
+  speed: 6
   defense: 3
   attacks:
   - {fileID: 11400000, guid: 0be04a9f13694df43800a173fddcafde, type: 2}
