@@ -22,6 +22,7 @@ public class PepperSpray : GenericAttack
         if (user.stamina < cost)
         {
             Debug.Log("Not enough stamina");
+            BattleManager.instance.FinishTurn();
             return;
         }
         foreach (CharacterHolder target in targets)

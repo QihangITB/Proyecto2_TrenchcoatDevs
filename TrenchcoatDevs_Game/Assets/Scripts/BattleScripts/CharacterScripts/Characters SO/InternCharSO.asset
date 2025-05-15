@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f709cf94e1aba3d4ab2996b7c5a9d44f, type: 3}
   m_Name: InternCharSO
   m_EditorClassIdentifier: 
-  health: 8
-  maxHealth: 8
+  health: 7
+  maxHealth: 7
   damage: 2
-  speed: 2
+  speed: 3
   defense: 1
   attacks:
   - {fileID: 11400000, guid: f7e6b426752bfc84ca68451e047158d8, type: 2}

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3f2c790de24d4b47a9c209dc5e9dbce, type: 3}
   m_Name: PiromaniacCharSO
   m_EditorClassIdentifier: 
-  health: 5
-  maxHealth: 5
-  damage: 4
-  speed: 2
+  health: 4
+  maxHealth: 4
+  damage: 3
+  speed: 3
   defense: 1
   attacks:
   - {fileID: 11400000, guid: 08bd89388246afb43922e6700521162f, type: 2}

@@ -22,6 +22,7 @@ public class DentureToss : GenericAttack
         if (user.stamina < cost)
         {
             Debug.Log("Not enough stamina");
+            BattleManager.instance.FinishTurn();
             return;
         }
         else
@@ -30,7 +31,7 @@ public class DentureToss : GenericAttack
             foreach (CharacterHolder target in targets)
             {
                 target.GetDisgusted();
-                target.TakeDamage(user.attack * 2);
+                target.TakeDamage(user.attack * 4);
             }
             BattleManager.instance.FinishTurn();
         }

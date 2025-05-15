@@ -11,6 +11,7 @@ public class FireFountain : GenericAreaAttack
         if (user.stamina < cost)
         {
             Debug.Log("Not enough stamina");
+            BattleManager.instance.FinishTurn();
             return;
         }
         else

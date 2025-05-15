@@ -25,6 +25,7 @@ public class PecFlex : GenericAttack
         if (user.stamina < cost)
         {
             Debug.Log("Not enough stamina");
+            BattleManager.instance.FinishTurn();
         }
         else
         {

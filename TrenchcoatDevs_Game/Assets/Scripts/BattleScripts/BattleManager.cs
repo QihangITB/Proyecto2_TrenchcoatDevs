@@ -359,6 +359,8 @@ public class BattleManager : MonoBehaviour
             else
             {
                 Debug.Log("You lose");
+                PlayerPrefs.SetInt("gameresult", 0);
+                //aqui va la derrota
             }
         }
     }
@@ -462,7 +464,7 @@ public class BattleManager : MonoBehaviour
         }
         if (character.isRegenerating)
         {
-            character.Heal(character.maxHP / 5, false);
+            character.Heal(character.maxHP / 8, false);
             Debug.Log(character.character + " is regenerating");
         }
         if (character.isRested)
