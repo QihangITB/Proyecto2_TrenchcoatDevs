@@ -38,26 +38,30 @@ public class Feast : GenericAttack
         {
             foreach (CharacterHolder onion in BattleManager.instance.enemies)
             {
-                if (onion != null)
+                if (onion.character != null)
                 {
                     //comprueba si el enemigo es BroColi
                     if (onion.character.characterName == "Onion")
                     {
                         BattleManager.instance.targets.Add(onion);
-                        user.Heal(10, false);
+                        user.Heal(8, false);
                     }
                 }
             }
             foreach (CharacterHolder target in BattleManager.instance.targets)
             {
-                if (target.character.characterName == "Onion")
+                if (target.character != null)
                 {
-                    target.TakeDamage(20);
+                    if (target.character.characterName == "Onion")
+                    {
+                        target.TakeDamage(20);
+                    }
+                    else
+                    {
+                        target.TakeDamage(user.attack);
+                    }
                 }
-                else
-                {
-                    target.TakeDamage(user.attack);
-                }
+                
             }
         }
 

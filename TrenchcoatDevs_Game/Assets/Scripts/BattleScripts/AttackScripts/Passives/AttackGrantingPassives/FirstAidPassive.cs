@@ -12,6 +12,7 @@ public class FirstAidPassive : APassive
         {
             player.knownAttacks.Add(FirstAid);
         }
+        player.knownPassives.Add(this);
     }
     public override void ActivatePassive(CharacterHolder player)
     {

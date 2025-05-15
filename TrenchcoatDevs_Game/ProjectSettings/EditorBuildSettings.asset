@@ -5,43 +5,43 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Menu/Main.unity
     guid: bbec655d35459974b9edb5a6fd1e5011
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Menu/Offline.unity
     guid: 48c6c984da79b2f448831f3a7eab3f8f
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Menu/Online.unity
     guid: 743d3b47939d71b47b9c9b9a9ce971a6
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Menu/Tutorial.unity
     guid: 757544c2b8718934db386502384cda6c
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Menu/New.unity
     guid: 04212ba7c1e1b3c43b4a0dd7318ad16b
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Menu/Load.unity
     guid: e00c5054155e46149939cd74b3ddf456
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Menu/Create.unity
     guid: f153029a8908e9b4f8c93a8271e6cf8a
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Menu/Join.unity
     guid: 4dee1f7a57494454d8d254ff80a699b8
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Menu/Loby.unity
     guid: 5b0bdcd772df45540a71863216d7ba0f
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Menu/Selection.unity
     guid: 1d0dab78e12200641a0858e185c2ac59
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Menu/Result.unity
     guid: 4ee2442b24db51743841885a87739091
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Game/Singleplay.unity
     guid: d1a36e97b61059346ae0fb6377fdad97
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Game/MultiPlayer.unity
     guid: 8a312967f8c29c542be2fe4102652daa
   - enabled: 1

@@ -36,30 +36,61 @@ public class CharacterHolder : MonoBehaviour
     public bool isRested;
     public bool isTaunting;
 
+    GameObject hitSprite, healSprite;
 
     public void SelectCharacter(CharacterOutOfBattle characterOutOfBattle)
     {
-        if (characterOutOfBattle != null)
+        
+        if (character != null)
         {
-            this.characterOutOfBattle = characterOutOfBattle;
-            HP = characterOutOfBattle.characterHP;
+            if (characterOutOfBattle != null)
+            {
+                this.characterOutOfBattle = characterOutOfBattle;
+                HP = characterOutOfBattle.characterHP;
+                stamina = maxStamina;
+                UpdateStaminaBar();
+                //characterOutOfBattle.UpdateCharacter();
+            }
+            else
+            {
+                this.characterOutOfBattle = null;
+                HP = character.health;
+            }
+            
         }
-        else
+        if (character is AEnemy || characterOutOfBattle != null) 
         {
-            this.characterOutOfBattle = null;
-            HP = character.health;
+            hitSprite = transform.parent.Find("Hit").gameObject;
+            healSprite = transform.parent.Find("Heal").gameObject;
+            //apaga los iconos de estado
+            poisonIcon.SetActive(false);
+            disgustIcon.SetActive(false);
+            burnIcon.SetActive(false);
+            regenerateIcon.SetActive(false);
+            restIcon.SetActive(false);
+            tauntIcon.SetActive(false);
+            isPoisoned = false;
+            isRegenerating = false;
+            isRested = false;
+            isTaunting = false;
+            isDisgusted = false;
+            isBurnt = false;
+            maxHP = character.maxHealth;
+            attack = character.damage;
+            speed = character.speed;
+            defense = character.defense;
+            precisionModifier = 10;
+            healingModifier = 1;
+            staminaRecovery = 4;
+            UpdateHPBar();
         }
-        maxHP = character.maxHealth;
-        attack = character.damage;
-        speed = character.speed;
-        defense = character.defense;
-        precisionModifier = 10;
-        healingModifier = 1;
-        staminaRecovery = 4;
-        UpdateHPBar();
+        
     }
     public void TakeDamage(int damage)
     {
+        hitSprite.GetComponent<Image>().enabled = true;
+        hitSprite.GetComponent<AudioSource>().Play();
+        StartCoroutine(UnableHit());
         if (isBurnt)
         {
             damage *= 2;
@@ -84,28 +115,45 @@ public class CharacterHolder : MonoBehaviour
             burnIcon.SetActive(false);
             regenerateIcon.SetActive(false);
             restIcon.SetActive(false);
+            tauntIcon.SetActive(false);
+            characterTurnIndicator.SetActive(false);
             Debug.Log(gameObject+" Is dead");
             BattleManager.instance.basicAttackButton.GetComponent<SelectTypeOfAttack>().description.text = character.characterName + " died";
             BattleManager.instance.CharOrderInTurn.Remove(this);
             BattleManager.instance.characters.Remove(this);
-            BattleManager.instance.players.Remove(this);
             if (BattleManager.instance.enemies.Contains(this))
             {
-                BattleManager.instance.enemies.Remove(this);
                 //busca entre todas las pasivas de las lista de players si alguna tiiene dontwaste food
                 foreach (CharacterHolder player in BattleManager.instance.players)
                 {
-                    foreach (APassive passive in player.characterOutOfBattle.knownPassives)
+                    if (player.character != null)
                     {
-                        if (passive is DontWasteFood)
+                        foreach (APassive passive in player.characterOutOfBattle.knownPassives)
                         {
-                            foreach (CharacterHolder healedPlayer in BattleManager.instance.players)
+                            if (passive is DontWasteFood)
                             {
-                                healedPlayer.Heal(healedPlayer.maxHP/5, false);
+                                foreach (CharacterHolder healedPlayer in BattleManager.instance.players)
+                                {
+                                    if (healedPlayer.character != null)
+                                    {
+                                        healedPlayer.Heal(healedPlayer.maxHP / 5, false);
+
+                                    }
+                                }
                             }
                         }
                     }
+                    
                 }
+            }
+            else
+            {
+                if (characterOutOfBattle != null)
+                {
+
+                    characterOutOfBattle.character = null;
+                }
+                //PlayerManager.instance.players.Remove(this.character as APlayer);
             }
             for (int i = 0; i < BattleManager.instance.enemyButtons.Count; i++)
             {
@@ -125,6 +173,8 @@ public class CharacterHolder : MonoBehaviour
             {
                 StaminaBar.SetActive(false);
             }
+            character = null;
+
             BattleManager.instance.CheckWin();
         }
         UpdateHPBar();
@@ -142,15 +192,18 @@ public class CharacterHolder : MonoBehaviour
                 //busca entre todas las pasivas de las lista de players si alguna tiene PoisonRush
                 foreach (CharacterHolder player in BattleManager.instance.players)
                 {
-                    foreach (APassive passive in player.characterOutOfBattle.knownPassives)
+                    if (player.characterOutOfBattle != null)
                     {
-                        if (passive is PoisonRush)
+                        foreach (APassive passive in player.characterOutOfBattle.knownPassives)
                         {
-                            attack += 3;
-                            speed += 3;
-                            Debug.Log(character.characterName + " is now faster and stronger");
+                            if (passive is PoisonRush)
+                            {
+                                attack += 3;
+                                speed += 3;
+                            }
                         }
                     }
+                    
                 }
                 poisonIcon.SetActive(true);
                 isPoisoned = true;
@@ -232,6 +285,9 @@ public class CharacterHolder : MonoBehaviour
     }
     public void Heal(int healing, bool overheal)
     {
+        healSprite.GetComponent<Image>().enabled = true;
+        healSprite.GetComponent<AudioSource>().Play();
+        StartCoroutine(UnableHeal());
         Debug.Log(character + " healed for " + healing);
         HP += healing;
         if (HP > maxHP && !overheal)
@@ -257,5 +313,18 @@ public class CharacterHolder : MonoBehaviour
             stamina = 0;
         }
         UpdateStaminaBar();
+    }
+
+    IEnumerator UnableHit()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        hitSprite.GetComponent<Image>().enabled = false;
+    }
+    IEnumerator UnableHeal()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        healSprite.GetComponent<Image>().enabled = false;
     }
 }

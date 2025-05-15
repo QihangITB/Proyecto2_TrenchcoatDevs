@@ -14,13 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 8
   maxHealth: 8
-  damage: 2
+  damage: 1
   speed: 1
   defense: 0
   attacks:
   - {fileID: 11400000, guid: 3c035b9323e804749953170c117edd7b, type: 2}
   basicAttack: {fileID: 11400000, guid: 370af78e6e233b448a875b62f530f850, type: 2}
   characterName: Grandma
+  sprite: {fileID: 21300000, guid: dae8c8f895976a74b9908d95e13d5124, type: 3}
   stamina: 10
   maxStamina: 10
   description: Heals her teammates with a seamingly unending supply of food

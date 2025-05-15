@@ -24,6 +24,7 @@ public class SceneController : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+
     public void NetworkLoadScene(string sceneName)
     {
         NetworkManager manager = NetworkManager.Singleton;

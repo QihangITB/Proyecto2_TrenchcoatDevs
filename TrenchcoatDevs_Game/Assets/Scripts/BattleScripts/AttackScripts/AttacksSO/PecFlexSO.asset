@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackName: Pec Flex
   description: The user taunts the enemies for a turn and raises its defense
-  cost: 4
+  cost: 3
   targetButtons: []

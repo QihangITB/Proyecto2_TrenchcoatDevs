@@ -12,6 +12,7 @@ public class GroupStretchPassive : APassive
         {
             player.knownAttacks.Add(GroupStretch);
         }
+        player.knownPassives.Add(this);
     }
     public override void ActivatePassive(CharacterHolder player)
     {

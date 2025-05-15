@@ -853,6 +853,7 @@ GameObject:
   - component: {fileID: 606047682}
   - component: {fileID: 606047681}
   - component: {fileID: 606047680}
+  - component: {fileID: 606047684}
   - component: {fileID: 606047683}
   m_Layer: 5
   m_Name: PlayerBtn
@@ -938,6 +939,18 @@ MonoBehaviour:
           m_StringArgument: Singleplay
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 606047684}
+        m_TargetAssemblyTypeName: SelectFirstChar, Assembly-CSharp
+        m_MethodName: SelectCharacter
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 079b86761ef3ea7488fc9191001679a4, type: 2}
+          m_ObjectArgumentAssemblyTypeName: APlayer, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &606047681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -991,6 +1004,18 @@ MonoBehaviour:
   staticImage: {fileID: 1348939384}
   animImage: {fileID: 1649843988}
   anim: {fileID: 1127131885}
+--- !u!114 &606047684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606047678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd3e82437e0008d48ac9057402467262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &671076029
 GameObject:
   m_ObjectHideFlags: 0
@@ -1311,6 +1336,7 @@ GameObject:
   - component: {fileID: 914030606}
   - component: {fileID: 914030605}
   - component: {fileID: 914030604}
+  - component: {fileID: 914030608}
   - component: {fileID: 914030607}
   m_Layer: 5
   m_Name: PlayerBtn
@@ -1396,6 +1422,18 @@ MonoBehaviour:
           m_StringArgument: Singleplay
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 606047684}
+        m_TargetAssemblyTypeName: SelectFirstChar, Assembly-CSharp
+        m_MethodName: SelectCharacter
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 621d41bae5ce8da439ae848e5f8becb6, type: 2}
+          m_ObjectArgumentAssemblyTypeName: APlayer, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &914030605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1449,6 +1487,18 @@ MonoBehaviour:
   staticImage: {fileID: 705275124}
   animImage: {fileID: 1156451063}
   anim: {fileID: 1571513596}
+--- !u!114 &914030608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914030602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd3e82437e0008d48ac9057402467262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &917153414
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1573,6 +1623,7 @@ GameObject:
   - component: {fileID: 1012842360}
   - component: {fileID: 1012842359}
   - component: {fileID: 1012842358}
+  - component: {fileID: 1012842362}
   - component: {fileID: 1012842361}
   m_Layer: 5
   m_Name: PlayerBtn
@@ -1658,6 +1709,18 @@ MonoBehaviour:
           m_StringArgument: Singleplay
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 606047684}
+        m_TargetAssemblyTypeName: SelectFirstChar, Assembly-CSharp
+        m_MethodName: SelectCharacter
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 20e733692edf76e4b8a4b072f290b474, type: 2}
+          m_ObjectArgumentAssemblyTypeName: APlayer, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1012842359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1711,6 +1774,18 @@ MonoBehaviour:
   staticImage: {fileID: 1403874417}
   animImage: {fileID: 2132913221}
   anim: {fileID: 1887898787}
+--- !u!114 &1012842362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012842356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd3e82437e0008d48ac9057402467262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1045470972
 GameObject:
   m_ObjectHideFlags: 0
@@ -2399,6 +2474,7 @@ GameObject:
   - component: {fileID: 1532064370}
   - component: {fileID: 1532064369}
   - component: {fileID: 1532064368}
+  - component: {fileID: 1532064372}
   - component: {fileID: 1532064371}
   m_Layer: 5
   m_Name: PlayerBtn
@@ -2484,6 +2560,18 @@ MonoBehaviour:
           m_StringArgument: Singleplay
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 606047684}
+        m_TargetAssemblyTypeName: SelectFirstChar, Assembly-CSharp
+        m_MethodName: SelectCharacter
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 5fa723a30d0ea4147b1a4272f9bcd324, type: 2}
+          m_ObjectArgumentAssemblyTypeName: APlayer, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1532064369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2537,6 +2625,18 @@ MonoBehaviour:
   staticImage: {fileID: 671076031}
   animImage: {fileID: 1731961996}
   anim: {fileID: 1533307206}
+--- !u!114 &1532064372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1532064366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd3e82437e0008d48ac9057402467262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1533307204
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3016,6 +3116,7 @@ GameObject:
   - component: {fileID: 1663731736}
   - component: {fileID: 1663731735}
   - component: {fileID: 1663731734}
+  - component: {fileID: 1663731738}
   - component: {fileID: 1663731737}
   m_Layer: 5
   m_Name: PlayerBtn
@@ -3101,6 +3202,18 @@ MonoBehaviour:
           m_StringArgument: Singleplay
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 606047684}
+        m_TargetAssemblyTypeName: SelectFirstChar, Assembly-CSharp
+        m_MethodName: SelectCharacter
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 76443ce920582c84099568732439aac9, type: 2}
+          m_ObjectArgumentAssemblyTypeName: APlayer, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1663731735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3154,6 +3267,18 @@ MonoBehaviour:
   staticImage: {fileID: 809262750}
   animImage: {fileID: 1738854016}
   anim: {fileID: 917153416}
+--- !u!114 &1663731738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1663731732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd3e82437e0008d48ac9057402467262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1721319089
 GameObject:
   m_ObjectHideFlags: 0
@@ -3654,6 +3779,7 @@ GameObject:
   - component: {fileID: 1958362053}
   - component: {fileID: 1958362052}
   - component: {fileID: 1958362051}
+  - component: {fileID: 1958362055}
   - component: {fileID: 1958362054}
   m_Layer: 5
   m_Name: PlayerBtn
@@ -3739,6 +3865,18 @@ MonoBehaviour:
           m_StringArgument: Singleplay
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 606047684}
+        m_TargetAssemblyTypeName: SelectFirstChar, Assembly-CSharp
+        m_MethodName: SelectCharacter
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: d1f5b1aa68660134aa243b091be13a8b, type: 2}
+          m_ObjectArgumentAssemblyTypeName: APlayer, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1958362052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3792,6 +3930,18 @@ MonoBehaviour:
   staticImage: {fileID: 1085718662}
   animImage: {fileID: 1813127225}
   anim: {fileID: 1910570989}
+--- !u!114 &1958362055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958362049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd3e82437e0008d48ac9057402467262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2076340692
 PrefabInstance:
   m_ObjectHideFlags: 0

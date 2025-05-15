@@ -8,13 +8,16 @@ public class PoisonCloud : GenericAreaAttack
 {
     public override void Effect(List<CharacterHolder> targets, CharacterHolder user)
     {
+        Debug.Log("Entra");
         if (user.stamina < cost)
         {
             Debug.Log("Not enough stamina");
+            BattleManager.instance.FinishTurn();
             return;
         }
         else
         {
+            Debug.Log("A");
             user.UseStamina(cost);
             foreach (CharacterHolder target in targets)
             {
@@ -28,6 +31,7 @@ public class PoisonCloud : GenericAreaAttack
     }
     public override void ActivateTargetButtons()
     {
+        Debug.Log("Ola");
         targetButtons[0] = BattleManager.instance.allCharactersButton;
         targetButtons[0].GetComponent<Image>().enabled = true;
     }

@@ -21,8 +21,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fa79f0d269be7f046977040b9649a026, type: 2}
   basicAttack: {fileID: 11400000, guid: 370af78e6e233b448a875b62f530f850, type: 2}
   characterName: Culturist
-  stamina: 8
-  maxStamina: 8
+  sprite: {fileID: 21300000, guid: 2d2d45a0b24614c408c2da13333a9e75, type: 3}
+  stamina: 6
+  maxStamina: 6
   description: Uses his strong body to distract the enemies and encourage his allies
   passives:
   - {fileID: 11400000, guid: 081b1de55b239114c9f1bb193aa35e93, type: 2}

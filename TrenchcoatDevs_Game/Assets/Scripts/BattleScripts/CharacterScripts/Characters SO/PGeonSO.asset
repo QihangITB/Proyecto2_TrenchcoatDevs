@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2f9129652472544d8aa65ea47ab5322, type: 3}
   m_Name: PGeonSO
   m_EditorClassIdentifier: 
-  health: 14
-  maxHealth: 14
+  health: 15
+  maxHealth: 15
   damage: 6
   speed: 2
   defense: 2
@@ -22,3 +22,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7972149e61a94934b8c762cae37cc93f, type: 2}
   basicAttack: {fileID: 0}
   characterName: P-Geon
+  sprite: {fileID: 0}

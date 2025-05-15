@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
@@ -35,44 +37,103 @@ public class BattleManager : MonoBehaviour
     public bool win = false;
     public int poisonDamageDivisor = 5;
     public bool canMove = true;
+    public NodeAccess nodeAccess;
+
+    public List<Camera> cameras = new List<Camera>();
+
+    public List<Camera> onionCams;
+    public List<Camera> brocoliCams;
+    public List<Camera> pgeonCams;
+
+    public GameObject player;
 
     public void CharacterAllocation(List<APlayer> listOfPlayers, List<AEnemy> listOfenemies, List<CharacterOutOfBattle> listOfOutOfBattle)
     {
+        //desactiva la descripcion de la habilidad
+        basicAttackButton.GetComponent<SelectTypeOfAttack>().description.transform.parent.gameObject.SetActive(false);
+        win = false;
+        fightIsFinished = false;
         for (int i = 0; i < players.Count; i++)
         {
             if (i < listOfPlayers.Count)
             {
                 players[i].character = listOfPlayers[i];
                 Debug.Log("Player " + i + " is " + players[i].character);
-                if (listOfOutOfBattle[i]!=null)
+                players[i].HpBar.GetComponent<Slider>().gameObject.SetActive(true);
+                players[i].StaminaBar.GetComponent<Slider>().gameObject.SetActive(true);
+                /*for (int j = 0; i < listOfOutOfBattle.Count; j++)
                 {
-                    players[i].SelectCharacter(listOfOutOfBattle[i]);
-                }
-                else
+                    if (players[i].characterOutOfBattle != null && players[0].characterOutOfBattle!= listOfOutOfBattle[j] && players[1].characterOutOfBattle != listOfOutOfBattle[j])
+                    {
+                        players[i].SelectCharacter(listOfOutOfBattle[j]);
+                        j = 3;
+                    }
+                    else
+                    {
+                        players[i].SelectCharacter(null);
+                    }
+                }*/
+                for (int j = 2; j>= 0; j--)
                 {
-                    players[i].SelectCharacter(null);
+                    Debug.Log(j);
+                    if (listOfOutOfBattle[j] != null)
+                    {
+                        if (listOfOutOfBattle[j].character != null)
+                        {
+                            if (players[0].characterOutOfBattle != listOfOutOfBattle[j] && players[1].characterOutOfBattle != listOfOutOfBattle[j])
+                            {
+                                players[i].SelectCharacter(listOfOutOfBattle[j]);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        players[i].SelectCharacter(null);
+                    }
                 }
+                
             }
             else
             {
                 //desactiva el componente imagen del objeto padre
-                foreach (Image image in players[i].gameObject.GetComponentsInParent<Image>())
+                /*foreach (Image image in players[i].gameObject.GetComponentsInParent<Image>())
                 {
                     image.enabled = false;
-                }
+                }*/
                 //desactiva el slider 
                 players[i].HpBar.GetComponent<Slider>().gameObject.SetActive(false);
                 players[i].StaminaBar.GetComponent<Slider>().gameObject.SetActive(false);
-                players[i] = null;
+                players[i].character = null;
+                if (players[i].characterOutOfBattle != null)
+                {
+                    players[i].characterOutOfBattle.character = null;
+
+                }
             }
         }
         for (int i = 0; i < enemies.Count; i++)
         {
-            if (i < listOfenemies.Count)
+            if (i < listOfenemies.Count && listOfenemies[i]!=null)
             {
                 enemies[i].character = listOfenemies[i];
+                Debug.Log("enemy chosen is " + listOfenemies[i].characterName);
                 Debug.Log("Enemy " + i + " is " + enemies[i].character);
                 enemies[i].SelectCharacter(null);
+
+                //aqui hay que tocar cosas
+
+                /*for (int j = 0; j < enemies[i].gameObject.GetComponentsInParent<Image>().Count(); j++)
+                {
+                    if (j == 1)
+                    {
+                        enemies[i].gameObject.GetComponentsInParent<Image>()[j].enabled = true;
+                    }
+                }*/
+
+                enemies[i].gameObject.transform.parent.GetComponentInChildren<RawImage>().enabled = true;
+
+                //desactiva el slider 
+                enemies[i].HpBar.GetComponent<Slider>().gameObject.SetActive(true);
             }
             else
             {
@@ -84,7 +145,7 @@ public class BattleManager : MonoBehaviour
                 //desactiva el slider 
                 enemies[i].HpBar.GetComponent<Slider>().gameObject.SetActive(false);
                 enemySelectors.Add(enemies[i]);
-                enemies[i]=null;
+                enemies[i].character=null;
             }
         }
         //por cada pasiva de los personajes de la lista de jugadores, esta se activa
@@ -105,10 +166,12 @@ public class BattleManager : MonoBehaviour
                 }
             }
         }
+        player.GetComponent<AudioSource>().Stop();
+        GetComponent<AudioSource>().Play();
         StartRound();
     }
 
-    private void Start()
+    private void Awake()
     {
         currentRound = 0;
         if (instance == null)
@@ -119,15 +182,27 @@ public class BattleManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        PlayerManager.instance.AllocateCharacters();
         playerButtons = new List<GameObject>(GameObject.FindGameObjectsWithTag("PlayerButton"));
         enemyButtons = new List<GameObject>(GameObject.FindGameObjectsWithTag("EnemyButton"));
     }
     public void StartRound()
     {
         currentRound++;
+        basicAttackButton.GetComponent<Image>().enabled = false;
+        basicAttackButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        restButton.GetComponent<Image>().enabled = false;
+        restButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        hpBar.SetActive(false);
+        staminaBar.SetActive(false);
+        foreach (GameObject button in abilityButtons)
+        {
+            button.GetComponent<Image>().enabled = false;
+            button.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        }
         if (fightIsFinished)
         {
+            GetComponent<AudioSource>().Stop();
+            player.GetComponent<AudioSource>().Play();
             StartTurn(null);
         }
         else
@@ -156,7 +231,7 @@ public class BattleManager : MonoBehaviour
             }
             foreach (CharacterHolder character in characters)
             {
-                if (character != null)
+                if (character.character != null)
                 {
                     CharOrderInTurn.Add(character);
                 }
@@ -168,6 +243,12 @@ public class BattleManager : MonoBehaviour
     public void StartTurn(CharacterHolder character)
     {
         WaitForTurn(0.5f);
+        StartCoroutine(LittlePause(character));
+    }
+
+    IEnumerator LittlePause(CharacterHolder character)
+    {
+        yield return new WaitForSeconds(1.5f);
         if (!fightIsFinished)
         {
             foreach (CharacterHolder characterInTurn in characters)
@@ -204,14 +285,15 @@ public class BattleManager : MonoBehaviour
                     Debug.Log(character.character);
                     enemyUser = user.character as AEnemy;
                     enemyUser.SelectAttack();
-                    StartCoroutine(WaitForTurn(1.5f));
+                    AttackAnimation(user);
+                    StartCoroutine(WaitForTurn(0));
                 }
                 else
                 {
                     staminaBar.SetActive(true);
                     hpBar.SetActive(true);
-                    hpBar.GetComponentInChildren<TextMeshProUGUI>().text = character.HP.ToString() + "HP / " + character.maxHP.ToString()+"HP";
-                    staminaBar.GetComponentInChildren<TextMeshProUGUI>().text = character.stamina.ToString() + "St / " + character.maxStamina.ToString()+"St";
+                    hpBar.GetComponentInChildren<TextMeshProUGUI>().text = character.HP.ToString() + "HP / " + character.maxHP.ToString() + "HP";
+                    staminaBar.GetComponentInChildren<TextMeshProUGUI>().text = character.stamina.ToString() + "St / " + character.maxStamina.ToString() + "St";
                     hpBar.GetComponentInChildren<Slider>().value = (float)character.HP / (float)character.maxHP;
                     staminaBar.GetComponentInChildren<Slider>().value = (float)character.stamina / (float)character.maxStamina;
                     basicAttackButton.GetComponent<Image>().enabled = true;
@@ -232,25 +314,6 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            if (win)
-            {
-                Debug.Log("You win");
-                for (int i = 0; i < players.Count; i++)
-                {
-                    if (players[i] != null)
-                    {
-                        if (players[i].HP > players[i].maxHP)
-                        {
-                            players[i].HP = players[i].maxHP;
-                        }
-                        PlayerManager.instance.charactersOutOfBattle[i].characterHP = players[i].HP;
-                    }
-                }
-            }
-            else
-            {
-                Debug.Log("You lose");
-            }
             basicAttackButton.GetComponent<Image>().enabled = false;
             basicAttackButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
             restButton.GetComponent<Image>().enabled = false;
@@ -260,6 +323,43 @@ public class BattleManager : MonoBehaviour
                 button.GetComponent<Image>().enabled = false;
                 button.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
             }
+            if (win)
+            {
+                Debug.Log("You win");
+                for (int i = 0; i < players.Count; i++)
+                {
+                    if (players[i].character != null)
+                    {
+                        if (players[i].HP > players[i].maxHP)
+                        {
+                            players[i].HP = players[i].maxHP;
+                        }
+                        PlayerManager.instance.charactersOutOfBattle[i].characterHP = players[i].HP;
+                        players[i].characterOutOfBattle.fightsToLevelUp--;
+                        if (players[i].characterOutOfBattle.fightsToLevelUp == 0)
+                        {
+                            players[i].characterOutOfBattle.timesToLevelUp++;
+                        }
+                    }
+                }
+                foreach (CharacterHolder characterHolder in players)
+                {
+                    characterHolder.burnIcon.SetActive(false);
+                    characterHolder.disgustIcon.SetActive(false);
+                    characterHolder.poisonIcon.SetActive(false);
+                    characterHolder.tauntIcon.SetActive(false);
+                    characterHolder.regenerateIcon.SetActive(false);
+                    characterHolder.restIcon.SetActive(false);
+                    characterHolder.characterTurnIndicator.SetActive(false);
+                    characterHolder.characterOutOfBattle = null;
+                    characterHolder.character = null;
+                }
+                nodeAccess.OnExitButtonClick();
+            }
+            else
+            {
+                Debug.Log("You lose");
+            }
         }
     }
     public void CheckWin()
@@ -268,7 +368,7 @@ public class BattleManager : MonoBehaviour
         int enemyHPCount = 0;
         foreach (CharacterHolder character in players)
         {
-            if (character != null)
+            if (character.character != null)
             {
                 if (character.HP > 0)
                 {
@@ -278,7 +378,7 @@ public class BattleManager : MonoBehaviour
         }
         foreach (CharacterHolder character in enemies)
         {
-            if (character != null)
+            if (character.character != null)
             {
                 if (character.HP > 0)
                 {
@@ -362,7 +462,7 @@ public class BattleManager : MonoBehaviour
         }
         if (character.isRegenerating)
         {
-            character.Heal(character.maxHP / 5, false);
+            character.Heal(character.maxHP / 8, false);
             Debug.Log(character.character + " is regenerating");
         }
         if (character.isRested)
@@ -389,13 +489,46 @@ public class BattleManager : MonoBehaviour
     {
  
         DeActivateTargetButtons();
+        AttackAnimation(user);
+        basicAttackButton.GetComponent<Image>().enabled = false;
+        basicAttackButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        restButton.GetComponent<Image>().enabled = false;
+        restButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        hpBar.SetActive(false);
+        staminaBar.SetActive(false);
+        foreach (GameObject button in abilityButtons)
+        {
+            button.GetComponent<Image>().enabled = false;
+            button.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        }
         attack.Effect(targets, user);
+
     }
     public void UseAreaAttack()
     {
         DeActivateTargetButtons();
+        AttackAnimation(user);
+        basicAttackButton.GetComponent<Image>().enabled = false;
+        basicAttackButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        restButton.GetComponent<Image>().enabled = false;
+        restButton.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        hpBar.SetActive(false);
+        staminaBar.SetActive(false);
+        foreach (GameObject button in abilityButtons)
+        {
+            button.GetComponent<Image>().enabled = false;
+            button.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+        }
         areaAttack.Effect(targets, user);
     }
+
+    void AttackAnimation(CharacterHolder user)
+    {
+        Debug.Log(user.character.characterName + " animaci�n");
+        GameObject activeAttacker = user.transform.parent.GetComponentInChildren<RawImage>().gameObject.GetComponent<SelectSpriteInBattle>().spriteReference;
+        activeAttacker.GetComponent<Animator>().SetTrigger("Attack");
+    }
+
     public void DeActivateTargetButtons()
     {
         foreach (GameObject button in playerButtons)
@@ -409,5 +542,31 @@ public class BattleManager : MonoBehaviour
         enemyTeamButton.GetComponent<Image>().enabled = false;
         playerTeamButton.GetComponent<Image>().enabled = false;
         allCharactersButton.GetComponent<Image>().enabled = false;
+    }
+
+    public void OnEnable()
+    {
+        cameras.Add(GameObject.Find("GrandmaCam").GetComponent<Camera>());
+        cameras.Add(GameObject.Find("AddictedCam").GetComponent<Camera>());
+        cameras.Add(GameObject.Find("PyroCam").GetComponent<Camera>());
+        cameras.Add(GameObject.Find("InternCam").GetComponent<Camera>());
+        cameras.Add(GameObject.Find("StreetArtistCam").GetComponent<Camera>());
+        cameras.Add(GameObject.Find("BodybuilderCam").GetComponent<Camera>());
+
+        cameras.Add(GameObject.Find("PrincessCam").GetComponent<Camera>());
+
+        cameras.Add(GameObject.Find("NullCam").GetComponent<Camera>());
+
+        onionCams.Add(GameObject.Find("OnionCam").GetComponent<Camera>());
+        onionCams.Add(GameObject.Find("OnionCam2").GetComponent<Camera>());
+        onionCams.Add(GameObject.Find("OnionCam").GetComponent<Camera>());
+
+        brocoliCams.Add(GameObject.Find("BrocoliCam").GetComponent<Camera>());
+        brocoliCams.Add(GameObject.Find("BrocoliCam2").GetComponent<Camera>());
+        brocoliCams.Add(GameObject.Find("BrocoliCam3").GetComponent<Camera>());
+
+        pgeonCams.Add(GameObject.Find("PigeonCam").GetComponent<Camera>());
+        pgeonCams.Add(GameObject.Find("PigeonCam2").GetComponent<Camera>());
+        pgeonCams.Add(GameObject.Find("PigeonCam3").GetComponent<Camera>());
     }
 }

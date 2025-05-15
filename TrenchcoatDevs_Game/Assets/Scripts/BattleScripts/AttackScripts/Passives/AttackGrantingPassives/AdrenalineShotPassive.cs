@@ -12,6 +12,7 @@ public class AdrenalineShotPassive : APassive
         {
             player.knownAttacks.Add(AdrenalineDose);
         }
+        player.knownPassives.Add(this);
     }
     public override void ActivatePassive(CharacterHolder player)
     {

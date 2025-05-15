@@ -11,6 +11,7 @@ public class DohaBattery : GenericAreaAttack
         if (user.stamina < cost)
         {
             Debug.Log("Not enough stamina");
+            BattleManager.instance.FinishTurn();
             return;
         }
         else
@@ -20,10 +21,10 @@ public class DohaBattery : GenericAreaAttack
             {
                 if (target != null)
                 {
-                    target.TakeDamage(user.attack*3);
+                    target.TakeDamage(user.attack*2);
                 }
             }
-            user.TakeDamage(user.maxHP / 20);
+            user.TakeDamage(user.maxHP / 40);
             BattleManager.instance.FinishTurn();
         }
     }

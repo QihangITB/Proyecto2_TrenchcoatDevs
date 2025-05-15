@@ -17,5 +17,6 @@ public class MolotovCocktailPassive : APassive
         {
             player.knownAttacks.Add(MolotovCocktail);
         }
+        player.knownPassives.Add(this);
     }
 }

@@ -12,6 +12,7 @@ public class DohaBatteryPassive : APassive
         {
             player.knownAttacks.Add(DohaBattery);
         }
+        player.knownPassives.Add(this);
     }
     public override void ActivatePassive(CharacterHolder player)
     {
