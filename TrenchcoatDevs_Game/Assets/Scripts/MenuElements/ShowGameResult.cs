@@ -15,15 +15,15 @@ public class ShowGameResult : MonoBehaviour
 
     private void Start()
     {
-        bool isWin = PlayerPrefs.GetInt("gameresult") == 1;
+        bool youLose = PlayerPrefs.GetInt("gameresult") == 0;
 
-        if (isWin)
+        if (youLose)
         {
-            winScreen.SetActive(true);
+            loseScreen.SetActive(true);
         }
         else
         {
-            loseScreen.SetActive(true);
+            winScreen.SetActive(true);
         }
 
         PlayerPrefs.DeleteKey("gameresult");
