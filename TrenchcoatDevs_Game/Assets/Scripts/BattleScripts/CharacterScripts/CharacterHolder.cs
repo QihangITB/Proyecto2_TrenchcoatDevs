@@ -47,6 +47,8 @@ public class CharacterHolder : MonoBehaviour
             {
                 this.characterOutOfBattle = characterOutOfBattle;
                 HP = characterOutOfBattle.characterHP;
+                maxHP = character.maxHealth + characterOutOfBattle.level * 2-2;
+                attack = character.damage+characterOutOfBattle.level;
                 stamina = maxStamina;
                 UpdateStaminaBar();
                 //characterOutOfBattle.UpdateCharacter();
@@ -55,8 +57,10 @@ public class CharacterHolder : MonoBehaviour
             {
                 this.characterOutOfBattle = null;
                 HP = character.health;
+                maxHP = character.maxHealth;
+                attack = character.damage;
             }
-            
+
         }
         if (character is AEnemy || characterOutOfBattle != null) 
         {
@@ -75,8 +79,7 @@ public class CharacterHolder : MonoBehaviour
             isTaunting = false;
             isDisgusted = false;
             isBurnt = false;
-            maxHP = character.maxHealth;
-            attack = character.damage;
+
             speed = character.speed;
             defense = character.defense;
             precisionModifier = 10;
@@ -276,7 +279,15 @@ public class CharacterHolder : MonoBehaviour
     }
     public void UpdateHPBar()
     {
-        HpBar.GetComponent<Slider>().value = (HP * 100 / maxHP) / 100f;
+        if (characterOutOfBattle == null)
+        {
+            HpBar.GetComponent<Slider>().value = (HP * 100 / maxHP) / 100f;
+        }
+        else 
+        {
+            HpBar.GetComponent<Slider>().value = (HP * 100 / maxHP) / 100f;
+        }
+
     }
 
     public void UpdateStaminaBar()
