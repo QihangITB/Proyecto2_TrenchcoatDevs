@@ -71,36 +71,45 @@ public class NodeAccess : MonoBehaviour
 
     public void OnExitButtonClick()
     {
-        bool hasToLevelUp = false;
-        foreach (GameObject nodeCanva in NodeCanvas)
+        if (nodeMapGeneration.GetPlayerLevel() == 7)
         {
-            nodeCanva.SetActive(false);
+            PlayerPrefs.SetInt("gameresult", 1);
+            SceneController.Instance.LoadScene("Result");
         }
-        foreach (CharacterHolder character in BattleManager.instance.characters)
+        else
         {
-            if (character.characterOutOfBattle != null)
+            bool hasToLevelUp = false;
+            foreach (GameObject nodeCanva in NodeCanvas)
             {
-                
-                if (character.characterOutOfBattle.timesToLevelUp > 0)
+                nodeCanva.SetActive(false);
+            }
+            foreach (CharacterHolder character in BattleManager.instance.characters)
+            {
+                if (character.characterOutOfBattle != null)
                 {
-                    hasToLevelUp = true;
-                    character.characterOutOfBattle.LevelUp();
-                    //Busca en nodeCanva el canvas de subir de nivel 
-                    GameObject nodeCanva = NodeCanvas.Find(x => x.name == "LevelUp");
-                    nodeCanva.SetActive(true);
-                    SkillSelection.Instance.characterOutOfBattle = character.characterOutOfBattle;
-                    SkillSelection.Instance.showAbilities();
+
+                    if (character.characterOutOfBattle.timesToLevelUp > 0)
+                    {
+                        hasToLevelUp = true;
+                        character.characterOutOfBattle.LevelUp();
+                        //Busca en nodeCanva el canvas de subir de nivel 
+                        GameObject nodeCanva = NodeCanvas.Find(x => x.name == "LevelUp");
+                        nodeCanva.SetActive(true);
+                        SkillSelection.Instance.characterOutOfBattle = character.characterOutOfBattle;
+                        SkillSelection.Instance.showAbilities();
+                    }
+                    character.characterOutOfBattle = null;
+                    character.character = null;
                 }
-                character.characterOutOfBattle = null;
-                character.character = null;
+            }
+            if (!hasToLevelUp)
+            {
+                cams[0].gameObject.SetActive(true);
+                cams[1].gameObject.SetActive(false);
+                NodeMap.SetActive(true);
+                OnReturnToNodeMap?.Invoke();
             }
         }
-        if (!hasToLevelUp)
-        {
-            cams[0].gameObject.SetActive(true);
-            cams[1].gameObject.SetActive(false);
-            NodeMap.SetActive(true);
-            OnReturnToNodeMap?.Invoke();
-        }
+        
     }
 }
