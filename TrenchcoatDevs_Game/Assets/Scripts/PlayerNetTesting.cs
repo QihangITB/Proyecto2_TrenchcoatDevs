@@ -10,8 +10,11 @@ public class PlayerNetTesting : MonoBehaviour
     [SerializeField]
     CharacterSyncManager _characterSyncPrefab;
     NetworkManager _netManager;
-    [SerializeField]
     List<CharacterOutOfBattle> _outOfFightCharacters;
+    [SerializeField]
+    List<CharacterOutOfBattle> _outOfFightCharactersHost;
+    [SerializeField]
+    List<CharacterOutOfBattle> _outOfFightCharactersClient;
     List<CharacterOutOfBattle> _otherOutOfFightChars;
     
     List<APlayer> _localPlayerChars;
@@ -43,6 +46,14 @@ public class PlayerNetTesting : MonoBehaviour
     }
     public void AllocateCharacters()
     {
+        if (_netManager.IsHost)
+        {
+            _outOfFightCharacters = _outOfFightCharactersHost;
+        }
+        else
+        {
+            _outOfFightCharacters = _outOfFightCharactersClient;
+        }
         if (_netManager.IsServer)
         {
             foreach (ulong clientId in _netManager.ConnectedClients.Keys)
