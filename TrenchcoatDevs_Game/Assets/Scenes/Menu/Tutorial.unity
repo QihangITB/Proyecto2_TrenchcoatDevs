@@ -577,7 +577,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1132}
+  m_AnchoredPosition: {x: 0, y: 1088.9}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &240929055
@@ -637,7 +637,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ---
+  m_text: The character may not move
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9a421890b2ebb584681aecc37ea1a0d1, type: 2}
   m_sharedMaterial: {fileID: 1622756560395812926, guid: 9a421890b2ebb584681aecc37ea1a0d1, type: 2}
@@ -980,7 +980,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ---
+  m_text: The user recovers stamina every turn
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9a421890b2ebb584681aecc37ea1a0d1, type: 2}
   m_sharedMaterial: {fileID: 1622756560395812926, guid: 9a421890b2ebb584681aecc37ea1a0d1, type: 2}
@@ -1166,7 +1166,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 121.9, y: -295}
+  m_AnchoredPosition: {x: 121.9, y: -338.1}
   m_SizeDelta: {x: 100, y: 54.6099}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &357655537
@@ -1509,7 +1509,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.9, y: -342.4}
+  m_AnchoredPosition: {x: 1.9, y: -385.5}
   m_SizeDelta: {x: 101.88, y: 25.6844}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &394673604
@@ -1532,7 +1532,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Cura a todo el equipo
+  m_text: Heals the entire party
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9a421890b2ebb584681aecc37ea1a0d1, type: 2}
   m_sharedMaterial: {fileID: 1622756560395812926, guid: 9a421890b2ebb584681aecc37ea1a0d1, type: 2}
@@ -2624,8 +2624,8 @@ RectTransform:
   m_GameObject: {fileID: 810144256}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1278871841}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2654,7 +2654,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 307c8ddfc51c5df41928c1bacead0420, type: 3}
+  m_Sprite: {fileID: -1255006422, guid: 49878a8f8faad5d4eaa0d2bd690caf8c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2706,7 +2706,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.9, y: -295}
+  m_AnchoredPosition: {x: 1.9, y: -338.1}
   m_SizeDelta: {x: 100, y: 54.6099}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &857679020
@@ -2781,7 +2781,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -119.11801, y: -295}
+  m_AnchoredPosition: {x: -119.11801, y: -338.1}
   m_SizeDelta: {x: 100, y: 54.6099}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &859118192
@@ -2983,8 +2983,8 @@ RectTransform:
   m_GameObject: {fileID: 876950521}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 12920026}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3013,7 +3013,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d0f5f1ed01ce8ea4db20e42d85545e6e, type: 3}
+  m_Sprite: {fileID: -223161944, guid: 49878a8f8faad5d4eaa0d2bd690caf8c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3178,8 +3178,8 @@ RectTransform:
   m_GameObject: {fileID: 899027948}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 475798124}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3208,7 +3208,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 721c015ff7adc4845a68a9754f2ad7fb, type: 3}
+  m_Sprite: {fileID: 1467293543, guid: 49878a8f8faad5d4eaa0d2bd690caf8c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4248,7 +4248,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0000009536743, y: 1889}
+  m_AnchoredPosition: {x: -0.0000009536743, y: 2229.0676}
   m_SizeDelta: {x: 0, y: 2374.626}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1170761809
@@ -4308,7 +4308,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ---
+  m_text: Attracts enemy attention
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9a421890b2ebb584681aecc37ea1a0d1, type: 2}
   m_sharedMaterial: {fileID: 1622756560395812926, guid: 9a421890b2ebb584681aecc37ea1a0d1, type: 2}
@@ -4785,7 +4785,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b450bd371c0c0284c9594a5705a8d14e, type: 3}
+  m_Sprite: {fileID: -542375740, guid: 49878a8f8faad5d4eaa0d2bd690caf8c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4837,7 +4837,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -119.118, y: -342.4}
+  m_AnchoredPosition: {x: -119.118, y: -385.5}
   m_SizeDelta: {x: 101.88, y: 25.6844}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1242867637
@@ -4860,7 +4860,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Entra en combate
+  m_text: Enter a battle
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9a421890b2ebb584681aecc37ea1a0d1, type: 2}
   m_sharedMaterial: {fileID: 1622756560395812926, guid: 9a421890b2ebb584681aecc37ea1a0d1, type: 2}
@@ -4887,7 +4887,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
+  m_fontSize: 14.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5242,7 +5242,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Uses his array of spray cans to bother the enemy team
+  m_text: Uses his spray cans to bother the enemy team
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9a421890b2ebb584681aecc37ea1a0d1, type: 2}
   m_sharedMaterial: {fileID: 1622756560395812926, guid: 9a421890b2ebb584681aecc37ea1a0d1, type: 2}
@@ -5547,7 +5547,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ---
+  m_text: The character takes double damage
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9a421890b2ebb584681aecc37ea1a0d1, type: 2}
   m_sharedMaterial: {fileID: 1622756560395812926, guid: 9a421890b2ebb584681aecc37ea1a0d1, type: 2}
@@ -6175,7 +6175,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 121.9, y: -342.4}
+  m_AnchoredPosition: {x: 121.9, y: -385.5}
   m_SizeDelta: {x: 105.9, y: 25.6844}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1501248055
@@ -6198,7 +6198,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Recibe a un nuevo integrante
+  m_text: Recruit a new party member
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9a421890b2ebb584681aecc37ea1a0d1, type: 2}
   m_sharedMaterial: {fileID: 1622756560395812926, guid: 9a421890b2ebb584681aecc37ea1a0d1, type: 2}
@@ -6319,7 +6319,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1131.9999}
+  m_AnchoredPosition: {x: 0, y: 1088.8999}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1541756641
@@ -6431,7 +6431,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -109.13128, y: -249.9}
+  m_AnchoredPosition: {x: -109.13128, y: -293}
   m_SizeDelta: {x: 123.7375, y: 25.6844}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1551047302
@@ -6650,8 +6650,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1217253905}
   m_HandleRect: {fileID: 1217253904}
   m_Direction: 2
-  m_Value: 0.15252756
-  m_Size: 0.061333876
+  m_Value: -0.00003887636
+  m_Size: 0.06084927
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7129,8 +7129,8 @@ RectTransform:
   m_GameObject: {fileID: 1665856020}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 215410201}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7159,7 +7159,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 937b34278121e894f867a1522fa4f62d, type: 3}
+  m_Sprite: {fileID: 582472504, guid: 49878a8f8faad5d4eaa0d2bd690caf8c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7485,8 +7485,8 @@ RectTransform:
   m_GameObject: {fileID: 1758946153}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1949828187}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7515,7 +7515,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2dd1206a6e5ef8b49a0f974d659d1193, type: 3}
+  m_Sprite: {fileID: 1430086534, guid: 49878a8f8faad5d4eaa0d2bd690caf8c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7665,7 +7665,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ---
+  m_text: Damages the character each turn
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9a421890b2ebb584681aecc37ea1a0d1, type: 2}
   m_sharedMaterial: {fileID: 1622756560395812926, guid: 9a421890b2ebb584681aecc37ea1a0d1, type: 2}
@@ -7837,7 +7837,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Brocoli
+  m_text: Bro-coli
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 957891e89f885614180e78a857b30cf9, type: 2}
   m_sharedMaterial: {fileID: -5653759541257701409, guid: 957891e89f885614180e78a857b30cf9, type: 2}
@@ -8105,16 +8105,22 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Al iniciar la partida, se genera un mapa con nodos generados de manera
-    aleatoria excepto algunos muy especificos.
+  m_text: 'At the start of the game, a map is generated with randomly generated nodes,
+    except for a few very specific ones.
+
+    
+
+    The player can only see the
+    nodes of their level and those of the next level up.
+
+    
+
+    They can only
+    access nodes that are connected and cannot backtrack once they have advanced.
 
 
-    El jugador solo puede ver los
-    nodos de su nivel i los del siguente nivel.
-
-
-    Solo puede acceder a los nodos
-    que estan conectados i no puede retroceder una vez que haya avanzado.'
+    Win
+    battles to level up your characters and defeat the boss to win'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9a421890b2ebb584681aecc37ea1a0d1, type: 2}
   m_sharedMaterial: {fileID: 1622756560395812926, guid: 9a421890b2ebb584681aecc37ea1a0d1, type: 2}
@@ -8286,7 +8292,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ---
+  m_text: Heals the character each turn
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9a421890b2ebb584681aecc37ea1a0d1, type: 2}
   m_sharedMaterial: {fileID: 1622756560395812926, guid: 9a421890b2ebb584681aecc37ea1a0d1, type: 2}
