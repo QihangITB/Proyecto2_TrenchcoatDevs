@@ -16,9 +16,8 @@ public class Beating : GenericAttack
         broColiCount = 0;
         int randomIndex = Random.Range(0, BattleManager.instance.players.Count);
         iterationLimit = 500; //si no se pone unity lo cuenta como bucle infinito
-        while (BattleManager.instance.players[randomIndex] == null || targets[randomIndex].character.health <= 0 && iterationLimit > 0)
+        while (BattleManager.instance.players[randomIndex].character == null || targets[randomIndex].character.health <= 0 && iterationLimit > 0)
         {
-            targets.RemoveAt(randomIndex);
             randomIndex = Random.Range(0, targets.Count);
             iterationLimit--;
         }
@@ -40,7 +39,7 @@ public class Beating : GenericAttack
         {
             foreach (CharacterHolder broColi in BattleManager.instance.enemies)
             {
-                if (broColi != null)
+                if (broColi.character != null)
                 {
                     //comprueba si el enemigo es BroColi
                     if (broColi.character.characterName == "BroColi")

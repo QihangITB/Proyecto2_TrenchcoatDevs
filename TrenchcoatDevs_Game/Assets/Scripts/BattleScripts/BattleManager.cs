@@ -421,10 +421,19 @@ public class BattleManager : MonoBehaviour
     public void FinishTurn()
     {
         user = null;
-        CharOrderInTurn.RemoveAt(0);
-        if (CharOrderInTurn.Count > 0)
+
+        if (CharOrderInTurn != null && CharOrderInTurn.Count > 0)
         {
-            StartTurn(CharOrderInTurn[0]);
+            CharOrderInTurn.RemoveAt(0);
+
+            if (CharOrderInTurn.Count > 0)
+            {
+                StartTurn(CharOrderInTurn[0]);
+            }
+            else
+            {
+                StartRound();
+            }
         }
         else
         {
