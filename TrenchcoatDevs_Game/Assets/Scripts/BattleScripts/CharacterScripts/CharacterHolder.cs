@@ -50,7 +50,7 @@ public class CharacterHolder : MonoBehaviour
 
                 maxHP = character.maxHealth + characterOutOfBattle.level * 2-2;
                 attack = character.damage+characterOutOfBattle.level;
-                maxStamina = character.maxStamina;
+                maxStamina = characterOutOfBattle.character.stamina;
                 stamina = maxStamina;
                 UpdateStaminaBar();
             }
@@ -68,7 +68,7 @@ public class CharacterHolder : MonoBehaviour
             character = characterOutOfBattle.character;
             charSet.Invoke();
         }
-        if (character is AEnemy || characterOutOfBattle != null) 
+        if ((character is AEnemy || characterOutOfBattle != null) && character != null) 
         {
             hitSprite = transform.parent.Find("Hit").gameObject;
             healSprite = transform.parent.Find("Heal").gameObject;
@@ -131,9 +131,10 @@ public class CharacterHolder : MonoBehaviour
                 OnlineBattleManager.instance.basicAttackButton.GetComponent<SelectTypeOfAttack>().description.text = character.characterName + " died";
                 OnlineBattleManager.instance.CharOrderInTurn.Remove(this);
                 OnlineBattleManager.instance.characters.Remove(this);
-                if (OnlineB.instance.enemies.Contains(this))
+                
+                
+                if (OnlineBattleManager.instance.enemies.Contains(this))
                 {
-                    //busca entre todas las pasivas de las lista de players si alguna tiiene dontwaste food
                     foreach (CharacterHolder player in OnlineBattleManager.instance.players)
                     {
                         if (player.character != null)
@@ -158,6 +159,31 @@ public class CharacterHolder : MonoBehaviour
                 }
                 else
                 {
+                    foreach (CharacterHolder player in OnlineBattleManager.instance.enemies)
+                    {
+                        if (player.characterOutOfBattle != null)
+                        {
+                            if (player.character != null)
+                            {
+                                foreach (APassive passive in player.characterOutOfBattle.knownPassives)
+                                {
+                                    if (passive is DontWasteFood)
+                                    {
+                                        foreach (CharacterHolder healedPlayer in OnlineBattleManager.instance.enemies)
+                                        {
+                                            if (healedPlayer.character != null)
+                                            {
+                                                healedPlayer.Heal(healedPlayer.maxHP / 5, false);
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+
+                    }
                     if (characterOutOfBattle != null)
                     {
 
@@ -396,7 +422,7 @@ public class CharacterHolder : MonoBehaviour
         Slider bar = StaminaBar.GetComponent<Slider>();
         bar.minValue = 0;
         bar.maxValue = maxStamina;
-        StaminaBar.GetComponent<Slider>().value = bar.value;
+        StaminaBar.GetComponent<Slider>().value = stamina;
     }
     public void Heal(int healing, bool overheal)
     {

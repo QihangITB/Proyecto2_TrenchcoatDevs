@@ -162,10 +162,10 @@ public class CharacterSyncManager : NetworkBehaviour
             {
                 playChar.passives = new List<APassive>();
             }
-            foreach (int index in data.attacksIndex)
+            /*foreach (int index in data.attacksIndex)
             {
                 playChar.attacks.Add(_assetsIndexer.GetAttack(index));
-            }
+            }*/
             foreach (int index in data.passivesindexes)
             {
                 playChar.passives.Add(_assetsIndexer.GetPassive(index));

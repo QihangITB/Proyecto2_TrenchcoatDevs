@@ -125,6 +125,8 @@ public class OnlineBattleManager : MonoBehaviour
             characterHolders.AddRange(players);
         }
         BattleManagerActionSyncer.Instance.CharacterHolders = characterHolders;
+        characters = characterHolders;
+        characters.RemoveAll(obj => obj.character == null);
         //por cada pasiva de los personajes de la lista de jugadores, esta se activa
         foreach (CharacterHolder character in players)
         {
@@ -144,7 +146,25 @@ public class OnlineBattleManager : MonoBehaviour
                 }
             }
         }
-        foreach(CharacterHolder character in enemies)
+        foreach (CharacterHolder character in enemies)
+        {
+            if (character != null)
+            {
+                //busca las pasivas del personaj de list out of battle que tenga el mismo character
+                foreach (CharacterOutOfBattle characterOutOfBattle in enemieOutOfBattle)
+                {
+                    //David said it was to solve a problem he does not remember.
+                    if (character.character == characterOutOfBattle.character)
+                    {
+                        foreach (APassive passive in characterOutOfBattle.knownPassives)
+                        {
+                            passive.ActivatePassive(character);
+                        }
+                    }
+                }
+            }
+        }
+        /*foreach(CharacterHolder character in enemies)
         {
             if (character != null)
             {
@@ -157,7 +177,7 @@ public class OnlineBattleManager : MonoBehaviour
                     }
                 }
             }
-        }
+        }*/
         StartRound();
     }
     private void Start()

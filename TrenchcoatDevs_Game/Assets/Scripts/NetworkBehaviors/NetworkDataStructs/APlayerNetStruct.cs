@@ -31,7 +31,7 @@ public struct APlayerNetStruct : INetworkSerializable
         {
             level = playerClass.level;
             typeName = playerClass.character.GetType().Name;
-            health = playerClass.character.health;
+            health = playerClass.characterHP;
             maxHealth = playerClass.character.maxHealth;
             damage = playerClass.character.damage;
             speed = playerClass.character.speed;
@@ -49,16 +49,16 @@ public struct APlayerNetStruct : INetworkSerializable
             stamina = playerClass.character.stamina;
             maxStamina = playerClass.character.maxStamina;
             description = playerClass.character.description;
-            passivesindexes = new int[playerClass.character.passives.Count];
+            passivesindexes = new int[playerClass.knownPassives.Count];
             basicAttackIndex = assetIndexer.GetAttackIndex(playerClass.basicAttack);
             for (int i = 0; i < passivesindexes.Length; i++)
             {
-                passivesindexes[i] = assetIndexer.GetPassiveIndex(playerClass.character.passives[i]);
+                passivesindexes[i] = assetIndexer.GetPassiveIndex(playerClass.knownPassives[i]);
             }
-            attacksIndex = new int[playerClass.character.attacks.Count];
+            attacksIndex = new int[playerClass.knownAttacks.Count];
             for (int i = 0; i < attacksIndex.Length; i++)
             {
-                attacksIndex[i] = assetIndexer.GetAttackIndex(playerClass.character.attacks[i]);
+                attacksIndex[i] = assetIndexer.GetAttackIndex(playerClass.knownAttacks[i]);
             }
         }
         
@@ -104,23 +104,23 @@ public struct APlayerNetStruct : INetworkSerializable
         if (!serializer.IsReader)
         {
             lengthPassives = passivesindexes == null ? 0 : passivesindexes.Length;
-            lengthAttacks = attacksIndex == null ? 0 : attacksIndex.Length;
+            //lengthAttacks = attacksIndex == null ? 0 : attacksIndex.Length;
         }
         serializer.SerializeValue(ref lengthPassives);
-        serializer.SerializeValue(ref lengthAttacks);
+        //serializer.SerializeValue(ref lengthAttacks);
         if (serializer.IsReader)
         {
             passivesindexes = new int[lengthPassives];
-            attacksIndex = new int[lengthPassives];
+            //attacksIndex = new int[lengthPassives];
         }
         for (int i = 0; i < lengthPassives; i++)
         {
             serializer.SerializeValue(ref passivesindexes[i]);
         }
-        for(int i = 0; i < lengthPassives; i++)
+        /*for(int i = 0; i < lengthAttacks; i++)
         {
             serializer.SerializeValue(ref attacksIndex[i]);
-        }
+        }*/
   
     }
 }

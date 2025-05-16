@@ -17941,7 +17941,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 11400000, guid: 621d41bae5ce8da439ae848e5f8becb6, type: 2}
-  characterHP: 10
+  characterHP: 8
   characterPoisonModifier: 1
   knownPassives:
   - {fileID: 11400000, guid: 081b1de55b239114c9f1bb193aa35e93, type: 2}
