@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3f2c790de24d4b47a9c209dc5e9dbce, type: 3}
+  m_Name: PiromaniacCharSO
+  m_EditorClassIdentifier: 
+  health: 4
+  maxHealth: 4
+  damage: 3
+  speed: 3
+  defense: 1
+  attacks:
+  - {fileID: 11400000, guid: 08bd89388246afb43922e6700521162f, type: 2}
+  basicAttack: {fileID: 11400000, guid: f9290bfaa2e3dc94f8d5a7462036db92, type: 2}
+  characterName: Piromaniac
+  sprite: {fileID: 21300000, guid: 454b3da31eb06af4b927e23ccab9177a, type: 3}
+  stamina: 5
+  maxStamina: 5
+  description: Uses his array of firecrackers to burn and blow up the enemies
+  passives:
+  - {fileID: 11400000, guid: 3ee1ee2eefc43cf4999175fa9760acd1, type: 2}
+  knowablePassives:
+  - {fileID: 11400000, guid: de33368b47dc6a94489d700bad12c568, type: 2}
+  - {fileID: 11400000, guid: 3c1e5ea92471da74ba40cb96b49b7929, type: 2}
+  - {fileID: 11400000, guid: 62d71d47596aa1a458c6a40624ad6dbe, type: 2}
+  - {fileID: 11400000, guid: 94c8410c41456af4fbf5b63e842de4f0, type: 2}
+  - {fileID: 11400000, guid: fdacffd91796aae47b5d954f0cc0d0bf, type: 2}
+  - {fileID: 11400000, guid: 5adb95e82b3273f49b4780e0265dcecc, type: 2}

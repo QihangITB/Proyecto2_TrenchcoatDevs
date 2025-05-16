@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 185368a2b30e17544ac4f0f740f621ac, type: 3}
+  m_Name: PrincessEnemySO
+  m_EditorClassIdentifier: 
+  health: 40
+  maxHealth: 40
+  damage: 6
+  speed: 6
+  defense: 1
+  attacks:
+  - {fileID: 11400000, guid: 0be04a9f13694df43800a173fddcafde, type: 2}
+  - {fileID: 11400000, guid: 8bbbb2e4b39391444bc8a6297c0c4324, type: 2}
+  basicAttack: {fileID: 0}
+  characterName: Princess
+  sprite: {fileID: 0}

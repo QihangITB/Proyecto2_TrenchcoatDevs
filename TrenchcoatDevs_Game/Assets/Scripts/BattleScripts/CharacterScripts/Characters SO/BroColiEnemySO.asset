@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62209cf7e6b11ca4bb916bf0ba6e266f, type: 3}
+  m_Name: BroColiEnemySO
+  m_EditorClassIdentifier: 
+  health: 5
+  maxHealth: 5
+  damage: 2
+  speed: 1
+  defense: 1
+  attacks:
+  - {fileID: 11400000, guid: 218c911076f934148b39dc0488d62369, type: 2}
+  basicAttack: {fileID: 11400000, guid: 218c911076f934148b39dc0488d62369, type: 2}
+  characterName: BroColi
+  sprite: {fileID: 0}

@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f709cf94e1aba3d4ab2996b7c5a9d44f, type: 3}
+  m_Name: InternCharSO
+  m_EditorClassIdentifier: 
+  health: 7
+  maxHealth: 7
+  damage: 2
+  speed: 3
+  defense: 1
+  attacks:
+  - {fileID: 11400000, guid: f7e6b426752bfc84ca68451e047158d8, type: 2}
+  basicAttack: {fileID: 11400000, guid: 370af78e6e233b448a875b62f530f850, type: 2}
+  characterName: Intern
+  sprite: {fileID: 21300000, guid: c270a16296528e64a84d9179e4fdbe9c, type: 3}
+  stamina: 6
+  maxStamina: 6
+  description: Jack of all trades, master of none
+  passives:
+  - {fileID: 11400000, guid: 1f8822fa75d615d47837fa639f075443, type: 2}
+  knowablePassives:
+  - {fileID: 11400000, guid: 081b1de55b239114c9f1bb193aa35e93, type: 2}
+  - {fileID: 11400000, guid: 995c88a8fc61b1a4592a089f545f7e67, type: 2}
+  - {fileID: 11400000, guid: 94c8410c41456af4fbf5b63e842de4f0, type: 2}
+  - {fileID: 11400000, guid: 98c6ebb77f39e8149985043c650206fa, type: 2}
+  - {fileID: 11400000, guid: 9e8a136feebc40e4d9c748601c2f3442, type: 2}
+  - {fileID: 11400000, guid: 8877623f550944847af8a05173cafeb9, type: 2}
