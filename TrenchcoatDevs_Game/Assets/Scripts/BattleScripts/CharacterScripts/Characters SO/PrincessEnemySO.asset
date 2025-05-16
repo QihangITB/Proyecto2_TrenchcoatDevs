@@ -16,7 +16,7 @@ MonoBehaviour:
   maxHealth: 40
   damage: 6
   speed: 6
-  defense: 3
+  defense: 1
   attacks:
   - {fileID: 11400000, guid: 0be04a9f13694df43800a173fddcafde, type: 2}
   - {fileID: 11400000, guid: 8bbbb2e4b39391444bc8a6297c0c4324, type: 2}

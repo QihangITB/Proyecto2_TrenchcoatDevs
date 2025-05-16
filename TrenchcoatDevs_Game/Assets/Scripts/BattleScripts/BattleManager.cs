@@ -351,14 +351,15 @@ public class BattleManager : MonoBehaviour
                     characterHolder.regenerateIcon.SetActive(false);
                     characterHolder.restIcon.SetActive(false);
                     characterHolder.characterTurnIndicator.SetActive(false);
-                    characterHolder.characterOutOfBattle = null;
-                    characterHolder.character = null;
+                    
                 }
                 nodeAccess.OnExitButtonClick();
             }
             else
             {
                 Debug.Log("You lose");
+                PlayerPrefs.SetInt("gameresult", 0);
+                //aqui va la derrota
             }
         }
     }

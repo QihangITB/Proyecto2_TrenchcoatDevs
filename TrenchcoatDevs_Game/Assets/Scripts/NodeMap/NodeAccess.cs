@@ -78,16 +78,21 @@ public class NodeAccess : MonoBehaviour
         }
         foreach (CharacterHolder character in BattleManager.instance.characters)
         {
-            if (character.characterOutOfBattle != null && character.characterOutOfBattle.timesToLevelUp > 0)
+            if (character.characterOutOfBattle != null)
             {
-                hasToLevelUp = true;
-                character.characterOutOfBattle.LevelUp();
-                //Busca en nodeCanva el canvas de subir de nivel 
-                GameObject nodeCanva = NodeCanvas.Find(x => x.name == "LevelUp");
-                nodeCanva.SetActive(true);
-                SkillSelection.Instance.characterOutOfBattle = character.characterOutOfBattle;
-                SkillSelection.Instance.showAbilities();
-                break;
+                
+                if (character.characterOutOfBattle.timesToLevelUp > 0)
+                {
+                    hasToLevelUp = true;
+                    character.characterOutOfBattle.LevelUp();
+                    //Busca en nodeCanva el canvas de subir de nivel 
+                    GameObject nodeCanva = NodeCanvas.Find(x => x.name == "LevelUp");
+                    nodeCanva.SetActive(true);
+                    SkillSelection.Instance.characterOutOfBattle = character.characterOutOfBattle;
+                    SkillSelection.Instance.showAbilities();
+                }
+                character.characterOutOfBattle = null;
+                character.character = null;
             }
         }
         if (!hasToLevelUp)
