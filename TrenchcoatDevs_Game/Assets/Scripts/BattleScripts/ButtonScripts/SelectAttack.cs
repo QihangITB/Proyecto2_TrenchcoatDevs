@@ -8,8 +8,18 @@ public class SelectAttack : MonoBehaviour
 
     public void SelectGenericAttack()
     {
-        BattleManager.instance.DeActivateTargetButtons();
-        BattleManager.instance.attack = attack;
-        BattleManager.instance.attack.ActivateTargetButtons();
+        if(OnlineBattleManager.instance != null)
+        {
+            OnlineBattleManager.instance.DeActivateTargetButtons();
+            OnlineBattleManager.instance.attack = attack;
+            OnlineBattleManager.instance.attack.ActivateTargetButtons();
+        }
+        else
+        {
+            BattleManager.instance.DeActivateTargetButtons();
+            BattleManager.instance.attack = attack;
+            BattleManager.instance.attack.ActivateTargetButtons();
+        }
+        
     }
 }

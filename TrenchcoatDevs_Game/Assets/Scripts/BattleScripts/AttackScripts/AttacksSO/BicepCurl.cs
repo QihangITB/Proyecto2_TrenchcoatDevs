@@ -8,15 +8,31 @@ public class BicepCurl : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
-        targetButtons.Clear();
-        //pon el boton de user de battlemanager como boton en buttontargetlist
-        targetButtons = new List<GameObject>
+        if (IsOnlineBattle())
         {
-            BattleManager.instance.user.gameObject
-        };
-        foreach (GameObject button in targetButtons)
+            targetButtons.Clear();
+            //pon el boton de user de battlemanager como boton en buttontargetlist
+            targetButtons = new List<GameObject>
+            {
+                OnlineBattleManager.instance.user.gameObject
+            };
+            foreach (GameObject button in targetButtons)
+            {
+                button.GetComponent<Image>().enabled = true;
+            }
+        }
+        else
         {
-            button.GetComponent<Image>().enabled = true;
+            targetButtons.Clear();
+            //pon el boton de user de battlemanager como boton en buttontargetlist
+            targetButtons = new List<GameObject>
+            {
+                BattleManager.instance.user.gameObject
+            };
+            foreach (GameObject button in targetButtons)
+            {
+                button.GetComponent<Image>().enabled = true;
+            }
         }
     }
 
@@ -25,13 +41,13 @@ public class BicepCurl : GenericAttack
         if (user.stamina < cost)
         {
             Debug.Log("Not enough stamina");
-            BattleManager.instance.FinishTurn();
+            PerformFinishTurn();
         }
         else
         {
             user.UseStamina(cost);
             user.attack += 2;
-            BattleManager.instance.FinishTurn();
+            PerformFinishTurn();
         }
 
     }

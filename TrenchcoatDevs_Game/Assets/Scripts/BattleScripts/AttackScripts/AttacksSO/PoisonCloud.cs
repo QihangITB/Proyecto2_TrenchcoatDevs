@@ -12,7 +12,7 @@ public class PoisonCloud : GenericAreaAttack
         if (user.stamina < cost)
         {
             Debug.Log("Not enough stamina");
-            BattleManager.instance.FinishTurn();
+            PerformFinishTurn();
             return;
         }
         else
@@ -26,13 +26,20 @@ public class PoisonCloud : GenericAreaAttack
                     target.GetPoisoned();
                 }
             }
-            BattleManager.instance.FinishTurn();
+            PerformFinishTurn();
         }
     }
     public override void ActivateTargetButtons()
     {
-        Debug.Log("Ola");
-        targetButtons[0] = BattleManager.instance.allCharactersButton;
-        targetButtons[0].GetComponent<Image>().enabled = true;
+        if (IsOnlineBattle())
+        {
+            targetButtons[0] = OnlineBattleManager.instance.allCharactersButton;
+            targetButtons[0].GetComponent<Image>().enabled = true;
+        }
+        else
+        {
+            targetButtons[0] = BattleManager.instance.allCharactersButton;
+            targetButtons[0].GetComponent<Image>().enabled = true;
+        }
     }
 }

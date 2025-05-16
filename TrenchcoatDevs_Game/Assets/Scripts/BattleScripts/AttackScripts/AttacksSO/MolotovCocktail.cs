@@ -8,13 +8,27 @@ public class MolotovCocktail : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
-        foreach (GameObject button in BattleManager.instance.enemyButtons)
+        if (IsOnlineBattle())
         {
-            if (button.GetComponent<CharacterHolder>().character != null)
+            foreach (GameObject button in OnlineBattleManager.instance.enemyButtons)
             {
-                button.GetComponent<Image>().enabled = true;
+                if (button.GetComponent<CharacterHolder>().character != null)
+                {
+                    button.GetComponent<Image>().enabled = true;
+                }
             }
         }
+        else
+        {
+            foreach (GameObject button in BattleManager.instance.enemyButtons)
+            {
+                if (button.GetComponent<CharacterHolder>().character != null)
+                {
+                    button.GetComponent<Image>().enabled = true;
+                }
+            }
+        }
+        
     }
 
     public override void Effect(List<CharacterHolder> targets, CharacterHolder user)
@@ -22,7 +36,7 @@ public class MolotovCocktail : GenericAttack
         if (user.stamina < cost)
         {
             Debug.Log("Not enough stamina");
-            BattleManager.instance.FinishTurn();
+            PerformFinishTurn();
             return;
         }
         else
@@ -33,7 +47,7 @@ public class MolotovCocktail : GenericAttack
                 target.GetBurnt();
                 target.TakeDamage(user.attack * 2);
             }
-            BattleManager.instance.FinishTurn();
+            PerformFinishTurn();
         }
 
     }

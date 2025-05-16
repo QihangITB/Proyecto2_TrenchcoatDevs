@@ -10,15 +10,32 @@ public class SelectMultipleTargets : MonoBehaviour
 
     public void SelectTargets()
     {
-        Debug.Log("Target selected");
-        BattleManager.instance.targets.Clear();
-        foreach (CharacterHolder target in targets)
+        if(OnlineBattleManager.instance != null)
         {
-            if  (target.GetComponent<CharacterHolder>().character!=null)
+            Debug.Log("Target selected");
+            OnlineBattleManager.instance.targets.Clear();
+            foreach (CharacterHolder target in targets)
             {
-                BattleManager.instance.targets.Add(target);
+                if (target.GetComponent<CharacterHolder>().character != null)
+                {
+                    OnlineBattleManager.instance.targets.Add(target);
+                }
             }
+            OnlineBattleManager.instance.UseAreaAttack();
         }
-        BattleManager.instance.UseAreaAttack();
+        else
+        {
+            Debug.Log("Target selected");
+            BattleManager.instance.targets.Clear();
+            foreach (CharacterHolder target in targets)
+            {
+                if (target.GetComponent<CharacterHolder>().character != null)
+                {
+                    BattleManager.instance.targets.Add(target);
+                }
+            }
+            BattleManager.instance.UseAreaAttack();
+        }
+        
     }
 }
