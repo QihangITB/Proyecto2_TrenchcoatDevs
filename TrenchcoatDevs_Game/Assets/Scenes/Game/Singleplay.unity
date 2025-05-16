@@ -2612,23 +2612,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e672d6bb3a98df64380ca1a948aaed29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 11400000, guid: 20e733692edf76e4b8a4b072f290b474, type: 2}
-  characterHP: 7
+  character: {fileID: 0}
+  characterHP: 0
   characterPoisonModifier: 1
-  knownPassives:
-  - {fileID: 11400000, guid: 4d17e4506d94a5847a8ee3d0495ba9d0, type: 2}
-  - {fileID: 11400000, guid: ee50ea774671f604a889235c42a8175f, type: 2}
-  - {fileID: 11400000, guid: 74131d9eb20e186409fd91ad30754bfb, type: 2}
-  - {fileID: 11400000, guid: a0681da22baf802459487dff9f715162, type: 2}
-  knownAttacks:
-  - {fileID: 11400000, guid: 86cce72c2a07a30499d8b69794a68ae7, type: 2}
-  - {fileID: 11400000, guid: 2896eeadee81a474898061d1ea65b740, type: 2}
-  - {fileID: 11400000, guid: a159b475c7fc13647a01321141f9605d, type: 2}
-  - {fileID: 11400000, guid: e23a9faa9acf4f54c9b41675836fe240, type: 2}
-  basicAttack: {fileID: 11400000, guid: e1ecc301136a1fb4d9b3bb4e7477ff94, type: 2}
-  level: 1
+  knownPassives: []
+  knownAttacks: []
+  basicAttack: {fileID: 0}
+  level: 0
   timesToLevelUp: 0
-  fightsToLevelUp: 2
+  fightsToLevelUp: 0
 --- !u!1 &214055361
 GameObject:
   m_ObjectHideFlags: 0
@@ -21367,7 +21359,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 0}
   characterHP: 0
-  characterPoisonModifier: 0
+  characterPoisonModifier: 1
   knownPassives: []
   knownAttacks: []
   basicAttack: {fileID: 0}
@@ -29893,23 +29885,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e672d6bb3a98df64380ca1a948aaed29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 11400000, guid: 621d41bae5ce8da439ae848e5f8becb6, type: 2}
-  characterHP: 10
+  character: {fileID: 0}
+  characterHP: 0
   characterPoisonModifier: 1
-  knownPassives:
-  - {fileID: 11400000, guid: 081b1de55b239114c9f1bb193aa35e93, type: 2}
-  - {fileID: 11400000, guid: 448aa678d408f3b40b49fd30fcba5370, type: 2}
-  - {fileID: 11400000, guid: 99167549c9de1844fac0e48913e748b5, type: 2}
-  knownAttacks:
-  - {fileID: 11400000, guid: 3c035b9323e804749953170c117edd7b, type: 2}
-  - {fileID: 11400000, guid: d12853c42e0da2944a582f67eb451552, type: 2}
-  - {fileID: 11400000, guid: 6911e36ccfd00da4eb37292c0624865b, type: 2}
-  - {fileID: 11400000, guid: 9eee32df219938349bd2003bc16fbc00, type: 2}
-  - {fileID: 11400000, guid: 01d0f9ba82f8d08459847817c0cd8558, type: 2}
-  basicAttack: {fileID: 11400000, guid: 370af78e6e233b448a875b62f530f850, type: 2}
-  level: 1
+  knownPassives: []
+  knownAttacks: []
+  basicAttack: {fileID: 0}
+  level: 0
   timesToLevelUp: 0
-  fightsToLevelUp: 2
+  fightsToLevelUp: 0
 --- !u!1 &2146399387
 GameObject:
   m_ObjectHideFlags: 0
