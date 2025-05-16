@@ -8,9 +8,20 @@ public class SelectOneTarget : MonoBehaviour
 
     public void SelectTarget()
     {
-        Debug.Log("Target selected");
-        BattleManager.instance.targets.Clear();
-        BattleManager.instance.targets.Add(target);
-        BattleManager.instance.UseAttack();
+        if(OnlineBattleManager.instance != null)
+        {
+            Debug.Log("Target selected");
+            OnlineBattleManager.instance.targets.Clear();
+            OnlineBattleManager.instance.targets.Add(target);
+            OnlineBattleManager.instance.UseAttack();
+        }
+        else
+        {
+            Debug.Log("Target selected");
+            BattleManager.instance.targets.Clear();
+            BattleManager.instance.targets.Add(target);
+            BattleManager.instance.UseAttack();
+        }
+        
     }
 }

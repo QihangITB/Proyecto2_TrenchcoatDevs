@@ -8,21 +8,43 @@ public class ToxicSpray : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
-        targetButtons.Clear();
-        foreach (GameObject button in BattleManager.instance.playerButtons)
+        if (IsOnlineBattle())
         {
-            if (button.GetComponent<CharacterHolder>().character != null)
+            targetButtons.Clear();
+            foreach (GameObject button in OnlineBattleManager.instance.playerButtons)
             {
-                button.GetComponent<Image>().enabled = true;
+                if (button.GetComponent<CharacterHolder>().character != null)
+                {
+                    button.GetComponent<Image>().enabled = true;
+                }
+            }
+            foreach (GameObject button in OnlineBattleManager.instance.enemyButtons)
+            {
+                if (button.GetComponent<CharacterHolder>().character != null)
+                {
+                    button.GetComponent<Image>().enabled = true;
+                }
             }
         }
-        foreach (GameObject button in BattleManager.instance.enemyButtons)
+        else
         {
-            if (button.GetComponent<CharacterHolder>().character != null)
+            targetButtons.Clear();
+            foreach (GameObject button in BattleManager.instance.playerButtons)
             {
-                button.GetComponent<Image>().enabled = true;
+                if (button.GetComponent<CharacterHolder>().character != null)
+                {
+                    button.GetComponent<Image>().enabled = true;
+                }
+            }
+            foreach (GameObject button in BattleManager.instance.enemyButtons)
+            {
+                if (button.GetComponent<CharacterHolder>().character != null)
+                {
+                    button.GetComponent<Image>().enabled = true;
+                }
             }
         }
+        
     }
 
     public override void Effect(List<CharacterHolder> targets, CharacterHolder user)
@@ -30,7 +52,7 @@ public class ToxicSpray : GenericAttack
         if (user.stamina < cost)
         {
             Debug.Log("Not enough stamina");
-            BattleManager.instance.FinishTurn();
+            PerformFinishTurn();
             return;
         }
         else
@@ -40,7 +62,7 @@ public class ToxicSpray : GenericAttack
             {
                 target.GetPoisoned();
             }
-            BattleManager.instance.FinishTurn();
+            PerformFinishTurn();
         }
 
     }

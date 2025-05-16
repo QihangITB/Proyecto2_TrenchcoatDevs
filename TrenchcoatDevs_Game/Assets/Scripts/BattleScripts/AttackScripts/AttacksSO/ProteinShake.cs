@@ -8,11 +8,24 @@ public class ProteinShake : GenericAttack
 {
     public override void ActivateTargetButtons()
     {
-        foreach (GameObject button in BattleManager.instance.playerButtons)
+        if (IsOnlineBattle())
         {
-            if (button.GetComponent<CharacterHolder>().character != null)
+            foreach (GameObject button in OnlineBattleManager.instance.playerButtons)
             {
-                button.GetComponent<Image>().enabled = true;
+                if (button.GetComponent<CharacterHolder>().character != null)
+                {
+                    button.GetComponent<Image>().enabled = true;
+                }
+            }
+        }
+        else
+        {
+            foreach (GameObject button in BattleManager.instance.playerButtons)
+            {
+                if (button.GetComponent<CharacterHolder>().character != null)
+                {
+                    button.GetComponent<Image>().enabled = true;
+                }
             }
         }
     }
@@ -22,7 +35,7 @@ public class ProteinShake : GenericAttack
         if (user.stamina < cost)
         {
             Debug.Log("Not enough stamina");
-            BattleManager.instance.FinishTurn();
+            PerformFinishTurn();
         }
         else
         {
@@ -32,7 +45,7 @@ public class ProteinShake : GenericAttack
                 character.attack += 1;
                 character.stamina += character.maxStamina/2;
             }
-            BattleManager.instance.FinishTurn();
+            PerformFinishTurn();
         }
 
     }

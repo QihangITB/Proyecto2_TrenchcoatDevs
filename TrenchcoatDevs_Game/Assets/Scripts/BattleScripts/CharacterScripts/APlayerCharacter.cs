@@ -10,4 +10,6 @@ public abstract class APlayer : ACharacter
     public string description;
     public List<APassive> passives;
     public List<APassive> knowablePassives;
+
+    
 }
