@@ -5,12 +5,12 @@ using UnityEngine;
 public class ShowGameResult : MonoBehaviour
 {
     public GameObject winScreen;
-    public GameObject loseScreen;
+    public GameObject gameOverScreen;
 
     private void Awake()
     {
         winScreen.SetActive(false);
-        loseScreen.SetActive(false);
+        gameOverScreen.SetActive(false);
     }
 
     private void Start()
@@ -19,7 +19,7 @@ public class ShowGameResult : MonoBehaviour
 
         if (youLose)
         {
-            loseScreen.SetActive(true);
+            gameOverScreen.SetActive(true);
         }
         else
         {
