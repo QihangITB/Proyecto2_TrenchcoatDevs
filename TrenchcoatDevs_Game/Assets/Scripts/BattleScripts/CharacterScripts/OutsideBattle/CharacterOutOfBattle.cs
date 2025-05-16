@@ -39,23 +39,27 @@ public class CharacterOutOfBattle : MonoBehaviour
     {
         this.character = character;
         this.level = level;
-        characterHP = character.health;
-        characterPoisonModifier = 1;
-        //añade todas las passivas y ataques que el personaje conoce a la lista de conocidos si no lo tiene
-        foreach (APassive passive in character.passives)
+        if(character != null)
         {
-            if (!knownPassives.Contains(passive))
+            characterHP = character.health;
+            characterPoisonModifier = 1;
+            //añade todas las passivas y ataques que el personaje conoce a la lista de conocidos si no lo tiene
+            foreach (APassive passive in character.passives)
             {
-                knownPassives.Add(passive);
+                if (!knownPassives.Contains(passive))
+                {
+                    knownPassives.Add(passive);
+                }
+            }
+            foreach (AAttack attack in character.attacks)
+            {
+                if (!knownAttacks.Contains(attack))
+                {
+                    knownAttacks.Add(attack);
+                }
             }
         }
-        foreach (AAttack attack in character.attacks)
-        {
-            if (!knownAttacks.Contains(attack))
-            {
-                knownAttacks.Add(attack);
-            }
-        }
+        
     }
     public void LevelUp()
     {

@@ -1,8 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.Mathematics;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -37,6 +37,11 @@ public class OnlineBattleManager : MonoBehaviour
     public bool win = false;
     public int poisonDamageDivisor = 5;
     public bool canMove = true;
+    public NodeAccess nodeAccess;
+
+    public List<Camera> cameras = new List<Camera>();
+
+    public GameObject player;
 
     private void SetLocalPlayer(List<APlayer> listOfPlayers, List<CharacterOutOfBattle> listOfOutOfBattle)
     {
@@ -157,6 +162,7 @@ public class OnlineBattleManager : MonoBehaviour
     }
     private void Start()
     {
+        UnityEngine.Random.InitState(SeedSyncManager.SeedSyncer.GetSyncedSeed());
         currentRound = 0;
         if (instance == null)
         {
@@ -368,7 +374,6 @@ public class OnlineBattleManager : MonoBehaviour
         if (CharOrderInTurn.Count > 0)
         {
             BattleManagerActionSyncer.Instance.StartRoundOf(CharOrderInTurn[0]);
-            StartTurn(CharOrderInTurn[0]);
         }
         else
         {
@@ -438,16 +443,16 @@ public class OnlineBattleManager : MonoBehaviour
     {
         BattleManagerActionSyncer.Instance.UseSingleAttack(attack,targets,user);
     }
-    private void PerformAttack()
+    public void PerformAttack()
     {
         DeActivateTargetButtons();
         attack.Effect(targets, user);
     }
     public void UseAreaAttack()
     {
-        BattleManagerActionSyncer.Instance.UseAreaAttack(attack,targets,user);
+        BattleManagerActionSyncer.Instance.UseAreaAttack(areaAttack,targets,user);
     }
-    private void PerformAreaAttack()
+    public void PerformAreaAttack()
     {
         DeActivateTargetButtons();
         areaAttack.Effect(targets, user);

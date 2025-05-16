@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class CharacterHolder : MonoBehaviour
@@ -37,26 +38,29 @@ public class CharacterHolder : MonoBehaviour
     public bool isTaunting;
 
     GameObject hitSprite, healSprite;
-
+    public UnityEvent charSet;
     public void SelectCharacter(CharacterOutOfBattle characterOutOfBattle)
     {
-        
+        this.characterOutOfBattle = characterOutOfBattle;
         if (character != null)
         {
             if (characterOutOfBattle != null)
             {
-                this.characterOutOfBattle = characterOutOfBattle;
                 HP = characterOutOfBattle.characterHP;
-                stamina = maxStamina;
-                UpdateStaminaBar();
+
+                //UpdateStaminaBar();
                 //characterOutOfBattle.UpdateCharacter();
             }
             else
             {
-                this.characterOutOfBattle = null;
                 HP = character.health;
             }
-            
+
+        }
+        else if (characterOutOfBattle != null)
+        {
+            character = characterOutOfBattle.character;
+            charSet.Invoke();
         }
         if (character is AEnemy || characterOutOfBattle != null) 
         {
@@ -75,10 +79,15 @@ public class CharacterHolder : MonoBehaviour
             isTaunting = false;
             isDisgusted = false;
             isBurnt = false;
-            maxHP = character.maxHealth;
-            attack = character.damage;
-            speed = character.speed;
-            defense = character.defense;
+            if (character != null)
+            {
+                maxHP = character.maxHealth;
+                attack = character.damage;
+                speed = character.speed;
+                defense = character.defense;
+                maxStamina = characterOutOfBattle.character.maxStamina;
+                stamina = maxStamina;
+            }
             precisionModifier = 10;
             healingModifier = 1;
             staminaRecovery = 4;
@@ -88,95 +97,191 @@ public class CharacterHolder : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
-        hitSprite.GetComponent<Image>().enabled = true;
-        hitSprite.GetComponent<AudioSource>().Play();
-        StartCoroutine(UnableHit());
-        if (isBurnt)
+        if (OnlineBattleManager.instance != null)
         {
-            damage *= 2;
-        }
-        if (damage- defense <= 0)
-        {
-            damage = 1;
-        }
-        else
-        {
-            damage -= defense;
-        }
-        HP -= damage;
-        BattleManager.instance.basicAttackButton.GetComponent<SelectTypeOfAttack>().description.transform.parent.gameObject.SetActive(true);
-        BattleManager.instance.basicAttackButton.GetComponent<SelectTypeOfAttack>().description.text = character.characterName + " took " + damage + " damage";
-        Debug.Log(gameObject + " took " + damage + " damage");
-        if (HP <= 0)
-        {
-            HP = 0;
-            poisonIcon.SetActive(false);
-            disgustIcon.SetActive(false);
-            burnIcon.SetActive(false);
-            regenerateIcon.SetActive(false);
-            restIcon.SetActive(false);
-            tauntIcon.SetActive(false);
-            characterTurnIndicator.SetActive(false);
-            Debug.Log(gameObject+" Is dead");
-            BattleManager.instance.basicAttackButton.GetComponent<SelectTypeOfAttack>().description.text = character.characterName + " died";
-            BattleManager.instance.CharOrderInTurn.Remove(this);
-            BattleManager.instance.characters.Remove(this);
-            if (BattleManager.instance.enemies.Contains(this))
+            hitSprite.GetComponent<Image>().enabled = true;
+            hitSprite.GetComponent<AudioSource>().Play();
+            StartCoroutine(UnableHit());
+            if (isBurnt)
             {
-                //busca entre todas las pasivas de las lista de players si alguna tiiene dontwaste food
-                foreach (CharacterHolder player in BattleManager.instance.players)
+                damage *= 2;
+            }
+            if (damage - defense <= 0)
+            {
+                damage = 1;
+            }
+            else
+            {
+                damage -= defense;
+            }
+            HP -= damage;
+            OnlineBattleManager.instance.basicAttackButton.GetComponent<SelectTypeOfAttack>().description.transform.parent.gameObject.SetActive(true);
+            OnlineBattleManager.instance.basicAttackButton.GetComponent<SelectTypeOfAttack>().description.text = character.characterName + " took " + damage + " damage";
+            Debug.Log(gameObject + " took " + damage + " damage");
+            if (HP <= 0)
+            {
+                HP = 0;
+                poisonIcon.SetActive(false);
+                disgustIcon.SetActive(false);
+                burnIcon.SetActive(false);
+                regenerateIcon.SetActive(false);
+                restIcon.SetActive(false);
+                tauntIcon.SetActive(false);
+                characterTurnIndicator.SetActive(false);
+                Debug.Log(gameObject + " Is dead");
+                OnlineBattleManager.instance.basicAttackButton.GetComponent<SelectTypeOfAttack>().description.text = character.characterName + " died";
+                OnlineBattleManager.instance.CharOrderInTurn.Remove(this);
+                OnlineBattleManager.instance.characters.Remove(this);
+                if (OnlineB.instance.enemies.Contains(this))
                 {
-                    if (player.character != null)
+                    //busca entre todas las pasivas de las lista de players si alguna tiiene dontwaste food
+                    foreach (CharacterHolder player in OnlineBattleManager.instance.players)
                     {
-                        foreach (APassive passive in player.characterOutOfBattle.knownPassives)
+                        if (player.character != null)
                         {
-                            if (passive is DontWasteFood)
+                            foreach (APassive passive in player.characterOutOfBattle.knownPassives)
                             {
-                                foreach (CharacterHolder healedPlayer in BattleManager.instance.players)
+                                if (passive is DontWasteFood)
                                 {
-                                    if (healedPlayer.character != null)
+                                    foreach (CharacterHolder healedPlayer in OnlineBattleManager.instance.players)
                                     {
-                                        healedPlayer.Heal(healedPlayer.maxHP / 5, false);
+                                        if (healedPlayer.character != null)
+                                        {
+                                            healedPlayer.Heal(healedPlayer.maxHP / 5, false);
 
+                                        }
                                     }
                                 }
                             }
                         }
+
                     }
-                    
                 }
+                else
+                {
+                    if (characterOutOfBattle != null)
+                    {
+
+                        characterOutOfBattle.character = null;
+                    }
+                    //PlayerManager.instance.players.Remove(this.character as APlayer);
+                }
+                for (int i = 0; i < OnlineBattleManager.instance.enemyButtons.Count; i++)
+                {
+                    if (OnlineBattleManager.instance.enemyButtons[i] == this.gameObject)
+                    {
+                        OnlineBattleManager.instance.enemyButtons[i].GetComponent<CharacterHolder>().character = null;
+                        break;
+                    }
+                }
+                OnlineBattleManager.instance.playerButtons.Remove(this.gameObject);
+                foreach (Image image in GetComponentsInParent<Image>())
+                {
+                    image.enabled = false;
+                }
+                HpBar.SetActive(false);
+                if (StaminaBar != null)
+                {
+                    StaminaBar.SetActive(false);
+                }
+                character = null;
+
+                OnlineBattleManager.instance.CheckWin();
+            }
+        }
+        else
+        {
+            hitSprite.GetComponent<Image>().enabled = true;
+            hitSprite.GetComponent<AudioSource>().Play();
+            StartCoroutine(UnableHit());
+            if (isBurnt)
+            {
+                damage *= 2;
+            }
+            if (damage - defense <= 0)
+            {
+                damage = 1;
             }
             else
             {
-                if (characterOutOfBattle != null)
+                damage -= defense;
+            }
+            HP -= damage;
+            BattleManager.instance.basicAttackButton.GetComponent<SelectTypeOfAttack>().description.transform.parent.gameObject.SetActive(true);
+            BattleManager.instance.basicAttackButton.GetComponent<SelectTypeOfAttack>().description.text = character.characterName + " took " + damage + " damage";
+            Debug.Log(gameObject + " took " + damage + " damage");
+            if (HP <= 0)
+            {
+                HP = 0;
+                poisonIcon.SetActive(false);
+                disgustIcon.SetActive(false);
+                burnIcon.SetActive(false);
+                regenerateIcon.SetActive(false);
+                restIcon.SetActive(false);
+                tauntIcon.SetActive(false);
+                characterTurnIndicator.SetActive(false);
+                Debug.Log(gameObject + " Is dead");
+                BattleManager.instance.basicAttackButton.GetComponent<SelectTypeOfAttack>().description.text = character.characterName + " died";
+                BattleManager.instance.CharOrderInTurn.Remove(this);
+                BattleManager.instance.characters.Remove(this);
+                if (BattleManager.instance.enemies.Contains(this))
                 {
+                    //busca entre todas las pasivas de las lista de players si alguna tiiene dontwaste food
+                    foreach (CharacterHolder player in BattleManager.instance.players)
+                    {
+                        if (player.character != null)
+                        {
+                            foreach (APassive passive in player.characterOutOfBattle.knownPassives)
+                            {
+                                if (passive is DontWasteFood)
+                                {
+                                    foreach (CharacterHolder healedPlayer in BattleManager.instance.players)
+                                    {
+                                        if (healedPlayer.character != null)
+                                        {
+                                            healedPlayer.Heal(healedPlayer.maxHP / 5, false);
 
-                    characterOutOfBattle.character = null;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    }
                 }
-                //PlayerManager.instance.players.Remove(this.character as APlayer);
-            }
-            for (int i = 0; i < BattleManager.instance.enemyButtons.Count; i++)
-            {
-                if (BattleManager.instance.enemyButtons[i] == this.gameObject)
+                else
                 {
-                    BattleManager.instance.enemyButtons[i].GetComponent<CharacterHolder>().character=null;
-                    break;
-                }
-            }
-            BattleManager.instance.playerButtons.Remove(this.gameObject);
-            foreach (Image image in GetComponentsInParent<Image>())
-            {
-                image.enabled = false;
-            }
-            HpBar.SetActive(false);
-            if (StaminaBar != null)
-            {
-                StaminaBar.SetActive(false);
-            }
-            character = null;
+                    if (characterOutOfBattle != null)
+                    {
 
-            BattleManager.instance.CheckWin();
+                        characterOutOfBattle.character = null;
+                    }
+                    //PlayerManager.instance.players.Remove(this.character as APlayer);
+                }
+                for (int i = 0; i < BattleManager.instance.enemyButtons.Count; i++)
+                {
+                    if (BattleManager.instance.enemyButtons[i] == this.gameObject)
+                    {
+                        BattleManager.instance.enemyButtons[i].GetComponent<CharacterHolder>().character = null;
+                        break;
+                    }
+                }
+                BattleManager.instance.playerButtons.Remove(this.gameObject);
+                foreach (Image image in GetComponentsInParent<Image>())
+                {
+                    image.enabled = false;
+                }
+                HpBar.SetActive(false);
+                if (StaminaBar != null)
+                {
+                    StaminaBar.SetActive(false);
+                }
+                character = null;
+
+                BattleManager.instance.CheckWin();
+            }
         }
+        
         UpdateHPBar();
     }
     public void GetPoisoned()
@@ -281,7 +386,10 @@ public class CharacterHolder : MonoBehaviour
 
     public void UpdateStaminaBar()
     {
-        StaminaBar.GetComponent<Slider>().value = (stamina * 100 / maxStamina) / 100f;
+        Slider bar = StaminaBar.GetComponent<Slider>();
+        bar.minValue = 0;
+        bar.maxValue = maxStamina;
+        StaminaBar.GetComponent<Slider>().value = bar.value;
     }
     public void Heal(int healing, bool overheal)
     {

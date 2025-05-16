@@ -18,7 +18,7 @@ public struct APlayerNetStruct : INetworkSerializable
     public int spriteIndex;
     public int stamina;
     public int maxStamina;
-    public string description;
+    public FixedString512Bytes description;
     public int basicAttackIndex;
     public int[] passivesindexes;
     public int[] attacksIndex;
@@ -26,7 +26,7 @@ public struct APlayerNetStruct : INetworkSerializable
     public APlayerNetStruct(CharacterOutOfBattle playerClass, FightAssetsIndexer assetIndexer)
     {
         initialized = true;
-        isNull = playerClass == null;
+        isNull = playerClass.character == null;
         if (!isNull)
         {
             level = playerClass.level;
@@ -96,7 +96,9 @@ public struct APlayerNetStruct : INetworkSerializable
         serializer.SerializeValue(ref characterName);
         serializer.SerializeValue(ref spriteIndex);
         serializer.SerializeValue(ref basicAttackIndex);
-
+        serializer.SerializeValue(ref stamina);
+        serializer.SerializeValue(ref maxStamina);
+        serializer.SerializeValue(ref description);
         int lengthPassives = 0;
         int lengthAttacks = 0;
         if (!serializer.IsReader)

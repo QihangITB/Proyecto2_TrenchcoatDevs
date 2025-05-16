@@ -102,11 +102,11 @@ public class CharacterSyncManager : NetworkBehaviour
     }
     private void FillNewNetChar(int slot)
     {
-        if (!IsOwner)
+        if (!IsOwner && _charSyncerIndexer[slot].Value.initialized)
         {
-            APlayer netChar = (APlayer)ScriptableObject.CreateInstance(_charSyncerIndexer[slot].Value.typeName.ToString());
+            APlayer netChar = SetNetAPlayer(_charSyncerIndexer[slot].Value);
             CharacterOutOfBattle outOfBattle = Instantiate(_emptyOutOfBattle);
-            SetNetAPlayer(ref netChar, _charSyncerIndexer[slot].Value);
+            
             outOfBattle.AddCharacter(netChar, _charSyncerIndexer[slot].Value.level);
             _playerIndexer[slot] = outOfBattle;
         }
@@ -138,13 +138,14 @@ public class CharacterSyncManager : NetworkBehaviour
             allSlotsFilled.Invoke(_playerIndexer);
         }
     }
-    private void SetNetAPlayer(ref APlayer playChar, APlayerNetStruct data)
+    private APlayer SetNetAPlayer(APlayerNetStruct data)
     {
-        if (!data.isNull)
+        APlayer playChar = !data.isNull ? (APlayer)ScriptableObject.CreateInstance(data.typeName.ToString()) : null;
+        if (playChar != null)
         {
             playChar.characterName = data.characterName.ToString();
             playChar.health = data.health;
-            playChar.description = data.description;
+            playChar.description = data.description.ToString();
             playChar.damage = data.damage;
             playChar.defense = data.defense;
             playChar.maxHealth = data.maxHealth;
@@ -170,10 +171,7 @@ public class CharacterSyncManager : NetworkBehaviour
                 playChar.passives.Add(_assetsIndexer.GetPassive(index));
             }
         }
-        else
-        {
-            playChar = null;
-        }
+        return playChar;
         
         
     }

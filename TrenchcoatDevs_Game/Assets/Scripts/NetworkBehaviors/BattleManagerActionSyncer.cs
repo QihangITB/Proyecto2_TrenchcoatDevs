@@ -41,7 +41,7 @@ public class BattleManagerActionSyncer : NetworkBehaviour
             targetsIndex.Add(_characterHolders.IndexOf(target));
         }
         int userIndex = _characterHolders.IndexOf(user);
-        UseSingleAttackClientRpc(index, targetsIndex.ToArray(), userIndex);
+        UseSingleAttackServerRpc(index, targetsIndex.ToArray(), userIndex);
     }
     public void UseAreaAttack(AAttack attack, List<CharacterHolder> targets, CharacterHolder user)
     {
@@ -52,12 +52,23 @@ public class BattleManagerActionSyncer : NetworkBehaviour
             targetsIndex.Add(_characterHolders.IndexOf(target));
         }
         int userIndex = _characterHolders.IndexOf(user);
-        UseAreaAttackClientRpc(index,targetsIndex.ToArray(),userIndex);
+        UseAreaAttackServerRpc(index,targetsIndex.ToArray(),userIndex);
     }
+    [ServerRpc(RequireOwnership = false)]
+    private void StartRoundOfServerRpc(int characterIndex)
+    {
+        StartRoundOfClientRpc(characterIndex);
+    }
+    
     [ClientRpc(RequireOwnership = false)]
     private void StartRoundOfClientRpc(int characterIndex)
     {
         OnlineBattleManager.instance.StartTurn(CharacterHolders[characterIndex]);
+    }
+    [ServerRpc(RequireOwnership = false)]
+    private void UseSingleAttackServerRpc(int attackIndex, int[] targetsIndex, int userIndex)
+    {
+        UseSingleAttackClientRpc(attackIndex, targetsIndex, userIndex);
     }
     [ClientRpc(RequireOwnership = false)]
     private void UseSingleAttackClientRpc(int attackIndex, int[] targetsIndex, int userIndex)
@@ -72,7 +83,12 @@ public class BattleManagerActionSyncer : NetworkBehaviour
         OnlineBattleManager.instance.attack = (GenericAttack)attack;
         OnlineBattleManager.instance.targets = targets;
         OnlineBattleManager.instance.user = user;
-        OnlineBattleManager.instance.UseAttack();
+        OnlineBattleManager.instance.PerformAttack();
+    }
+    [ServerRpc(RequireOwnership = false)]
+    private void UseAreaAttackServerRpc(int attackIndex, int[] targetsIndex, int userIndex)
+    {
+        UseAreaAttackClientRpc(attackIndex, targetsIndex, userIndex);
     }
     [ClientRpc(RequireOwnership = false)]
     private void UseAreaAttackClientRpc(int attackIndex, int[]targetsIndex, int userIndex)
@@ -84,9 +100,9 @@ public class BattleManagerActionSyncer : NetworkBehaviour
         {
             targets.Add(_characterHolders[target]);
         }
-        OnlineBattleManager.instance.attack = (GenericAttack)attack;
+        OnlineBattleManager.instance.areaAttack = (GenericAreaAttack)attack;
         OnlineBattleManager.instance.targets = targets;
         OnlineBattleManager.instance.user = user;
-        OnlineBattleManager.instance.UseAreaAttack();
+        OnlineBattleManager.instance.PerformAreaAttack();
     }
 }
